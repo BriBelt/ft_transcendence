@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //	browser buttons (forward/backward/refresh)
 	window.addEventListener('popstate', function(event)
 	{
-		navigateTo(window.location.pathname);
+		loadPage(window.location.pathname + window.location.search);
 	});
 
 	if (loginLink)
@@ -52,40 +52,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 	if (logoutLink)
 	{
-        logoutLink.addEventListener('click', function(event)
+		logoutLink.addEventListener('click', function(event)
 		{
-            event.preventDefault();
-            logoutUser();
-        });
-    }
-//	window.addEventListener('beforeunload', function(event) {
-//		const token = this.localStorage.getItem('access');
-//			this.navigator.sendBeacon('/logout/', JSON.stringify({ easter_egg: 'Como estan los maquinas', token: token}));
-//	});
-	navigateTo(window.location.pathname + window.location.search);
+		    event.preventDefault();
+		    logoutUser();
+		});
+	}
+	updateLogoutButtonVisibility();
+	loadPage(window.location.pathname + window.location.search);
 });
-
-/*function monitorUrlChanges() {
-    let currentPath = window.location.pathname;
-
-    console.log('INSIDE MONITOR URL');
-    setInterval(() => {
-        if (window.location.pathname !== currentPath) {
-            currentPath = window.location.pathname;
-            loadPage(currentPath);  // Trigger page load when URL changes
-        }
-    }, 100);  // Check every 100ms if the URL has changed
-}
-
-	
-//	This event listener is in charge of receiving any event regarding the 
-//	browser buttons (forward/backward/refresh)
-	window.addEventListener('popstate', function(event)
-	{
-		navigateTo(window.location.pathname);
-//		loadPage(window.location.pathname);
-	});
-
-	navigateTo(window.location.pathname);
-	//loadPage(window.location.pathname);
-});*/

@@ -572,3 +572,39 @@ def join_tournament_checker(request):
 		tournament.save()
 		return JsonResponse({'status': 'success', 'message': 'User joined the tournament!'}, status=200)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+@jwt_required
+def gameOptions(request):
+	if request.method == 'GET':
+		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+
+@csrf_exempt
+@jwt_required
+def gameLocal(request):
+	if request.method == 'GET':
+		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+@jwt_required
+def gameOnline(request):
+	if request.method == 'GET':
+		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+@jwt_required
+def gameTournamentOptions(request):
+	if request.method == 'GET':
+		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+		
+@csrf_exempt
+@jwt_required
+def notFound(request):
+	if request.method == 'GET':
+		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)

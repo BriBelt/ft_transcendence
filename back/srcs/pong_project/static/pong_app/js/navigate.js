@@ -1,12 +1,9 @@
 function loadPage(url, data)
 {
 	console.log(url);
-	//url_split = url.split('/') // we split the game id
-	//if (url_split && url_split.length > 1)
-	//	url = '/' + url_split[1] + '/' + url_split[2] + '/'
-	//else
-	//	url = url_split
-	if (url == '/home/')
+	if (url == '/' || url == '')
+		loadInitialPage();
+	else if (url == '/home/')
 		loadHome();
 	else if (url  == '/login/')
 		loadLoginForm();
@@ -26,8 +23,14 @@ function loadPage(url, data)
 		initializeGame();
 	else if (url === '/home/game/tournament/')
 		loadTournamentSection();
+	else if (url === '/home/game/tournament/join/')
+		loadTournamentsSection();
+	else if (url === '/home/game/tournament/create/')
+		loadCreateTournament();
 	else if (url === '/home/friends/')
 		loadFriendsSection();
+	else
+		loadNotFound();
 }
 
 function navigateTo(url, data)

@@ -189,6 +189,9 @@ function loadTournamentSectionHTML()
 
 function loadNotFoundHTML()
 {
+	return(`
+		<h2>Seems like there's nothing to see here...</h2>
+		`);
 }
 
 function loadNotAuthorizedHTML()
@@ -197,8 +200,20 @@ function loadNotAuthorizedHTML()
 		<h2>Not Authorized to view this page. Please authenticate.</h2>
 		`);
 }
+
+function loadInitialHTML()
+{
+	return(`
+		<button class="custom-button" id="signup-link">Sign up</button>
+		<button class="custom-button" id="login-link">Log in</button>
+		<button class="custom-button" id="login42-link">42 Log in</button>
+		`);
+}
+
 window.homeHTML = homeHTML;
 window.profileHTML = profileHTML;
 window.profileSettingsHTML = profileSettingsHTML;
 window.loadGenericHTML = loadGenericHTML;
+window.loadNotFoundHTML = loadNotFoundHTML;
 window.loadNotAuthorizedHTML = loadNotAuthorizedHTML;
+window.loadInitialHTML = loadInitialHTML;

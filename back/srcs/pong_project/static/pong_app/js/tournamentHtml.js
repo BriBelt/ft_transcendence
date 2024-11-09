@@ -90,14 +90,12 @@ async function loadTournamentsSection()
 				app.innerHTML = tournamentsHTML;
 
 				document.querySelectorAll('.join-tournament').forEach(button => {
-					button.addEventListener('click', function(event)
+					button.addEventListener('click', async function(event)
 					{
 						const tournamentName = event.currentTarget.getAttribute('data-tournament');
 						console.log("Someone clicked the button");
 						console.log(tournamentName);
-						joinTournament(tournamentName);
-						
-//						removeFriend(username);
+						await joinTournament(tournamentName);
 					});
 				});
 			}

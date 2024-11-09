@@ -98,60 +98,91 @@ function loadSignupForm()
 	}
 }
 
-function loadPlayGame(id)
+async function loadPlayGame(id)
 {
-	app.innerHTML = `
-		<div class="options-container">
-			<div class="option">
-				<i class="fas fa-user-friends fa-4x" style="color: black;"></i>
-				Two players, same device.
-				<button class="custom-button" id="local-btn" style="width: 100%; height: 100%;">Local game</button>
-			</div>
-			<div class="option">
-				<i class="fas fa-users fa-4x" style="color: black;"></i>
-				Play an online match.
-				<button class="custom-button" id="online-btn" style="width: 100%; height: 100%">Online game</button>
-			</div>
-			<div class="option">
-				<i class="fas fa-trophy fa-4x" style="color: black;"></i>
-				Compete against other players.
-				<button class="custom-button" id="tournament-btn" style="width: 100%; height: 100%">Tournament</button>
-			</div>
-		</div>
-	`;
-	
-	const local = document.getElementById('local-btn');
-	const online = document.getElementById('online-btn');
-	const tournament = document.getElementById('tournament-btn');
+	const app = document.getElementById('app');
+	const token = localStorage.getItem('access');
 
-	if (local)
+	if (token)
 	{
-		local.addEventListener('click', function(event)
+		try
 		{
-			event.preventDefault();
-			//navigateTo('/home/game/local/');
-			initializeLocalGame();
-		});
+			const response = await fetch('/home/game/',
+			{
+				method: 'GET',
+				headers:
+				{
+					'Authorization': `Bearer ${token}`,
+					'Content-Type': 'application/json'
+				}
+			})
+			const data = await response.json();
+			if (data.status === 'success')
+			{
+				app.innerHTML = `
+					<div class="options-container">
+						<div class="option">
+							<i class="fas fa-user-friends fa-4x" style="color: black;"></i>
+							Two players, same device.
+							<button class="custom-button" id="local-btn" style="width: 100%; height: 100%;">Local game</button>
+						</div>
+						<div class="option">
+							<i class="fas fa-users fa-4x" style="color: black;"></i>
+							Play an online match.
+							<button class="custom-button" id="online-btn" style="width: 100%; height: 100%">Online game</button>
+						</div>
+						<div class="option">
+							<i class="fas fa-trophy fa-4x" style="color: black;"></i>
+							Compete against other players.
+							<button class="custom-button" id="tournament-btn" style="width: 100%; height: 100%">Tournament</button>
+						</div>
+					</div>
+				`;
+				
+				const local = document.getElementById('local-btn');
+				const online = document.getElementById('online-btn');
+				const tournament = document.getElementById('tournament-btn');
+
+				if (local)
+				{
+					local.addEventListener('click', function(event)
+					{
+						event.preventDefault();
+						navigateTo('/home/game/local/');
+					});
+				}
+				if (online)
+				{
+					online.addEventListener('click', function(event)
+					{
+						console.log('INSIDE ONLINE BUTTON EVENT LISTENER!');
+						event.preventDefault();
+						navigateTo('/home/game/online/');
+					});
+				}
+				if (tournament)
+				{
+					tournament.addEventListener('click', function(event)
+					{
+						event.preventDefault();
+						navigateTo('/home/game/tournament/');
+					});
+				}
+			}
+			else
+				 await checkRefreshToken(token);
+		}
+		catch(error)
+		{
+			notAuthorized(error);
+		}
 	}
-	if (online)
+	else
 	{
-		online.addEventListener('click', function(event)
-		{
-			console.log('INSIDE ONLINE BUTTON EVENT LISTENER!');
-			event.preventDefault();
-			//navigateTo('/home/game/online/');
-			initializeGame();
-		});
+		console.error('Error:', error);
+		alert('You are not authorized to view this page. Please log in.');
+		navigateTo('/login/');
 	}
-	if (tournament)
-	{
-		tournament.addEventListener('click', function(event)
-		{
-			event.preventDefault();
-			navigateTo('/home/game/tournament/');
-		});
-	}
-//	initializeGame();
 }
 
 function loadGameCanvas()
@@ -273,7 +304,7 @@ async function loadTournamentSection()
 						event.preventDefault();
 						console.log("clicked join");
 						// Here we need to call the
-						 loadTournamentsSection();
+						navigateTo('/home/game/tournament/join/');
 					});
 				}
 				if (create)
@@ -282,7 +313,7 @@ async function loadTournamentSection()
 					{
 						event.preventDefault();
 						console.log("clicked create");
-						await loadCreateTournament();
+						navigateTo('/home/game/tournament/create/');
 					});
 				}
 			}
@@ -303,9 +334,98 @@ async function loadTournamentSection()
 	}
 }
 
+async function loadNotFound()
+{
+//	const app = document.getElementById('app');
+//	app.innerHTML = loadNotFoundHTML();
+
+	const app = document.getElementById('app');
+	const token = localStorage.getItem('access');
+
+	if (token)
+	{
+		try
+		{
+			const response = await fetch('/not-found/',
+			{
+				method: 'GET',
+				headers:
+				{
+					'Authorization': `Bearer ${token}`,
+					'Content-Type': 'application/json'
+				}
+			});
+			
+			const data = await response.json();
+
+			if (data.status === 'success')
+			{
+				app.innerHTML = loadNotFoundHTML();
+			}
+			else
+			{
+				await checkRefresh(data, '/not-found/', token);
+			}
+		}
+		catch(error)
+		{
+			notAuthorized(error);
+		}
+	}
+	else
+	{
+		alert('You are not authorized to view this page. Please log in.');
+		navigateTo('/login/');
+	}
+
+}
+
+function loadInitialPage()
+{
+	const app = document.getElementById('app');
+	const token = localStorage.getItem('access');
+
+	if (token)
+	{
+		fetch('/home/',
+		{
+			method: 'GET',
+			headers:
+			{
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json'
+			}
+        	})
+	.then(response =>
+	{
+		if (!response.ok)
+		{
+			throw new Error('Access denied');
+		}
+		return response.json();
+	})
+	.then(data =>
+	{
+		loadHome()
+	 })
+		 .catch(() =>
+		 {
+			app.innerHTML = loadInitialHTML();
+			handleInitialPage();
+		 });
+	}
+	else
+	{
+		app.innerHTML = loadInitialHTML();
+		handleInitialPage();
+	}
+}
+
 window.loadPlayGame = loadPlayGame;
 window.loadGameCanvas = loadGameCanvas
 window.loadTournamentSection = loadTournamentSection;
 window.loadLoginForm = loadLoginForm;
 window.loadSignupForm = loadSignupForm;
 window.loadHome = loadHome;
+window.loadNotFound = loadNotFound;
+window.loadInitialPage = loadInitialPage;
