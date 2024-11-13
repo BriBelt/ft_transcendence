@@ -67,6 +67,7 @@ async function initializeGame()
 					socket.close();
 					isSocketOpen = false;
 				}
+				localStorage.setItem('playing', data.playing);
 				let board = new Board(900, 500);
 				let player1 = new Player(1, board);
 				let player2 = new Player(2, board);

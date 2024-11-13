@@ -585,7 +585,7 @@ def gameOptions(request):
 @jwt_required
 def gameLocal(request):
 	if request.method == 'GET':
-		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
+		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.', 'playing': 'true'}, status=200)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
 @csrf_exempt

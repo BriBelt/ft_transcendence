@@ -108,10 +108,56 @@ let player1L = new PlayerL(1, boardL);
 let player2L = new PlayerL(2, boardL);
 let ballL = new BallL(boardL);
 
+function saveGameState()
+{
+	const gameState =
+	{
+		player1Score: player1L.score,
+		player2Score: player2L.score,
+		player1Position: player1L.y,
+		player2Position: player2L.y,
+		ballPosition:
+		{
+			x: ballL.x, y: ballL.y
+		},
+		ballVelocity:
+		{
+			x: ballL.velocityX, y: ballL.velocityY
+		},
+		playing: localStorage.getItem('playing')
+	};
+	localStorage.setItem('state', JSON.stringify(gameState));
+}
+
+function loadGameState()
+{
+	const savedState = JSON.parse(localStorage.getItem('state'));
+	console.log(savedState);
+	if (savedState)
+	{
+		player1L.score = savedState.player1Score;
+		player2L.score = savedState.player2Score;
+		player1L.y = savedState.player1Position;
+		player2L.y = savedState.player2Position;
+		ballL.x = savedState.ballPosition.x;
+		ballL.y = savedState.ballPosition.y;
+		ballL.velocityX = savedState.ballVelocity.x;
+		ballL.velocityY = savedState.ballVelocity.y;
+		localStorage.setItem('playing', savedState.playing);
+	}
+}
+
+function clearGameState()
+{
+	localStorage.removeItem('state');
+	localStorage.setItem('playing', 'false');
+}
+
 async function initializeLocalGame()
 {
 	const app = document.getElementById('app');
 	const token = localStorage.getItem('access');
+	const playing = localStorage.getItem('playing');
 
 	if (token)
 	{
@@ -129,6 +175,13 @@ async function initializeLocalGame()
 			const data = await response.json();
 			if (data.status === 'success')
 			{
+				if (playing === 'true')
+				{
+					console.log('Is playing');
+					loadGameState();
+				}
+				else
+					localStorage.setItem('playing', 'true');
 				loadGameCanvas();
 				let canvas = document.getElementById("board");
 				contextL = canvas.getContext("2d");
@@ -201,11 +254,13 @@ async function initializeLocalGame()
 					if (player1L.score === 7)
 					{
 					    displayWinnerBanner("Player 1");
+					    clearGameState();
 					    running = false;
 					}
 					else if (player2L.score === 7)
 					{
 					    displayWinnerBanner("Player 2");
+					    clearGameState();
 					    running = false;
 					}
 				 }

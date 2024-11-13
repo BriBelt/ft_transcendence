@@ -50,6 +50,7 @@ function logInHandler()
 			else
 			{
 				localStorage.setItem('access', data.access);
+				localStorage.setItem('playing', 'false');
 				alert('Log in successful!');
 				navigateTo('/home/');
 			}
