@@ -42,6 +42,41 @@ let isSocketOpen = false;
 
 async function initializeGame()
 {
+    // Close existing WebSocket connection if open
+    if (socket) {
+        socket.close();
+        isSocketOpen = false;
+    }
+    let board = new Board(900, 500);
+    let player1 = new Player(1, board);
+    let player2 = new Player(2, board);
+    let ball = new Ball(board);
+    console.log('initializeGame called');
+    loadGameCanvas();
+    let score1 = 0;
+    let score2 = 0;
+    player1.velocityY = 0;
+    player2.velocityY = 0;
+    userid = localStorage.getItem('userid');
+    //const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+    
+    // TODO: generate id only when a new game is created, if not, select the id
+    socket = new WebSocket('wss://' + window.location.host + '/ws/pong-socket/'  + userid + '/' + 0 + '/');
+    //const socket = new WebSocket('ws://' + window.location.host + '/ws/pong-socket/' + id + '/');
+    isSocketOpen = false;
+    socket.onopen = function(event) {
+        console.log("WebSocket is open now.");
+//        console.log(id);
+        isSocketOpen = true;
+    };
+    
+    socket.onclose = function(event) {
+        console.log("WebSocket is closed now.");
+    };
+    
+    socket.onerror = function(error) {
+        console.error("WebSocket Error: ", error);
+    };
 
 	const app = document.getElementById('app');
 	const token = localStorage.getItem('access');

@@ -39,6 +39,9 @@ function initializeTournamentGame(tournamentName){
     let context;
     let socket;
     let isSocketOpen = false;
+    let isGameSocketOpen = false;
+    let gamesocket;
+    let isFinalMatch = false;
     
     // Close existing WebSocket connection if open
     if (socket) {
@@ -76,25 +79,86 @@ function initializeTournamentGame(tournamentName){
         console.error("WebSocket Error: ", error);
     };
 
+    let player1Id;
+    let player2Id;
     socket.onmessage = function(event) {
-        console.log("RECIEVING MESSAGE FROM WS!!")
-        console.log(event.data)
-        // Parse the JSON data received from the server
+//        const data = event.data;
+//        console.log("received: ", data);
+//        const regex = /Match between (\d+) and (\d+) is starting!/;
+//        const match = data.match(regex);
+//
+//        // Check if the match was successful
+//        if (match) {
+//            player1Id = match[1];
+//            player2Id = match[2];// Abre el `gamesocket` basado en los IDs de los jugadores
+//            const opponentId = (player1Id === userid) ? player2Id : player1Id;
+//            const gamesocketUrl = `wss://${window.location.host}/ws/pong-socket/${userid}/${opponentId}/`;
+//
+//            console.log("Creando gamesocket con URL:", gamesocketUrl);
+//            createGameSocket(gamesocketUrl);
+
         const data = JSON.parse(event.data);
+            
+        if (data.message) {
+            let matchDetails;
+            if (data.message.includes("Final match between")) {
+                isFinalMatch = true;  // Marcar como partida final
+                matchDetails = data.message.match(/Final match between (\d+) and (\d+) is starting!/);
+            } else if (data.message.includes("Match between")) {
+                isFinalMatch = false;  // No es la final
+                matchDetails = data.message.match(/Match between (\d+) and (\d+) is starting!/);
+            }
+        
+            if (matchDetails) {
+                player1Id = matchDetails[1];
+                player2Id = matchDetails[2];
+            
+                // Identificar al oponente para crear el `gamesocket`
+                const opponentId = (player1Id === userid) ? player2Id : player1Id;
+                const gamesocketUrl = `wss://${window.location.host}/ws/pong-socket/${userid}/${opponentId}/`;
+                console.log("Creando gamesocket con URL:", gamesocketUrl);
+                createGameSocket(gamesocketUrl);
+        };
 
-        // Update player1's position with the received data
-        player1.y = data['Player1'];
+        }
+    };
 
-        // Update player2's position with the received data
-        player2.y = data['Player2'];
+    function createGameSocket(url) {
+        gamesocket = new WebSocket(url);
 
-        ball.x = data['ballX'];
-        ball.y = data['ballY'];
+        gamesocket.onopen = function () {
+            console.log("GameWebSocket abierto");
+            isGameSocketOpen = true;
+        };
 
-        score1 = data['Score1']
-        score2 = data['Score2']
-        update();
+        gamesocket.onclose = function () {
+            console.log("GameWebSocket cerrado");
+            isGameSocketOpen = false;
+        };
+
+        gamesocket.onerror = function (error) {
+            console.error("Error en GameWebSocket:", error);
+        };
+
+        gamesocket.onmessage = function (event) {
+            //console.log("Mensaje recibido en gamesocket:", event.data);
+            const data = JSON.parse(event.data);
+
+            // Actualiza posiciones y puntajes
+            player1.y = data['Player1'];
+            player2.y = data['Player2'];
+            ball.x = data['ballX'];
+            ball.y = data['ballY'];
+            score1 = data['Score1'];
+            score2 = data['Score2'];
+            update();
+        };
     }
+
+    // Funciones de movimiento
+    document.removeEventListener("keyup", stopDjango);
+    document.removeEventListener("keydown", moveDjango);
+
 
     let canvas = document.getElementById("board");
     context = canvas.getContext("2d");
@@ -121,9 +185,8 @@ function initializeTournamentGame(tournamentName){
     }
 
     function sendPlayerData(keycode, action){
-        console.log('!!SENDING DATA!!!');
-        if (isSocketOpen) {
-            socket.send(JSON.stringify({
+        if (gamesocket && isGameSocketOpen){
+            gamesocket.send(JSON.stringify({
                 'position': {
                     'key': keycode,// ArrowUp or ArrowDown
                     'action': action//"move" or "stop"
@@ -142,6 +205,15 @@ function initializeTournamentGame(tournamentName){
         context.clearRect(0, 0, canvas.width, canvas.height);
         // Draw the banner in the center of the canvas
         context.fillText(text, (canvas.width / 2) - (textWidth / 2), canvas.height / 2);
+
+        const winnerId = (score1 === 7) ? player1Id : player2Id;
+        // is its a final, notify TournamentConsumer to save data
+        if (isFinalMatch) {
+            socket.send(JSON.stringify({
+                'type': "end_tournament",
+                'winner_id': winnerId
+            }));
+        }
     }
             
     function update() {
@@ -160,10 +232,24 @@ function initializeTournamentGame(tournamentName){
         context.fillRect(ball.x, ball.y, ball.width, ball.height);
         if (score1 == 7 || score2 == 7)
         {
-            if (score1 == 7)
+            if (score1 == 7){
                 displayWinnerBanner("Player 1");
-            else
+                if (userid === player1Id)
+                    console.log("eliminar esta linea es solo debug")
+                    // Logic to show "Next Game" button
+                else
+                    console.log("eliminar esta linea es solo debug")    
+                    // Logic to send back to tthe main menu 
+            }
+            else{
                 displayWinnerBanner("Player 2");
+                if (userid === player2Id)
+                    console.log("eliminar esta linea es solo debug")
+                    // Logic to show "Next Game" button
+                else
+                    console.log("eliminar esta linea es solo debug")    
+                    // Logic to send back to tthe main menu
+            }
         }
         else{
             context.fillText(score1.toString(), (board.width / 4), board.height/2);
