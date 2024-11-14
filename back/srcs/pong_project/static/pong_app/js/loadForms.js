@@ -188,8 +188,6 @@ async function loadPlayGame(id)
 function loadGameCanvas()
 {
 	app.innerHTML = `
-	    <h2>Play Game</h2>
-	    <p>Get ready to play a game of Pong!</p>
 	    <!-- Add game play content here -->
 	    <canvas id="board" width="900" height="500"></canvas>
 	`;

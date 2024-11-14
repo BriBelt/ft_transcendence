@@ -108,8 +108,9 @@ let player1L = new PlayerL(1, boardL);
 let player2L = new PlayerL(2, boardL);
 let ballL = new BallL(boardL);
 
-function saveGameState()
+function saveLocalGameState()
 {
+	console.log('INSIDE SAVE GAME STATE');
 	const gameState =
 	{
 		player1Score: player1L.score,
@@ -129,8 +130,9 @@ function saveGameState()
 	localStorage.setItem('state', JSON.stringify(gameState));
 }
 
-function loadGameState()
+function loadLocalGameState()
 {
+	console.log('INSIDE LOAD GAME STATE');
 	const savedState = JSON.parse(localStorage.getItem('state'));
 	console.log(savedState);
 	if (savedState)
@@ -147,10 +149,152 @@ function loadGameState()
 	}
 }
 
-function clearGameState()
+function clearLocalGameState()
 {
+	console.log('INSIDE CLEAR GAME STATE');
 	localStorage.removeItem('state');
 	localStorage.setItem('playing', 'false');
+}
+
+async function startLocalGame()
+{
+	const playing = localStorage.getItem('playing');
+	if (playing === 'true')
+	{
+		console.log('Is playing');
+		loadLocalGameState();
+	}
+	else
+		localStorage.setItem('playing', 'true');
+	loadGameCanvas();
+	let canvas = document.getElementById("board");
+	contextL = canvas.getContext("2d");
+	canvas.width = boardL.width;
+	canvas.height = boardL.height;
+	let running = true;
+
+	// Control players using keyboardL
+	document.addEventListener("keydown", movePlayer);
+	document.addEventListener("keyup", stopPlayer);
+
+	// Start the game loop
+	gameLoop();
+
+
+	// Move players based on keyboardL input
+	function movePlayer(e)
+	{
+		switch (e.code)
+		{
+			// Player 1 controls (W and S)
+			case "KeyW":
+				player1L.velocityY = -5;
+				break;
+			case "KeyS":
+				player1L.velocityY = 5;
+				break;
+			// Player 2 controls (Arrow Up and Arrow Down)
+			case "ArrowUp":
+				player2L.velocityY = -5;
+				break;
+			case "ArrowDown":
+				player2L.velocityY = 5;
+				break;
+		}
+	}
+
+	// Stop players when keys are released
+	function stopPlayer(e)
+	{
+		switch (e.code) 
+		{
+		    case "KeyW":
+		    case "KeyS":
+			player1L.velocityY = 0;
+			break;
+
+		    case "ArrowUp":
+		    case "ArrowDown":
+			player2L.velocityY = 0;
+			break;
+		}
+	}
+
+	function displayWinnerBanner(winner)
+	{
+		contextL.fillStyle = "white";
+		contextL.font = "50px Arial";
+		const text = `${winner} Wins!`;
+		// Measure the text width to center it
+		const textWidth = contextL.measureText(text).width;
+		// Clear the canvas for the banner
+		contextL.clearRect(0, 0, canvas.width, canvas.height);
+		// Draw the banner in the center of the canvas
+		contextL.fillText(text, (canvas.width / 2) - (textWidth / 2), canvas.height / 2);
+	 }
+
+	 function checkEndGame(player1L, player2L)
+	 {
+		if (player1L.score === 7)
+		{
+		    displayWinnerBanner("Player 1");
+		    clearLocalGameState();
+		    running = false;
+		}
+		else if (player2L.score === 7)
+		{
+		    displayWinnerBanner("Player 2");
+		    clearLocalGameState();
+		    running = false;
+		}
+	 }
+
+	    // Game loop to update positions and render the game
+	 function gameLoop()
+	 {
+		const playing = localStorage.getItem('playing');
+	 	if (playing !== 'True')
+		{
+			contextL.clearRect(0, 0, boardL.width, boardL.height);
+			contextL.fillStyle = "Black";
+			contextL.fillRect(0, 0, boardL.width, boardL.height);
+			localStorage.setItem('playing', 'true');
+		}
+		else
+			loadLocalGameState();
+
+		// Move and constrain players
+		player1L.move();
+		player1L.constrain(boardL);
+		player2L.move();
+		player2L.constrain(boardL);
+
+		// Move and bounce the ballL
+		ballL.move();
+		ballL.bounce(boardL, player1L, player2L);
+
+		// Draw players
+		contextL.fillStyle = "skyblue";
+		contextL.fillRect(player1L.x, player1L.y, player1L.width, player1L.height);
+		contextL.fillRect(player2L.x, player2L.y, player2L.width, player2L.height);
+
+		// Draw ballL
+		contextL.fillStyle = "White";
+		contextL.fillRect(ballL.x, ballL.y, ballL.width, ballL.height);
+
+		// Display scores
+		contextL.font = "30px Arial";
+		contextL.fillStyle = "white";
+		contextL.fillText("Player 1: " + player1L.score, 50, 50);
+		contextL.fillText("Player 2: " + player2L.score, boardL.width - 200, 50);
+
+		checkEndGame(player1L, player2L);
+		saveLocalGameState();
+
+		// Continuously call gameLoop
+		if (running)
+		    requestAnimationFrame(gameLoop);
+	 }
 }
 
 async function initializeLocalGame()
@@ -174,136 +318,7 @@ async function initializeLocalGame()
 			});
 			const data = await response.json();
 			if (data.status === 'success')
-			{
-				if (playing === 'true')
-				{
-					console.log('Is playing');
-					loadGameState();
-				}
-				else
-					localStorage.setItem('playing', 'true');
-				loadGameCanvas();
-				let canvas = document.getElementById("board");
-				contextL = canvas.getContext("2d");
-				canvas.width = boardL.width;
-				canvas.height = boardL.height;
-				let running = true;
-
-				// Control players using keyboardL
-				document.addEventListener("keydown", movePlayer);
-				document.addEventListener("keyup", stopPlayer);
-
-				// Start the game loop
-				gameLoop();
-
-
-				// Move players based on keyboardL input
-				function movePlayer(e)
-				{
-					switch (e.code)
-					{
-						// Player 1 controls (W and S)
-						case "KeyW":
-							player1L.velocityY = -5;
-							break;
-						case "KeyS":
-							player1L.velocityY = 5;
-							break;
-						// Player 2 controls (Arrow Up and Arrow Down)
-						case "ArrowUp":
-							player2L.velocityY = -5;
-							break;
-						case "ArrowDown":
-							player2L.velocityY = 5;
-							break;
-					}
-				}
-
-				// Stop players when keys are released
-				function stopPlayer(e)
-				{
-					switch (e.code) 
-					{
-					    case "KeyW":
-					    case "KeyS":
-						player1L.velocityY = 0;
-						break;
-
-					    case "ArrowUp":
-					    case "ArrowDown":
-						player2L.velocityY = 0;
-						break;
-					}
-				}
-
-				function displayWinnerBanner(winner)
-				{
-					contextL.fillStyle = "white";
-					contextL.font = "50px Arial";
-					const text = `${winner} Wins!`;
-					// Measure the text width to center it
-					const textWidth = contextL.measureText(text).width;
-					// Clear the canvas for the banner
-					contextL.clearRect(0, 0, canvas.width, canvas.height);
-					// Draw the banner in the center of the canvas
-					contextL.fillText(text, (canvas.width / 2) - (textWidth / 2), canvas.height / 2);
-				 }
-
-				 function checkEndGame(player1L, player2L)
-				 {
-					if (player1L.score === 7)
-					{
-					    displayWinnerBanner("Player 1");
-					    clearGameState();
-					    running = false;
-					}
-					else if (player2L.score === 7)
-					{
-					    displayWinnerBanner("Player 2");
-					    clearGameState();
-					    running = false;
-					}
-				 }
-
-				    // Game loop to update positions and render the game
-				 function gameLoop()
-				 {
-					contextL.clearRect(0, 0, boardL.width, boardL.height);
-					contextL.fillStyle = "Black";
-					contextL.fillRect(0, 0, boardL.width, boardL.height);
-
-					// Move and constrain players
-					player1L.move();
-					player1L.constrain(boardL);
-					player2L.move();
-					player2L.constrain(boardL);
-
-					// Move and bounce the ballL
-					ballL.move();
-					ballL.bounce(boardL, player1L, player2L);
-
-					// Draw players
-					contextL.fillStyle = "skyblue";
-					contextL.fillRect(player1L.x, player1L.y, player1L.width, player1L.height);
-					contextL.fillRect(player2L.x, player2L.y, player2L.width, player2L.height);
-
-					// Draw ballL
-					contextL.fillStyle = "White";
-					contextL.fillRect(ballL.x, ballL.y, ballL.width, ballL.height);
-
-					// Display scores
-					contextL.font = "30px Arial";
-					contextL.fillStyle = "white";
-					contextL.fillText("Player 1: " + player1L.score, 50, 50);
-					contextL.fillText("Player 2: " + player2L.score, boardL.width - 200, 50);
-
-					checkEndGame(player1L, player2L);
-
-					// Continuously call gameLoop
-					if (running)
-					    requestAnimationFrame(gameLoop);
-				 }
-			}
+				startLocalGame();
 			else
 				await checkRefreshToken(token);
 		}
