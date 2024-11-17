@@ -40,26 +40,91 @@ let context;
 let socket;
 let isSocketOpen = false;
 
+let board = new Board(900, 500);
+let player1 = new Player(1, board);
+let player2 = new Player(2, board);
+let ball = new Ball(board);
+
+function saveOnlineGameState()
+{
+	console.log('INSIDE SAVE GAME STATE');
+	const gameState =
+	{
+		player1Score: player1.score,
+		player2Score: player2.score,
+		player1Position: player1.y,
+		player2Position: player2.y,
+		ballPosition:
+		{
+			x: ball.x, y: ball.y
+		},
+		ballVelocity:
+		{
+			x: ball.velocityX, y: ball.velocityY
+		},
+		playing: localStorage.getItem('playing')
+	};
+	localStorage.setItem('state', JSON.stringify(gameState));
+}
+
+function loadOnlineGameState()
+{
+	console.log('INSIDE LOAD GAME STATE');
+	const savedState = JSON.parse(localStorage.getItem('state'));
+	if (savedState)
+	{
+		player1.score = savedState.player1Score;
+		player2.score = savedState.player2Score;
+		player1.y = savedState.player1Position;
+		player2.y = savedState.player2Position;
+		ball.x = savedState.ballPosition.x;
+		ball.y = savedState.ballPosition.y;
+		ball.velocityX = savedState.ballVelocity.x;
+		ball.velocityY = savedState.ballVelocity.y;
+		localStorage.setItem('playing', savedState.playing);
+	}
+}
+
+function clearOnlineGameState()
+{
+	console.log('INSIDE CLEAR GAME STATE');
+	localStorage.removeItem('state');
+	localStorage.setItem('playing', 'false');
+}
+
 async function startOnlineGame()
 {
 	// Close existing WebSocket connection if open
+	const playing = localStorage.getItem('playing');
+
 	if (socket)
 	{
 		socket.close();
 		isSocketOpen = false;
 	}
-//	localStorage.setItem('playing', data.playing);
-	const playing = localStorage.getItem('playing', 
-	let board = new Board(900, 500);
-	let player1 = new Player(1, board);
-	let player2 = new Player(2, board);
-	let ball = new Ball(board);
+	if (playing === 'true')
+	{
+		console.log('Is playing');
+		loadOnlineGameState();
+	}
+	else
+	{
+		localStorage.setItem('playing', 'true');
+		player1.score = 0;
+		player2.score = 0;
+		player1.velocityY = 0;
+		player2.velocityY = 0;
+	}
+//	let board = new Board(900, 500);
+//	let player1 = new Player(1, board);
+//	let player2 = new Player(2, board);
+//	let ball = new Ball(board);
 	console.log('initializeGame called');
 	loadGameCanvas();
-	let score1 = 0;
-	let score2 = 0;
-	player1.velocityY = 0;
-	player2.velocityY = 0;
+//	let score1 = 0;
+//	let score2 = 0;
+//	player1.velocityY = 0;
+//	player2.velocityY = 0;
 	userid = localStorage.getItem('userid');
 	//const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
 
@@ -87,6 +152,7 @@ async function startOnlineGame()
 
 	socket.onmessage = function(event)
 	{
+		
 		console.log("RECIEVING MESSAGE FROM WS!!")
 		console.log(event.data)
 		// Parse the JSON data received from the server
@@ -163,12 +229,14 @@ async function startOnlineGame()
 	    
 	function update()
 	{
+		saveOnlineGameState();
 		//requestAnimationFrame(update);
 		context.clearRect(0, 0, board.width, board.height);
 		context.fillStyle = "Black";
 		context.fillRect(0, 0, board.width, board.height);
 
 		// draw players
+		loadOnlineGameState();
 		context.fillStyle = "skyblue";
 		context.fillRect(player1.x, player1.y, player1.width, player1.height);
 		context.fillRect(player2.x, player2.y, player2.width, player2.height);
@@ -176,17 +244,18 @@ async function startOnlineGame()
 		//ball
 		context.fillStyle = "White"
 		context.fillRect(ball.x, ball.y, ball.width, ball.height);
-		if (score1 == 7 || score2 == 7)
+		if (player1.score == 7 || player2.score == 7)
 		{
-			if (score1 == 7)
+			if (player1.score == 7)
 				displayWinnerBanner("Player 1");
 			else
 				displayWinnerBanner("Player 2");
+			clearOnlineGameState();
 		}
 		else
 		{
-			context.fillText(score1.toString(), (board.width / 4), board.height/2);
-			context.fillText(score2.toString(), (board.width / 4) * 3, board.height/2);
+			context.fillText(player1.score.toString(), (board.width / 4), board.height/2);
+			context.fillText(player2.score.toString(), (board.width / 4) * 3, board.height/2);
 			context.font = '50px Arial';
 		}
 
@@ -217,7 +286,7 @@ async function initializeGame()
 			const data = await response.json();
 			if (data.status === 'success')
 			{
-				startGameOnline();
+				startOnlineGame();
 			}
 			else
 				await checkRefreshToken(token);
