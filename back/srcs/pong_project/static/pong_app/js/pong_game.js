@@ -39,6 +39,7 @@ class Ball{
 let context;
 let socket;
 let isSocketOpen = false;
+let board, player1, player2, ball;
 
 function initializeGame(){
     
@@ -47,10 +48,10 @@ function initializeGame(){
         socket.close();
         isSocketOpen = false;
     }
-    let board = new Board(900, 500);
-    let player1 = new Player(1, board);
-    let player2 = new Player(2, board);
-    let ball = new Ball(board);
+    if (!board) board = new Board(900, 500);
+    if (!player1) player1 = new Player(1, board);
+    if (!player2) player2 = new Player(2, board);
+    if (!ball) ball = new Ball(board);
     console.log('initializeGame called');
     loadGameCanvas();
     let score1 = 0;

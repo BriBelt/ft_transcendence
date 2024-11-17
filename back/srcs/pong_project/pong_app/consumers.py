@@ -24,6 +24,7 @@ active_players = set()
 game_states = {}
 tournament_records = {}
 tournament_ids = {}
+connected_users = {}
 
 # En un archivo nuevo, por ejemplo, game_state.py
 class GameState:
@@ -47,7 +48,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 
         self.user_id = int(self.scope['url_route']['kwargs']['userid'])
         self.user_id2 = int(self.scope['url_route']['kwargs']['userid2'])
-        self.group_name = None
+        self.group_name = connected_users.get(self.user_id)
         self.player_1 = None
         self.player_2 = None
         self.player_number = None
@@ -58,9 +59,28 @@ class PongConsumer(AsyncWebsocketConsumer):
         max_id = 0
         check = 0
 
-        if self.user_id in active_players:
-            await self.close()  # Close the WebSocket connection
-            logger.info(f"Player {self.user_id} is already connected. Closing duplicate connection.")
+        if self.user_id in active_players and self.group_name:
+            logger.info(f"Reconnecting player {self.user_id} to existing game: {self.group_name}")
+            # Reconnect to the existing group
+            await self.channel_layer.group_add(self.group_name, self.channel_name)
+            await self.accept()
+            game_state = game_states.get(self.group_name)
+            if game_state:
+                position_updated = {
+                        'Player1': game_state.player1.y,
+                        'Player2': game_state.player2.y,
+                        'ballX': game_state.ball.x,
+                        'ballY': game_state.ball.y,
+                        'Score1': game_state.player1.score,
+                        'Score2': game_state.player2.score
+                    }
+            await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    'type': 'send_position',
+                    'position': position_updated
+                }
+            )
             return
         if self.user_id2 == 0:
             active_players.add(self.user_id)
@@ -96,6 +116,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                 self.player_1.player_1 = self.player_1
                 self.player_1.player_2 = self.player_2
                 check = 1
+        connected_users[self.user_id] = self.group_name
         if check == 1:
             # Create unique identifier for game
             self.group_name = f'pong_game_{min_id}_{max_id}'
@@ -267,6 +288,9 @@ class PongConsumer(AsyncWebsocketConsumer):
                 self.group_name,
                 self.channel_name
             )
+            if not any(player.running for player in [self.player_1, self.player_2]):
+                connected_users.pop(self.user_id, None)
+                game_states.pop(self.group_name, None)
         
         # Close the WebSocket connection
         await super().disconnect(close_code)
