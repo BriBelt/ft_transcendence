@@ -49,7 +49,7 @@ async function startOnlineGame()
 		isSocketOpen = false;
 	}
 //	localStorage.setItem('playing', data.playing);
-	const playing = localStorage.getItem('playing', 
+	const playing = localStorage.getItem('playing')
 	let board = new Board(900, 500);
 	let player1 = new Player(1, board);
 	let player2 = new Player(2, board);
@@ -64,8 +64,7 @@ async function startOnlineGame()
 	//const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
 
 	// TODO: generate id only when a new game is created, if not, select the id
-	socket = new WebSocket('wss://' + window.location.host + '/ws/pong-socket/'  + userid + '/');
-	//const socket = new WebSocket('ws://' + window.location.host + '/ws/pong-socket/' + id + '/');
+	socket = new WebSocket('wss://' + window.location.host + '/ws/pong-socket/'  + userid + '/' + 0 + '/');	//const socket = new WebSocket('ws://' + window.location.host + '/ws/pong-socket/' + id + '/');
 	isSocketOpen = false;
 
 	socket.onopen = function(event)
@@ -217,7 +216,7 @@ async function initializeGame()
 			const data = await response.json();
 			if (data.status === 'success')
 			{
-				startGameOnline();
+				startOnlineGame();
 			}
 			else
 				await checkRefreshToken(token);
@@ -235,4 +234,5 @@ async function initializeGame()
 	}
 }
 
+window.startOnlineGame = startOnlineGame;
 window.initializeGame = initializeGame;

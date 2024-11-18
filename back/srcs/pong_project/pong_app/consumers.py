@@ -20,18 +20,25 @@ def ballOutOfBounds(yPosition, ball, board):
     return yPosition < 0 or yPosition + ball > board
 
 waiting_queue = []
-active_players = set()
+waiting_ids = []
+active_players = []
 game_states = {}
+running_games = {}
 tournament_records = {}
 tournament_ids = {}
+connected_users = {}
 
 # En un archivo nuevo, por ejemplo, game_state.py
 class GameState:
-    def __init__(self, user_id1, user_id2):
+    def __init__(self, user_id1, user_id2, player_1, player_2):
         self.board = Board(width=900, height=500)
         self.ball = Ball(board=self.board)
         self.player1 = Paddle(number=1, board=self.board, user_id=user_id1)
         self.player2 = Paddle(number=2, board=self.board, user_id=user_id2)
+        self.consumer_1 = player_1
+        self.consumer_1_id = user_id1
+        self.consumer_2 = player_2
+        self.consumer_2_id = user_id2
         self.game_loop_started = False
         self.running = True
 
@@ -47,6 +54,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 
         self.user_id = int(self.scope['url_route']['kwargs']['userid'])
         self.user_id2 = int(self.scope['url_route']['kwargs']['userid2'])
+        user_connected = connected_users.get(self.user_id)
         self.group_name = None
         self.player_1 = None
         self.player_2 = None
@@ -58,13 +66,63 @@ class PongConsumer(AsyncWebsocketConsumer):
         max_id = 0
         check = 0
 
-        if self.user_id in active_players:
-            await self.close()  # Close the WebSocket connection
-            logger.info(f"Player {self.user_id} is already connected. Closing duplicate connection.")
+        if self.user_id == self.user_id2 or int(self.user_id) in waiting_ids:
+            print("User already logged in", flush=True)
+            await self.close()
             return
-        if self.user_id2 == 0:
-            active_players.add(self.user_id)
+        if len(game_states) > 0:
+            for key in game_states.keys():
+                print(f"KEY: {key}", flush=True)
+                ids = key.split('_')
+                if int(self.user_id) == int(ids[2]) or int(self.user_id) == int(ids[3]):
+                    self.group_name = key
+                    print(f"Game found: {self.group_name}", flush=True)
+        print(f"SUPER DEBUG: {self.user_id}, {active_players}, {user_connected} and {self.group_name}", flush=True)
+        if (int(self.user_id) in active_players and user_connected) or self.group_name:
+            print(f"Reconnecting player {self.user_id} to existing game: {self.group_name}", flush=True)
+            # Reconnect to the existing group
+            await self.channel_layer.group_add(self.group_name, self.channel_name)
+            await self.accept()
+            game_state = game_states.get(self.group_name)
+            if game_state:
+                position_updated = {
+                        'Player1': game_state.player1.y,
+                        'Player2': game_state.player2.y,
+                        'ballX': game_state.ball.x,
+                        'ballY': game_state.ball.y,
+                        'Score1': game_state.player1.score,
+                        'Score2': game_state.player2.score
+                    }
+            await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    'type': 'send_position',
+                    'position': position_updated
+                }
+            )
+            if game_state.consumer_1 == None:
+                self.player_1 = self
+                self.player_2 = game_state.consumer_2
+                game_state.consumer_1 = self
+                self.player_number = 1
+            elif game_state.consumer_2 == None:
+                self.player_1 = game_state.consumer_1
+                self.player_2 = self
+                game_state.consumer_2 = self
+                self.player_number = 2
+                await self.player_1.start_game(self.group_name, 1)
+                await self.player_2.start_game(self.group_name, 2)
+            self.player_1.game_state = game_state
+            self.player_2.game_state = self.player_1.game_state
+            if not game_state.game_loop_started:
+                await self.player_1.start_game(self.group_name, 1)
+                await self.player_2.start_game(self.group_name, 2)
+            #check = 1
+            return
+        elif self.user_id2 == 0:
+            active_players.append(int(self.user_id))
             waiting_queue.append(self)
+            waiting_ids.append(int(self.user_id))
             print(f'!!!!!! queue length = {len(waiting_queue)}', flush=True)
             self.user = await CustomUser.objects.aget(id=self.user_id)
             #self.user = CustomUser.objects.get(id=self.user_id)
@@ -75,6 +133,8 @@ class PongConsumer(AsyncWebsocketConsumer):
                     
                 self.player_1 = waiting_queue.pop(0)
                 self.player_2 = waiting_queue.pop(0)
+                waiting_ids.pop(0)
+                waiting_ids.pop(0)
                 self.player_1.player_1 = self.player_1
                 self.player_1.player_2 = self.player_2
                 min_id = self.player_1.user_id
@@ -96,10 +156,13 @@ class PongConsumer(AsyncWebsocketConsumer):
                 self.player_1.player_1 = self.player_1
                 self.player_1.player_2 = self.player_2
                 check = 1
+        connected_users[self.user_id] = self.group_name
         if check == 1:
             # Create unique identifier for game
             self.group_name = f'pong_game_{min_id}_{max_id}'
-            self.player_1.game_state = GameState(user_id1=min_id, user_id2=max_id)
+            #running_games[self.group_name].append(self.player_1)
+            #running_games[self.group_name].append(self.player_2)
+            self.player_1.game_state = GameState(user_id1=min_id, user_id2=max_id, player_1=self.player_1, player_2=self.player_2)
             self.player_2.game_state = self.player_1.game_state
             game_states[self.group_name] = self.player_1.game_state
             # Asign same room for players
@@ -122,11 +185,12 @@ class PongConsumer(AsyncWebsocketConsumer):
         print(f"!!!!!!Jugador {self.player_number} se unió a la sala: {self.group_name}!!!!!!", flush=True)
 
         if player_number == 1:# and not hasattr(self.game_state, 'game_loop_started'):
-            print("INIZIALICING GAME OBJECTS", flush=True)
-            self.game_state.board = Board(width=900, height=500)
-            self.game_state.ball = Ball(board=self.game_state.board)
-            self.game_state.player1 = Paddle(number=1, board=self.game_state.board, user_id=self.user_id)
-            self.game_state.player2 = Paddle(number=2, board=self.game_state.board, user_id=self.player_2.user_id)
+            if not self.game_state.board:
+                print("INIZIALICING GAME OBJECTS", flush=True)
+                self.game_state.board = Board(width=900, height=500)
+                self.game_state.ball = Ball(board=self.game_state.board)
+                self.game_state.player1 = Paddle(number=1, board=self.game_state.board, user_id=self.user_id)
+                self.game_state.player2 = Paddle(number=2, board=self.game_state.board, user_id=self.player_2.user_id)
             
             self.game_state.game_loop_started = True
             asyncio.create_task(self.game_loop())
@@ -194,8 +258,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 
         # Check if the ball is out of bounds to score
         if self.score():
-            if self.game_state.player1.score == 7 or self.game_state.player2.score == 7:
-                winner = 1 if self.game_state.player1.score == 7 else 2
+            if self.game_state.player1.score >= 7 or self.game_state.player2.score >= 7:
+                winner = 1 if self.game_state.player1.score >= 7 else 2
                 await self.update_game_stats(winner)
                 position_updated = {
                     'Player1': self.game_state.player1.y,
@@ -250,7 +314,7 @@ class PongConsumer(AsyncWebsocketConsumer):
             await asyncio.sleep(0.033)  # 0.016 -> Approx 60 FPS
             if self.ended:
                 if self.is_tournament_game:
-                    winner_id = self.game_state.player1.user_id if self.game_state.player1.score == 7 else self.game_state.player2.user_id
+                    winner_id = self.game_state.player1.user_id if self.game_state.player1.score >= 7 else self.game_state.player2.user_id
                     await self.notify_tournament_consumer(winner_id)
                 await asyncio.sleep(1)
                 await self.close()
@@ -259,14 +323,30 @@ class PongConsumer(AsyncWebsocketConsumer):
     
     async def disconnect(self, close_code):
         logger.info(f"Disconnected: {close_code}")
-        self.running = False
-        active_players.discard(self.user_id)
+        try:
+            waiting_ids.remove(self.user_id)
+        except:
+            print(f"User_id {self.user_id} not in list {waiting_ids}", flush=True)
+        try:
+            waiting_queue.remove(self)
+        except:
+            print(f"Consumer {self.user_id} not in list {waiting_queue}", flush=True)
+        if self.game_state and self.user_id == self.game_state.consumer_1_id:
+            self.game_state.consumer_1 = None
+        elif self.game_state and self.user_id == self.game_state.consumer_2_id:
+            self.game_state.consumer_2 = None
+        # active_players.discard(self.user_id)
         #self.game_thread.join()  # Wait for the thread to finish before exiting
         if self.group_name:
             await self.channel_layer.group_discard(
                 self.group_name,
                 self.channel_name
             )
+            if self.game_state.player1.score > 6 or self.game_state.player2.score > 6:
+                print("GameState deleted", flush=True)
+                active_players.remove(self.user_id)
+                connected_users.pop(self.user_id, None)
+                game_states.pop(self.group_name, None)
         
         # Close the WebSocket connection
         await super().disconnect(close_code)
@@ -396,6 +476,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
         self.tournament_name = self.scope['url_route']['kwargs']['tournament']
         self.user_id = int(self.scope['url_route']['kwargs']['userid'])
         self.group_name = None
+        self.final_started = False
         print(f"\033[96muUSER: {self.user_id} , TOURNAMENT_GAME: {self.tournament_name} CONNECTED\033[0m", flush=True)
 
         # Inicializar el torneo si no existe en el registro
@@ -439,6 +520,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 
     async def start_match(self, match, is_final):
         """Iniciar una partida entre dos jugadores."""
+        print(f"\033[92mEMPEZANDO PARTIDA\033[0m", flush=True)
         player1, player2 = match
         game_group = f"match_{player1.user_id}_{player2.user_id}"
 
@@ -451,7 +533,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
                 game_group,
                 {
                     'type': 'game_start',
-                    'message': f"Final match between {player1} and {player2} is starting!"
+                    'message': f"Final match between {player1.user_id} and {player2.user_id} is starting!"
                 }
             )
         else:
@@ -473,16 +555,34 @@ class TournamentConsumer(AsyncWebsocketConsumer):
         loser_id = match_info['loser_id']
         match_players = match_info['match_players']
 
-        print(f"Partida entre {match_players} ha terminado. Ganador: {winner_id}", flush=True)
+        print(f"\033[96mPartida entre {match_players} ha terminado. Ganador: {winner_id}\033[0m", flush=True)
+        # Busca la instancia del ganador
+        players = tournament_records[self.tournament_name]
+        print(f"Players in tournament_records[{self.tournament_name}]: {[player.user_id for player in players]}")
+
+        winner_instance = next((player for player in players if player.user_id == winner_id), None)
+
+        # Verifica si se encontró el ganador
+        if winner_instance is None:
+            print(f"\033[91mNo se encontró una instancia para el ganador con user_id {winner_id}\033[0m", flush=True)
+        else:
+            print(f"\033[92mGanador encontrado: {winner_instance.user_id}\033[0m", flush=True)
 
         # Guarda el ganador y llama a los métodos correspondientes según la lógica del torneo
-        if match_players == [self.match_1[0].user_id, self.match_1[1].user_id]:
-            self.winner_match_1 = winner_id
-        elif match_players == [self.match_2[0].user_id, self.match_2[1].user_id]:
-            self.winner_match_2 = winner_id
+        # Comparar match_players con los IDs de manera más robusta para evitar errores de orden
+        match_1_ids = sorted([self.match_1[0].user_id, self.match_1[1].user_id])
+        match_2_ids = sorted([self.match_2[0].user_id, self.match_2[1].user_id])
+        sorted_match_players = sorted(match_players)
+
+        if sorted_match_players == match_1_ids:
+            self.winner_match_1 = winner_instance
+        elif sorted_match_players == match_2_ids:
+            self.winner_match_2 = winner_instance
         # Si ambos ganadores de la primera ronda están listos, comienza la partida final
-        if hasattr(self, 'winner_match_1') and hasattr(self, 'winner_match_2'):
-            await self.start_match((self.winner_match_1, self.winner_match_2, True))
+        if hasattr(self, 'winner_match_1') and hasattr(self, 'winner_match_2') and not self.final_started:
+            print("\033[96mA punto de empezar la final\033[0m", flush=True)
+            self.final_started = True
+            await self.start_match((self.winner_match_1, self.winner_match_2), True)
 
     async def end_match(self, match, winner):
         """Finalizar una partida, actualiza los ganadores."""
@@ -505,17 +605,19 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 
     async def end_tournament(self, winner_id):
         """Finaliza el torneo actual, actualizando estadísticas y cerrando conexiones."""
-        print(f"Tournament {self.tournament_name} finished. Winner: {winner_id}")
+        print(f"Tournament {self.tournament_name} finished. Winner: {winner_id}, self.user_id = {self.user_id}.", flush=True)
 
-        # Actualizar las estadísticas del torneo para el ganador
-        await self.update_tournament_stats(winner_id)
+        if winner_id == self.user_id:
+            # Actualizar las estadísticas del torneo para el ganador
+            print(f"\033[96mABOUT TO CALL UPDATE_TOURNAMENT_STATS BROOO\033[0m", flush=True)
+            await self.update_tournament_stats(winner_id)
 
-        # Cerrar todas las conexiones de los jugadores
-        for player in tournament_records[self.tournament_name]:
-            await player.close()
+            # Cerrar todas las conexiones de los jugadores
+            for player in tournament_records[self.tournament_name]:
+                await player.close()    
 
-        # Eliminar el torneo del registro
-        del tournament_records[self.tournament_name]
+            # Eliminar el torneo del registro
+            del tournament_records[self.tournament_name]
 
     async def update_tournament_stats(self, winner):
 
@@ -539,179 +641,9 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 
         await super().disconnect(close_code)
 
-#    def ballSaved(self):
-#        if (self.game_state.ball.x + self.game_state.ball.velocityX <= self.game_state.player1.x + self.game_state.player1.width) and (self.game_state.ball.x >= self.game_state.player1.x) and \
-#                (self.game_state.player1.y <= self.game_state.ball.y <= self.game_state.player1.y + self.game_state.player1.height):
-#            paddle_center = self.game_state.player1.y + self.game_state.player1.height / 2
-#            hit_pos = (self.game_state.ball.y - paddle_center) / (self.game_state.player1.height / 2)
-#            self.game_state.ball.velocityY += hit_pos * 3  # Modify the vertical velocity
-#            
-#            self.game_state.ball.x = self.game_state.player1.x + self.game_state.player1.width + 1
-#            return True
-#
-#        elif (self.game_state.ball.x + self.game_state.ball.velocityX >= self.game_state.player2.x - self.game_state.ball.width) and (self.game_state.ball.x <= self.game_state.player2.x) and \
-#                (self.game_state.player2.y <= self.game_state.ball.y <= self.game_state.player2.y + self.game_state.player2.height):
-#            paddle_center = self.game_state.player2.y + self.game_state.player2.height / 2
-#            hit_pos = (self.game_state.ball.y - paddle_center) / (self.game_state.player2.height / 2)
-#            self.game_state.ball.velocityY += hit_pos * 3
-#            
-#            self.game_state.ball.x = self.game_state.player2.x - self.game_state.ball.width - 1
-#            return True
-#
-#        return False
-#
-#
-#    def move_players(self):
-#        if not outOfBounds(self.game_state.player1.y + self.game_state.player1.velocityY, self.game_state.player1.height, self.game_state.board.height):
-#            self.game_state.player1.y += self.game_state.player1.velocityY
-#        if not outOfBounds(self.game_state.player2.y + self.game_state.player2.velocityY, self.game_state.player1.height, self.game_state.board.height):
-#            self.game_state.player2.y += self.game_state.player2.velocityY
-#    
-#    def score(self):
-#        if self.game_state.ball.x >= self.game_state.board.width:
-#            self.game_state.player1.score += 1
-#            return True
-#        elif self.game_state.ball.x <= 0 - self.game_state.ball.width:
-#            self.game_state.player2.score += 1
-#            return True
-#        return False
-#
-#    async def move_ball(self):
-##        print("MOVE BALL CALLED", flush=True)
-#        #print("Before: ", self.game_state.ball.x, flush=True)
-#        #async with self.lock:  # Acquire the lock before modifying shared resources CHECK IF NEEDED
-#        if ballOutOfBounds(self.game_state.ball.y, self.game_state.ball.height, self.game_state.board.height):
-#            self.game_state.ball.velocityY = -self.game_state.ball.velocityY
-#
-#        # Ensure that the ball has a minimum speed to avoid getting stuck
-#        if abs(self.game_state.ball.velocityX) < 5:
-#            self.game_state.ball.velocityX = 5 if self.game_state.ball.velocityX > 0 else -5
-#
-#        if self.ballSaved():
-#            self.game_state.ball.velocityX = -self.game_state.ball.velocityX
-#
-#        # Move the ball as usual
-#        self.game_state.ball.x += self.game_state.ball.velocityX
-#        self.game_state.ball.y += self.game_state.ball.velocityY
-#
-#        
-#        #
-#
-#        # Check if the ball is out of bounds to score
-#        if self.score():
-#            if self.game_state.player1.score == 7 or self.game_state.player2.score == 7:
-#                winner = 1 if self.game_state.player1.score == 7 else 2
-#                await self.update_game_stats(winner)
-#                position_updated = {
-#                    'Player1': self.game_state.player1.y,
-#                    'Player2': self.game_state.player2.y,
-#                    'ballX': self.game_state.ball.x,
-#                    'ballY': self.game_state.ball.y,
-#                    'Score1': self.game_state.player1.score,
-#                    'Score2': self.game_state.player2.score
-#                }
-#                self.channel_layer.group_send(
-#                self.group_name,
-#                {
-#                    'type': 'send_position',
-#                    'position': position_updated
-#                }
-#                )
-#
-#                #Ends Game
-#                self.running = False
-#                self.ended = True
-#                #self.disconnect("game over") # TODOs: when you restart the game it gets a bit weird so it has to be improved
-#            # Reset the ball after scoring
-#            self.game_state.ball = Ball(board=self.game_state.board)
-#        
-#    
-## TENEMOS QUE ADAPATAR EL GAME_LOOP A LA LOGICA DEL CONSUMER DE LOS TORNEOS!! AHORA LO GESTIONA EL 4 CONSUMER. VA A HABER 2 GAMELOOPS AL MISMO TIEMPO,
-## LOS GESTIONA TODOS EL 4 O UNO EL  Y OTRO EL 2? !!! HAY VARIABLES DE LAS FUNCIONES AÑADIDAS DESPUES DE SELF.DISCONNECT QUE NO TIENE ESTE CONSUMER!!ADAPTAR!!
-## FALTA INICIALIZAR LOS GAME_STATES(BASADOS EN EL GROUP_NAME) Y TENERLOS EN CUENTA PARA ELIMINARLOS CUANDO NO HAGAN FALTA. AL HABER 3 GAME_STATES,
-## SE PODRIA CREAR UN DICCIONARIO EN SELF QUE TENGA MATCH1_GAMESTATE, MATCH2_GAMESTATE Y FINAL_GAMESTATE
-#    async def game_loop(self):
-#        print("GAME LOOP CALLED", flush=True)
-#        self.running = True
-#        while self.running:
-#            await self.move_ball()
-#            self.move_players()
-#            position_updated = {
-#                    'Player1': self.game_state.player1.y,
-#                    'Player2': self.game_state.player2.y,
-#                    'ballX': self.game_state.ball.x,
-#                    'ballY': self.game_state.ball.y,
-#                    'Score1': self.game_state.player1.score,
-#                    'Score2': self.game_state.player2.score
-#                }
-#
-#            await self.channel_layer.group_send(
-#                self.group_name,
-#                {
-#                    'type': 'send_position',
-#                    'position': position_updated
-#                }
-#            )
-#
-#            await asyncio.sleep(0.033)  # 0.016 -> Approx 60 FPS
-#            if self.ended:
-#                await asyncio.sleep(1)
-#                await self.close()
-#                await self.player_2.close()
-#
-#
-#    async def send_position(self, event):
-#        try:
-#            position = event['position']
-#            if self.scope["type"] == "websocket" and self.channel_layer is not None:
-#                await self.send(text_data=json.dumps(position))
-#            else:
-#                print("Attempted to send message, but WebSocket is closed.")
-#        except Exception as e:
-#            logger.error(f"Error sending position: {e}")
 
-# ESTA FUNCION NO TIENE SENTIDO POR QUESE GESTIONAN VARIAS PARTIDAS, NO HAY SELF.PLAYER_NUMBER, HAY QUE DETERMINAR QUIEN MANDO EL MENSAJE DE OTRA MANERA
     async def receive(self, text_data):
         data = json.loads(text_data)
         if data['type'] == 'end_tournament':
-            winner_id = data['winner_id']
+            winner_id = int(data['winner_id'])
             await self.end_tournament(winner_id)
-        #print("!!!!!RECIBIDO!!!", flush=True)
-#        try:
-#            text_data_json = json.loads(text_data)
-#            key = text_data_json['position']["key"]
-#            action = text_data_json['position']["action"]
-#
-#            # Determinar qué jugador envió la actualización
-#            print(f"\033[91mPlayer number : {self.player_number}\033[0m", flush=True)
-#            print(f"\033[91mKey : {key}\033[0m", flush=True)
-#            print(f"\033[91mAction : {action}\033[0m", flush=True)
-#            player = self.game_state.player1 if self.player_number == 1 else self.game_state.player2
-#        
-#            if action == "move":
-#                if key == "ArrowUp":
-#                    player.velocityY = -10
-#                elif key == "ArrowDown":
-#                    player.velocityY = 10
-#            else:
-#                player.velocityY = 0
-#
-#            position_updated = {
-#                    'Player1': self.game_state.player1.y,
-#                    'Player2': self.game_state.player2.y,
-#                    'ballX': self.game_state.ball.x,
-#                    'ballY': self.game_state.ball.y,
-#                    'Score1': self.game_state.player1.score,
-#                    'Score2': self.game_state.player2.score
-#                }
-#            await self.channel_layer.group_send(
-#            self.group_name,
-#            {
-#                'type': 'send_position',
-#                'position': position_updated
-#            }
-#        )
-#        except json.JSONDecodeError as e:
-#            logger.error("Failed to parse JSON: %s", e)
-#        except Exception as e:
-#            logger.error("Unexpected error: %s", e)
