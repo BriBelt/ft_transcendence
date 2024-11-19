@@ -184,7 +184,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 
         print(f"!!!!!!Jugador {self.player_number} se unió a la sala: {self.group_name}!!!!!!", flush=True)
 
-        if player_number == 1:# and not hasattr(self.game_state, 'game_loop_started'):
+        if player_number == 1 and not self.game_state.game_loop_started:# and not hasattr(self.game_state, 'game_loop_started'):
             if not self.game_state.board:
                 print("INIZIALICING GAME OBJECTS", flush=True)
                 self.game_state.board = Board(width=900, height=500)
