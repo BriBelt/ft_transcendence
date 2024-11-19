@@ -59,6 +59,7 @@ function initializeTournamentGame(tournamentName){
     player1.velocityY = 0;
     player2.velocityY = 0;
     userid = localStorage.getItem('userid');
+    console.log(`User ID from localStorage: ${userid}`);
     //const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
     
     // TODO: generate id only when a new game is created, if not, select the id
@@ -66,13 +67,13 @@ function initializeTournamentGame(tournamentName){
     //const socket = new WebSocket('ws://' + window.location.host + '/ws/pong-socket/' + id + '/');
     isSocketOpen = false;
     socket.onopen = function(event) {
-        console.log("WebSocket is open now.");
+        console.log("Tournament webSocket is open now.");
 //        console.log(id);
         isSocketOpen = true;
     };
     
     socket.onclose = function(event) {
-        console.log("WebSocket is closed now.");
+        console.log("Tournament webSocket is closed now.");
     };
     
     socket.onerror = function(error) {
@@ -102,17 +103,23 @@ function initializeTournamentGame(tournamentName){
         if (data.message) {
             let matchDetails;
             if (data.message.includes("Final match between")) {
-                isFinalMatch = true;  // Marcar como partida final
+                isFinalMatch = true;
                 matchDetails = data.message.match(/Final match between (\d+) and (\d+) is starting!/);
+                console.log('FINAL MATCH SHOULD BE ABOUT TO BEGIN!!!!!!!!!!!!!!')
+                if (gamesocket) {
+                    gamesocket.close();
+                    isGameSocketOpen = false;
+                }
             } else if (data.message.includes("Match between")) {
-                isFinalMatch = false;  // No es la final
+                isFinalMatch = false;
                 matchDetails = data.message.match(/Match between (\d+) and (\d+) is starting!/);
             }
-        
+            console.log('MATCH DETAILS: ' + matchDetails);
             if (matchDetails) {
                 player1Id = matchDetails[1];
                 player2Id = matchDetails[2];
-            
+
+                console.log(`Player IDs for final match: player1Id = ${player1Id}, player2Id = ${player2Id}`);
                 // Identificar al oponente para crear el `gamesocket`
                 const opponentId = (player1Id === userid) ? player2Id : player1Id;
                 const gamesocketUrl = `wss://${window.location.host}/ws/pong-socket/${userid}/${opponentId}/`;

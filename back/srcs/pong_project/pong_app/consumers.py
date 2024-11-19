@@ -77,6 +77,13 @@ class PongConsumer(AsyncWebsocketConsumer):
                 if int(self.user_id) == int(ids[2]) or int(self.user_id) == int(ids[3]):
                     self.group_name = key
                     print(f"Game found: {self.group_name}", flush=True)
+        if len(tournament_ids) > 0:
+            for key in tourname_ids.keys():
+                print(f"KEY: {key}", flush=True)
+                ids = key.split('_')
+                if int(self.user_id) == int(ids[0]) or int(self.user_id) == int(ids[1]):
+                    self.group_name = key
+                    print(f"Game found: {self.group_name}", flush=True)
         print(f"SUPER DEBUG: {self.user_id}, {active_players}, {user_connected} and {self.group_name}", flush=True)
         if (int(self.user_id) in active_players and user_connected) or self.group_name:
             print(f"Reconnecting player {self.user_id} to existing game: {self.group_name}", flush=True)
@@ -479,17 +486,22 @@ class TournamentConsumer(AsyncWebsocketConsumer):
         self.final_started = False
         print(f"\033[96muUSER: {self.user_id} , TOURNAMENT_GAME: {self.tournament_name} CONNECTED\033[0m", flush=True)
 
+        if len(tournament_ids) > 0:
+            for key in tournament_ids.keys():
+                print(f"KEY: {key}", flush=True)
+                ids = key.split('_')
+                if int(self.user_id) == int(ids[0]) or int(self.user_id) == int(ids[1]):
+                    self.group_name = key
         # Inicializar el torneo si no existe en el registro
         if self.tournament_name not in tournament_records:
             tournament_records[self.tournament_name] = []
 
         # Verificar si el usuario ya está en el torneo
-        if self.user_id in [player.user_id for player in tournament_records[self.tournament_name]]:
-            await self.close()
-            return
+        if self.user_id not in [player.user_id for player in tournament_records[self.tournament_name]]:
+            
+            # Añadir el consumidor actual al registro del torneo
+            tournament_records[self.tournament_name].append(self)
 
-        # Añadir el consumidor actual al registro del torneo
-        tournament_records[self.tournament_name].append(self)
 
         # Aceptar la conexión WebSocket
         await self.accept()

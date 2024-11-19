@@ -563,6 +563,11 @@ def join_tournament_checker(request):
 		except CustomUser.DoesNotExist:
 			return JsonResponse({'status': 'error', 'message': 'User not found.'}, status=404)
 
+		if user.username in tournament.participants:
+			tournament.participants.pop(user.username)
+			tournament.save()
+		print(f'PARTS: {tournament.participants}', flush=True)
+
 		if len(tournament.participants) == 4:
 			return JsonResponse({'status': 'error', 'message': "Tournament is full!"}, status=403, safe=False)
 
