@@ -51,9 +51,7 @@ async function loadProfileSettings()
 	}
 	else
 	{
-		console.error('Error:', error);
-		alert('You are not authorized to view this page. Please log in.');
-		navigateTo('/login/');
+		notAuthorized();
 	}
 }
 
@@ -98,9 +96,8 @@ function updateUserInfo()
 	}
 	else
 	{
-        alert('You are not authorized to view this page. Please log in.');
-        navigateTo('/login/');
-    }
+		notAuthorized();
+    	}
 }
 
 async function sendUserData(userDict, token)
@@ -136,11 +133,11 @@ async function sendUserData(userDict, token)
 		    }
 		}
 	}
-    catch(error)
+	catch(error)
 	{
-        console.log('Inside the error');
-        notAuthorized(error);
-    }
+		console.log('Inside the error');
+		notAuthorized(error);
+	}
 }
 
 window.loadProfileSettings = loadProfileSettings;

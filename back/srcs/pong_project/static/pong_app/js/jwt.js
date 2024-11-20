@@ -48,22 +48,26 @@ async function checkRefresh(data, route, token)
 }
 function notAuthorized(error)
 {
-	if(error === "expired")
+	if (error === "expired")
+	{
+		console.log('CATCHED ERROR FROM CHECKREFRESHTOKEN!');
+		app.innerHTML = loadNotAuthorizedHTML();
+		setTimeout(() => 
 		{
-			console.log('CATCHED ERROR FROM CHECKREFRESHTOKEN!');
-			app.innerHTML = loadNotAuthorizedHTML();
-			setTimeout(() => 
-			{
-				localStorage.removeItem('access');
-				navigateTo('/login/');
-			}, 5000);
-		}
-		else
+			localStorage.removeItem('access');
+			navigateTo('/');
+		}, 5000);
+	}
+	else
+	{
+		alert('You are not authorized to view this page. Please log in.');
+		app.innerHTML = loadNotAuthorizedHTML();
+		setTimeout(() => 
 		{
-			console.error('Error:', error);
-			alert('You are not authorized to view this page. Please log in.');
-			navigateTo('/login/');
-		}
+			localStorage.removeItem('access');
+			navigateTo('/');
+		}, 5000);
+	}
 }
 
 window.checkRefreshToken = checkRefreshToken;

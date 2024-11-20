@@ -329,9 +329,7 @@ async function initializeLocalGame()
 	}
 	else
 	{
-		console.error('Error:', error);
-		alert('You are not authorized to view this page. Please log in.');
-		navigateTo('/login/');
+		notAuthorized(error);
 	}
 }
 

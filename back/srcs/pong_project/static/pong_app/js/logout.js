@@ -97,7 +97,7 @@ async function logoutUser()
                     if (localStorage.getItem('access'))
                     {
                         localStorage.removeItem('access');
-                        navigateTo('/login/');
+                        navigateTo('/');
                     }
     		    }
     	    }
@@ -108,6 +108,9 @@ async function logoutUser()
             notAuthorized(error);
         }
     }
+    else
+    	notAuthorized();
+
 }
 
 window.updateLogoutButtonVisibility = updateLogoutButtonVisibility

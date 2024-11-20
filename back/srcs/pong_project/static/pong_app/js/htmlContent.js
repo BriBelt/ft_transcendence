@@ -3,7 +3,7 @@
 function homeHTML(data)
 {
 	return(`
-	<div class="jumbotron text-center bg-dark text-white mt-4">
+	<div class="jumbotron text-center" style="background-color: #745c94;">
 		<h1 class="display-4">Welcome to WebPong ${data.username}!</h1>
 		<p class="lead">The best way to connect with your friends, personalize your profile and enjoy Pong games.</p>
 		<hr class="my-4">
@@ -30,12 +30,12 @@ function profileHTML(data, avatarUrl)
 //	The username is not being picked up. Both bottom buttons are not being centered
 	return(`
 		<div id="profile-settings" class="container mt-4" style="font-family: 'Courier New', Courier, Monospace;">
-			<div class="card mx-auto" style="max-width: 500px; background-color: purple; border-radius: 20px;">
+			<div class="card mx-auto" style="max-width: 500px; background-color: #745c94; border-radius: 20px;">
 				<div class="card-body text-center">
-					<img src="${avatarUrl}" alt="Profile Picture" class="img-thumbnail mb-3" style="background-color: black; border-radius: 20px;">
+					<img src="${avatarUrl}" alt="Profile Picture" class="img-thumbnail mb-3" style="background-color: #362c45; border-radius: 20px;">
 					<h3 id="username" style="padding: 10px 10px;">${data.username}</h3>
 					<div class="container" style="box-sizing: border-box; width: 100%; padding: 0; margin: 0;">
-						<div class="container" style="width: 40%; background-color: white; border-radius: 20px; margin-top: 20px;">
+						<div class="container" style="width: 40%; background-color: #C3B0DB; color: #362c45; border-radius: 20px; margin-top: 20px;">
 							<ul class="list-group list-group-flush mb-3">
 								<b>Games</b>
 								<li class="list-group item">
@@ -68,9 +68,9 @@ function profileSettingsHTML(data, avatarUrl)
 {
 	return(`
 		<div id="profile-settings" class="container mt-4" style="font-family: 'Courier New', Courier, Monospace;">
-			<div class="card mx-auto" style="max-width: 500px; background-color: purple;">
+			<div class="card mx-auto" style="max-width: 500px; background-color: #745c94;">
 				<div class="card-body text-center">
-					<img src="${avatarUrl}" alt="Profile Picture" class="img-thumbnail" style="background-color: black; width: 70%; height: 50%;">
+					<img src="${avatarUrl}" alt="Profile Picture" class="img-thumbnail" style="background-color: #362c45; width: 70%; height: 50%;">
 					<form id="profile-settings" style="padding: 30px 20px;">
 						<div class="form-group row" style="justify-content: center;">
 							<label for="username" class="col-form-label">Username</label>

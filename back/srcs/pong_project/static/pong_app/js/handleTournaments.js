@@ -36,7 +36,7 @@ async function createTournament(tournamentName)
 						break;
 					case 'User not found.':
 						alert('Your account was not found. Please log in again.');
-						navigateTo('/login/');
+						navigateTo('/');
 						break;
 					case 'Invalid Tournament name.':
 						alert('Please enter a tournament name(between 2 and 15 characters).');
@@ -56,9 +56,7 @@ async function createTournament(tournamentName)
 	}
 	else
 	{
-		console.error('Error:', error);
-		alert('You are not authorized to view this page. Please log in.');
-		navigateTo('/login/');
+		notAuthorized();
 	}
 }
 
@@ -119,9 +117,7 @@ async function joinTournament(tournamentName)
 	}
 	else
 	{
-		console.error('Error:', error);
-		alert('You are not authorized to view this page. Please log in.');
-		navigateTo('/login/');
+		notAuthorized();
 	}
 }
 

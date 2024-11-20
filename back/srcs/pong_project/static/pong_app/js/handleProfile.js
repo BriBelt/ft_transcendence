@@ -75,7 +75,6 @@ async function loadProfile()
 	}
 	else
 	{
-		alert('You are not authorized to view this page. Please log in.');
-		navigateTo('/login/');
+		notAuthorized();
 	}
 }

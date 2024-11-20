@@ -179,9 +179,7 @@ async function loadPlayGame(id)
 	}
 	else
 	{
-		console.error('Error:', error);
-		alert('You are not authorized to view this page. Please log in.');
-		navigateTo('/login/');
+		notAuthorized(error);
 	}
 }
 
@@ -189,7 +187,7 @@ function loadGameCanvas()
 {
 	app.innerHTML = `
 	    <!-- Add game play content here -->
-	    <canvas id="board" width="900" height="500"></canvas>
+	    <canvas id="board" width="900" height="500" style="outline: 9px solid-white;"></canvas>
 	`;
 }
 async function loadHome()
@@ -261,8 +259,7 @@ async function loadHome()
 	}
 	else
 	{
-		alert('You are not authorized to view this page. Please log in.');
-		navigateTo('/login/');
+		notAuthorized(error);
 	}
 }
 
@@ -327,8 +324,7 @@ async function loadTournamentSection()
 	}
 	else
 	{
-		alert('You are not authorized to view this page. Please log in.');
-		navigateTo('/login/');
+		notAuthorized();
 	}
 }
 
@@ -372,8 +368,7 @@ async function loadNotFound()
 	}
 	else
 	{
-		alert('You are not authorized to view this page. Please log in.');
-		navigateTo('/login/');
+		notAuthorized();
 	}
 
 }
