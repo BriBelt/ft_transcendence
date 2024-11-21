@@ -13,6 +13,7 @@ class Player{
         this.width = board.width / 50;
         this.height = this.width * 5;
         this.velocityY = 0;
+		this.score = 0;
         if (number == 1){
             this.x = 10;
             this.y = (board.height / 2) - (this.height / 2);
@@ -166,8 +167,8 @@ async function startOnlineGame()
 		ball.x = data['ballX'];
 		ball.y = data['ballY'];
 
-		score1 = data['Score1']
-		score2 = data['Score2']
+		player1.score = data['Score1']
+		player2.score = data['Score2']
 		update();
 	}
 
