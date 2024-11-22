@@ -20,12 +20,14 @@ def ballOutOfBounds(yPosition, ball, board):
     return yPosition < 0 or yPosition + ball > board
 
 waiting_queue = []
+tournament_queue = {}
+tournament_queue_ids = {}
+tournament_lost = {} 
 waiting_ids = []
 active_players = []
 game_states = {}
 running_games = {}
 tournament_records = {}
-tournament_ids = {}
 connected_users = {}
 
 # En un archivo nuevo, por ejemplo, game_state.py
@@ -53,7 +55,7 @@ class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
 
         self.user_id = int(self.scope['url_route']['kwargs']['userid'])
-        self.user_id2 = int(self.scope['url_route']['kwargs']['userid2'])
+        self.tournament_name = self.scope['url_route']['kwargs']['tournament']
         user_connected = connected_users.get(self.user_id)
         self.group_name = None
         self.player_1 = None
@@ -61,27 +63,29 @@ class PongConsumer(AsyncWebsocketConsumer):
         self.player_number = None
         self.game_state = None
         self.ended = False
-        self.is_tournament_game = False
+        self.is_tournament_game = True if self.tournament_name else False
         min_id = 0
         max_id = 0
         check = 0
 
-        if self.user_id == self.user_id2 or int(self.user_id) in waiting_ids:
+        if int(self.user_id) in waiting_ids:
             print("User already logged in", flush=True)
             await self.close()
             return
+        if self.is_tournament_game and self.tournament_name in tournament_queue_ids and self.user_id in tournament_queue_ids[self.tournament_name]:
+            print("User already logged in", flush=True)
+            await self.close()
+            return
+        if self.is_tournament_game and self.tournament_name in tournament_lost and self.user_id in tournament_lost[self.tournament_name]:
+            print("User already disqualified from the tournament", flush=True)
+            await self.close()
+            return
+        print(f"Users that lost: {tournament_lost}", flush=True)
         if len(game_states) > 0:
             for key in game_states.keys():
                 print(f"KEY: {key}", flush=True)
                 ids = key.split('_')
                 if int(self.user_id) == int(ids[2]) or int(self.user_id) == int(ids[3]):
-                    self.group_name = key
-                    print(f"Game found: {self.group_name}", flush=True)
-        if len(tournament_ids) > 0:
-            for key in tourname_ids.keys():
-                print(f"KEY: {key}", flush=True)
-                ids = key.split('_')
-                if int(self.user_id) == int(ids[0]) or int(self.user_id) == int(ids[1]):
                     self.group_name = key
                     print(f"Game found: {self.group_name}", flush=True)
         print(f"SUPER DEBUG: {self.user_id}, {active_players}, {user_connected} and {self.group_name}", flush=True)
@@ -107,7 +111,9 @@ class PongConsumer(AsyncWebsocketConsumer):
                     'position': position_updated
                 }
             )
-            if game_state.consumer_1 == None:
+            if game_state.consumer_1 == None and game_state.consumer_2 == None:
+                return
+            elif game_state.consumer_1 == None:
                 self.player_1 = self
                 self.player_2 = game_state.consumer_2
                 game_state.consumer_1 = self
@@ -126,7 +132,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                 await self.player_2.start_game(self.group_name, 2)
             #check = 1
             return
-        elif self.user_id2 == 0:
+        elif self.is_tournament_game == False:
             active_players.append(int(self.user_id))
             waiting_queue.append(self)
             waiting_ids.append(int(self.user_id))
@@ -136,7 +142,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 
             await self.accept()
             # if there are sufficient players start if not wait
-            if len(waiting_queue) >= 2:
+            if len(waiting_queue) == 2:
                     
                 self.player_1 = waiting_queue.pop(0)
                 self.player_2 = waiting_queue.pop(0)
@@ -148,20 +154,29 @@ class PongConsumer(AsyncWebsocketConsumer):
                 max_id = self.player_2.user_id
                 check = 1
         else:
-            self.is_tournament_game = True
-            min_id = self.user_id if self.user_id < self.user_id2 else self.user_id2
-            max_id = self.user_id if self.user_id > self.user_id2 else self.user_id2
-            if f"{min_id}+{max_id}" not in tournament_ids:
-                tournament_ids[f"{min_id}+{max_id}"] = []
-            print(f"TOURNMENT IDS: {tournament_ids}", flush=True)
-            tournament_ids[f"{min_id}+{max_id}"].append(self)
+            active_players.append(int(self.user_id))
+            if not self.tournament_name in tournament_queue:
+                tournament_queue[self.tournament_name] = []
+            tournament_queue[self.tournament_name].append(self)
+            if not self.tournament_name in tournament_queue_ids:
+                tournament_queue_ids[self.tournament_name] = []
+            tournament_queue_ids[self.tournament_name].append(int(self.user_id))
+            print(f'!!!!!! queue length = {len(tournament_queue[self.tournament_name])}', flush=True)
+            self.user = await CustomUser.objects.aget(id=self.user_id)
+            #self.user = CustomUser.objects.get(id=self.user_id)
+
             await self.accept()
-            if len(tournament_ids[f"{min_id}+{max_id}"]) >= 2:
-                print("INSIDE LEN >= 2!!!!!!!!!!!!!!!!!!!", flush=True)
-                self.player_1 = tournament_ids[f"{min_id}+{max_id}"].pop(0)
-                self.player_2 = tournament_ids[f"{min_id}+{max_id}"].pop(0)
+            # if there are sufficient players start if not wait
+            if len(tournament_queue[self.tournament_name]) == 2:
+                    
+                self.player_1 = tournament_queue[self.tournament_name].pop(0)
+                self.player_2 = tournament_queue[self.tournament_name].pop(0)
+                tournament_queue_ids[self.tournament_name].pop(0)
+                tournament_queue_ids[self.tournament_name].pop(0)
                 self.player_1.player_1 = self.player_1
                 self.player_1.player_2 = self.player_2
+                min_id = self.player_1.user_id
+                max_id = self.player_2.user_id
                 check = 1
         connected_users[self.user_id] = self.group_name
         if check == 1:
@@ -320,9 +335,9 @@ class PongConsumer(AsyncWebsocketConsumer):
 
             await asyncio.sleep(0.033)  # 0.016 -> Approx 60 FPS
             if self.ended:
-                if self.is_tournament_game:
+                if self.is_tournament_game and self.tournament_name in tournament_lost and len(tournament_lost[self.tournament_name]) == 3:
                     winner_id = self.game_state.player1.user_id if self.game_state.player1.score >= 7 else self.game_state.player2.user_id
-                    await self.notify_tournament_consumer(winner_id)
+                    await self.update_tournament_stats(winner_id)
                 await asyncio.sleep(1)
                 await self.close()
                 await self.player_2.close()
@@ -353,7 +368,8 @@ class PongConsumer(AsyncWebsocketConsumer):
                 print("GameState deleted", flush=True)
                 active_players.remove(self.user_id)
                 connected_users.pop(self.user_id, None)
-                game_states.pop(self.group_name, None)
+                if self.group_name in game_states:
+                    game_states.pop(self.group_name, None)
         
         # Close the WebSocket connection
         await super().disconnect(close_code)
@@ -427,8 +443,17 @@ class PongConsumer(AsyncWebsocketConsumer):
         player1_stats['total'] = player1_stats.get('total', 0) + 1
         if winner == 1:
             player1_stats['wins'] = player1_stats.get('wins', 0) + 1
+            if self.is_tournament_game:
+                if not self.tournament_name in tournament_lost:
+                    tournament_lost[self.tournament_name] = []
+                tournament_lost[self.tournament_name].append(self.game_state.player2.user_id)
+                await self.send(text_data=json.dumps({'message': f'Winner {self.game_state.player1.user_id}'}))
         else:
             player1_stats['losses'] = player1_stats.get('losses', 0) + 1
+            if not self.tournament_name in tournament_lost:
+                tournament_lost[self.tournament_name] = []
+            tournament_lost[self.tournament_name].append(self.game_state.player1.user_id)
+            await self.send(text_data=json.dumps({'message': f'Winner {self.game_state.player2.user_id}'}))
         player1_user.game_stats = player1_stats
         await sync_to_async(player1_user.save)()
 
@@ -441,40 +466,19 @@ class PongConsumer(AsyncWebsocketConsumer):
         player2_user.game_stats = player2_stats
         await sync_to_async(player2_user.save)()
 
-    async def notify_tournament_consumer(self, winner_id):
-        """Envia mensaje al TournamentConsumer cuando termina una partida."""
+    async def update_tournament_stats(self, winner):
 
-        # Buscar el nombre del torneo en tournament_records
-        tournament_name = None
-        for name, players in tournament_records.items():
-            if any(player.user_id == self.user_id or player.user_id == self.user_id2 for player in players):
-                tournament_name = name
-                print(f"\033[96mTOURNAMENT NAME FOUND({tournament_name}),about to send to TC\033[0m", flush=True)
-                break
-        
-        if not tournament_name:
-            print("No se encontró el torneo correspondiente en tournament_records")
-            return
+        print(f"\033[96mUPDATE_TOURNAMENT_STATS CALLED, winner : {winner}\033[0m", flush=True)
+        player_user = await sync_to_async(CustomUser.objects.get)(id=self.user_id)
+        player_stats = player_user.tournament_stats
+        player_stats['total'] = player_stats.get('total', 0) + 1
 
-        # Definir el grupo de torneo usando el nombre del torneo encontrado
-        tournament_group = f"tournament_{tournament_name}"
-        
-        # Obtener los IDs de los jugadores
-        min_id = min(self.game_state.player1.user_id, self.game_state.player2.user_id)
-        max_id = max(self.game_state.player1.user_id, self.game_state.player2.user_id)
+        if winner:
+            player_stats['wins'] = player_stats.get('wins', 0) + 1
 
-        # Enviar el mensaje de que la partida ha finalizado
-        await self.channel_layer.group_send(
-            tournament_group,
-            {
-                'type': 'match_finished',
-                'match_info': {
-                    'winner_id': winner_id,
-                    'loser_id': self.game_state.player2.user_id if winner_id == self.game_state.player1.user_id else self.game_state.player1.user_id,
-                    'match_players': [min_id, max_id]
-                }
-            }
-        )
+        player_user._stats = player_stats
+        await sync_to_async(player_user.save)()
+
 
 
 class TournamentConsumer(AsyncWebsocketConsumer):

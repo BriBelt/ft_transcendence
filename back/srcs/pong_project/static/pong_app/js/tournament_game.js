@@ -83,74 +83,26 @@ function initializeTournamentGame(tournamentName){
     let player1Id;
     let player2Id;
     socket.onmessage = function(event) {
-//        const data = event.data;
-//        console.log("received: ", data);
-//        const regex = /Match between (\d+) and (\d+) is starting!/;
-//        const match = data.match(regex);
-//
-//        // Check if the match was successful
-//        if (match) {
-//            player1Id = match[1];
-//            player2Id = match[2];// Abre el `gamesocket` basado en los IDs de los jugadores
-//            const opponentId = (player1Id === userid) ? player2Id : player1Id;
-//            const gamesocketUrl = `wss://${window.location.host}/ws/pong-socket/${userid}/${opponentId}/`;
-//
-//            console.log("Creando gamesocket con URL:", gamesocketUrl);
-//            createGameSocket(gamesocketUrl);
 
         const data = JSON.parse(event.data);
-            
-        if (data.message) {
-            let matchDetails;
-            if (data.message.includes("Final match between")) {
-                isFinalMatch = true;
-                matchDetails = data.message.match(/Final match between (\d+) and (\d+) is starting!/);
-                console.log('FINAL MATCH SHOULD BE ABOUT TO BEGIN!!!!!!!!!!!!!!')
-                if (gamesocket) {
-                    gamesocket.close();
-                    isGameSocketOpen = false;
+
+        console.log(data);
+
+        if (data.message){
+            if (data.message.includes("Winner")){
+                winnerDetails = data.message.match(/Winner (\d+)/);
+                const winnerId = winnerDetails ? parseInt(winnerDetails[1], 10) : null;
+                if (score1 === 7) displayWinnerBanner("Player 1");
+                if (score2 === 7) displayWinnerBanner("Player 2");
+                if (parseInt(userid, 10) === winnerId){
+                    socket.close();
+                    isSocketOpen = false;
+                    console.log("Preparando partida final...");
+                    initializeTournamentGame(tournamentName);
                 }
-            } else if (data.message.includes("Match between")) {
-                isFinalMatch = false;
-                matchDetails = data.message.match(/Match between (\d+) and (\d+) is starting!/);
             }
-            console.log('MATCH DETAILS: ' + matchDetails);
-            if (matchDetails) {
-                player1Id = matchDetails[1];
-                player2Id = matchDetails[2];
-
-                console.log(`Player IDs for final match: player1Id = ${player1Id}, player2Id = ${player2Id}`);
-                // Identificar al oponente para crear el `gamesocket`
-                const opponentId = (player1Id === userid) ? player2Id : player1Id;
-                const gamesocketUrl = `wss://${window.location.host}/ws/pong-socket/${userid}/${opponentId}/`;
-                console.log("Creando gamesocket con URL:", gamesocketUrl);
-                createGameSocket(gamesocketUrl);
-        };
-
         }
-    };
-
-    function createGameSocket(url) {
-        gamesocket = new WebSocket(url);
-
-        gamesocket.onopen = function () {
-            console.log("GameWebSocket abierto");
-            isGameSocketOpen = true;
-        };
-
-        gamesocket.onclose = function () {
-            console.log("GameWebSocket cerrado");
-            isGameSocketOpen = false;
-        };
-
-        gamesocket.onerror = function (error) {
-            console.error("Error en GameWebSocket:", error);
-        };
-
-        gamesocket.onmessage = function (event) {
-            //console.log("Mensaje recibido en gamesocket:", event.data);
-            const data = JSON.parse(event.data);
-
+        else{
             // Actualiza posiciones y puntajes
             player1.y = data['Player1'];
             player2.y = data['Player2'];
@@ -159,8 +111,41 @@ function initializeTournamentGame(tournamentName){
             score1 = data['Score1'];
             score2 = data['Score2'];
             update();
+        }
+
+
+//        const data = JSON.parse(event.data);
+//            
+//        if (data.message) {
+//            let matchDetails;
+//            if (data.message.includes("Final match between")) {
+//                isFinalMatch = true;
+//                matchDetails = data.message.match(/Final match between (\d+) and (\d+) is starting!/);
+//                console.log('FINAL MATCH SHOULD BE ABOUT TO BEGIN!!!!!!!!!!!!!!')
+//                if (gamesocket) {
+//                    gamesocket.close();
+//                    isGameSocketOpen = false;
+//                }
+//            } else if (data.message.includes("Match between")) {
+//                isFinalMatch = false;
+//                matchDetails = data.message.match(/Match between (\d+) and (\d+) is starting!/);
+//            }
+//            console.log('MATCH DETAILS: ' + matchDetails);
+//            if (matchDetails) {
+//                player1Id = matchDetails[1];
+//                player2Id = matchDetails[2];
+//
+//                console.log(`Player IDs for final match: player1Id = ${player1Id}, player2Id = ${player2Id}`);
+//                // Identificar al oponente para crear el `gamesocket`
+//                const opponentId = (player1Id === userid) ? player2Id : player1Id;
+//                const gamesocketUrl = `wss://${window.location.host}/ws/pong-socket/${userid}/${opponentId}/`;
+//                console.log("Creando gamesocket con URL:", gamesocketUrl);
+//                createGameSocket(gamesocketUrl);
         };
-    }
+
+        //}
+    //};
+
 
     // Funciones de movimiento
     document.removeEventListener("keyup", stopDjango);
@@ -192,8 +177,8 @@ function initializeTournamentGame(tournamentName){
     }
 
     function sendPlayerData(keycode, action){
-        if (gamesocket && isGameSocketOpen){
-            gamesocket.send(JSON.stringify({
+        if (socket && isSocketOpen){
+            socket.send(JSON.stringify({
                 'position': {
                     'key': keycode,// ArrowUp or ArrowDown
                     'action': action//"move" or "stop"
