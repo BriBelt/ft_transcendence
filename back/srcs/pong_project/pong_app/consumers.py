@@ -25,6 +25,8 @@ game_states = {}
 tournament_records = {}
 tournament_ids = {}
 
+consumer_states = {}# Key: user_id, value: atribute states before disconnection, before game is ended
+
 # En un archivo nuevo, por ejemplo, game_state.py
 class GameState:
     def __init__(self, user_id1, user_id2):
@@ -54,15 +56,43 @@ class PongConsumer(AsyncWebsocketConsumer):
         self.game_state = None
         self.ended = False
         self.is_tournament_game = False
+        self.has_reconnected = False
         min_id = 0
         max_id = 0
         check = 0
 
-        if self.user_id in active_players:
-            await self.close()  # Close the WebSocket connection
-            logger.info(f"Player {self.user_id} is already connected. Closing duplicate connection.")
-            return
-        if self.user_id2 == 0:
+        #if self.user_id in active_players:
+        #    await self.close()  # Close the WebSocket connection
+        #    logger.info(f"Player {self.user_id} is already connected. Closing duplicate connection.")
+        #    return
+
+        # Verificar si hay un estado previo
+        if self.user_id in consumer_states:
+            self.has_reconnected = True
+            state = consumer_states.pop(self.user_id)
+            self.group_name = state["group_name"]
+            self.player_number = state["player_number"]
+            self.game_state = state["game_state"]
+            self.is_tournament_game = state["is_tournament_game"]
+
+            # Actualiza las referencias mutuas
+            opponent = state["opponent"]
+            self.player_1 = self if self.player_number == 1 else opponent
+            self.player_2 = self if self.player_number == 2 else opponent
+
+            # Notifica al oponente sobre la nueva referencia
+            if opponent:
+                if opponent.player_1 == self:  # Este jugador es player_1
+                    opponent.player_1 = self
+                elif opponent.player_2 == self:  # Este jugador es player_2
+                    opponent.player_2 = self
+            #self.player_2.game_state = self.player_1.game_state?????
+            await self.accept()
+            await self.player_1.start_game(self.group_name, 1)
+            await self.player_2.start_game(self.group_name, 2)
+            print(f"Jugador {self.user_id} reconectado al grupo {self.group_name}.", flush=True)
+
+        if self.user_id2 == 0 and not self.has_reconnected:
             active_players.add(self.user_id)
             waiting_queue.append(self)
             print(f'!!!!!! queue length = {len(waiting_queue)}', flush=True)
@@ -80,7 +110,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                 min_id = self.player_1.user_id
                 max_id = self.player_2.user_id
                 check = 1
-        else:
+        elif self.user_id2 != 0 and not self.has_reconnected:
             self.is_tournament_game = True
             min_id = self.user_id if self.user_id < self.user_id2 else self.user_id2
             max_id = self.user_id if self.user_id > self.user_id2 else self.user_id2
@@ -96,7 +126,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                 self.player_1.player_1 = self.player_1
                 self.player_1.player_2 = self.player_2
                 check = 1
-        if check == 1:
+        if check == 1 and not self.has_reconnected:
             # Create unique identifier for game
             self.group_name = f'pong_game_{min_id}_{max_id}'
             self.player_1.game_state = GameState(user_id1=min_id, user_id2=max_id)
@@ -121,7 +151,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 
         print(f"!!!!!!Jugador {self.player_number} se unió a la sala: {self.group_name}!!!!!!", flush=True)
 
-        if player_number == 1:# and not hasattr(self.game_state, 'game_loop_started'):
+        if player_number == 1 and not self.has_reconnected:# and not hasattr(self.game_state, 'game_loop_started'):
             print("INIZIALICING GAME OBJECTS", flush=True)
             self.game_state.board = Board(width=900, height=500)
             self.game_state.ball = Ball(board=self.game_state.board)
@@ -129,6 +159,8 @@ class PongConsumer(AsyncWebsocketConsumer):
             self.game_state.player2 = Paddle(number=2, board=self.game_state.board, user_id=self.player_2.user_id)
             
             self.game_state.game_loop_started = True
+            asyncio.create_task(self.game_loop())
+        elif player_number == 1 and self.has_reconnected:
             asyncio.create_task(self.game_loop())
         self.running = True
 
@@ -259,15 +291,28 @@ class PongConsumer(AsyncWebsocketConsumer):
     
     async def disconnect(self, close_code):
         logger.info(f"Disconnected: {close_code}")
-        self.running = False
-        active_players.discard(self.user_id)
-        #self.game_thread.join()  # Wait for the thread to finish before exiting
+        if self.ended:
+            self.running = False
+            active_players.discard(self.user_id)
+            #self.game_thread.join()  # Wait for the thread to finish before exiting
+            if self.group_name in game_states:
+                del game_states[self.group_name]
+            if self.user_id in consumer_states:
+                del consumer_states[self.user_id]
+        else:
+            consumer_states[self.user_id] = {
+                "group_name": self.group_name,
+                "player_number": self.player_number,
+                "game_state": self.game_state,
+                "is_tournament_game": self.is_tournament_game,
+                "opponent": self.player_1 if self.player_2 is self else self.player_2,
+            }
+
         if self.group_name:
             await self.channel_layer.group_discard(
                 self.group_name,
                 self.channel_name
             )
-        
         # Close the WebSocket connection
         await super().disconnect(close_code)
 
