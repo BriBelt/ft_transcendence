@@ -1,4 +1,3 @@
-
 function initializeTournamentGame(tournamentName){
     class Board{
         constructor(width=900, height=500){
@@ -37,7 +36,6 @@ function initializeTournamentGame(tournamentName){
     }
     
     let context;
-    let socket;
     let isSocketOpen = false;
     let isGameSocketOpen = false;
     let gamesocket;
@@ -95,7 +93,7 @@ function initializeTournamentGame(tournamentName){
                 if (score1 === 7) displayWinnerBanner("Player 1");
                 if (score2 === 7) displayWinnerBanner("Player 2");
                 if (parseInt(userid, 10) === winnerId){
-                    socket.close();
+                    //socket.close();
                     isSocketOpen = false;
                     console.log("Preparando partida final...");
                     initializeTournamentGame(tournamentName);

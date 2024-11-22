@@ -55,7 +55,10 @@ class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
 
         self.user_id = int(self.scope['url_route']['kwargs']['userid'])
-        self.tournament_name = self.scope['url_route']['kwargs']['tournament']
+        try:
+            self.tournament_name = self.scope['url_route']['kwargs']['tournament']
+        except:
+            self.tournament_name = None
         user_connected = connected_users.get(self.user_id)
         self.group_name = None
         self.player_1 = None
@@ -63,7 +66,7 @@ class PongConsumer(AsyncWebsocketConsumer):
         self.player_number = None
         self.game_state = None
         self.ended = False
-        self.is_tournament_game = True if self.tournament_name else False
+        self.is_tournament_game = True if self.tournament_name and len(self.tournament_name) > 0 else False
         min_id = 0
         max_id = 0
         check = 0
@@ -95,6 +98,7 @@ class PongConsumer(AsyncWebsocketConsumer):
             await self.channel_layer.group_add(self.group_name, self.channel_name)
             await self.accept()
             game_state = game_states.get(self.group_name)
+            print(f'Game State {game_state}', flush=True)
             if game_state:
                 position_updated = {
                         'Player1': game_state.player1.y,
@@ -104,6 +108,20 @@ class PongConsumer(AsyncWebsocketConsumer):
                         'Score1': game_state.player1.score,
                         'Score2': game_state.player2.score
                     }
+            else:
+                active_players.append(int(self.user_id))
+                waiting_queue.append(self)
+                waiting_ids.append(int(self.user_id))
+                print(f'!!!!!! queue length = {len(waiting_queue)}', flush=True)
+                self.user = await CustomUser.objects.aget(id=self.user_id)
+                #self.user = CustomUser.objects.get(id=self.user_id)
+
+                await self.accept()
+
+                connected_users[self.user_id] = self.group_name
+
+                return
+
             await self.channel_layer.group_send(
                 self.group_name,
                 {
@@ -111,25 +129,25 @@ class PongConsumer(AsyncWebsocketConsumer):
                     'position': position_updated
                 }
             )
-            if game_state.consumer_1 == None and game_state.consumer_2 == None:
-                return
-            elif game_state.consumer_1 == None:
+            # if game_state.consumer_1 == None and game_state.consumer_2 == None:
+            #   return
+            if game_state.consumer_1_id == self.user_id:
                 self.player_1 = self
                 self.player_2 = game_state.consumer_2
                 game_state.consumer_1 = self
                 self.player_number = 1
-            elif game_state.consumer_2 == None:
+                self.player_1.game_state = game_state
+                self.player_2.game_state = self.player_1.game_state
+            elif game_state.consumer_2_id == self.user_id:
                 self.player_1 = game_state.consumer_1
                 self.player_2 = self
                 game_state.consumer_2 = self
                 self.player_number = 2
-                await self.player_1.start_game(self.group_name, 1)
-                await self.player_2.start_game(self.group_name, 2)
-            self.player_1.game_state = game_state
-            self.player_2.game_state = self.player_1.game_state
-            if not game_state.game_loop_started:
-                await self.player_1.start_game(self.group_name, 1)
-                await self.player_2.start_game(self.group_name, 2)
+                self.player_1.game_state = game_state
+                self.player_2.game_state = self.player_1.game_state
+            #if not game_state.game_loop_started:
+            await self.player_1.start_game(self.group_name, 1)
+            await self.player_2.start_game(self.group_name, 2)
             #check = 1
             return
         elif self.is_tournament_game == False:
@@ -186,6 +204,7 @@ class PongConsumer(AsyncWebsocketConsumer):
             #running_games[self.group_name].append(self.player_2)
             self.player_1.game_state = GameState(user_id1=min_id, user_id2=max_id, player_1=self.player_1, player_2=self.player_2)
             self.player_2.game_state = self.player_1.game_state
+
             game_states[self.group_name] = self.player_1.game_state
             # Asign same room for players
             await self.player_1.start_game(self.group_name, 1)
@@ -345,18 +364,30 @@ class PongConsumer(AsyncWebsocketConsumer):
     
     async def disconnect(self, close_code):
         logger.info(f"Disconnected: {close_code}")
-        try:
-            waiting_ids.remove(self.user_id)
-        except:
-            print(f"User_id {self.user_id} not in list {waiting_ids}", flush=True)
-        try:
-            waiting_queue.remove(self)
-        except:
-            print(f"Consumer {self.user_id} not in list {waiting_queue}", flush=True)
+        if self.is_tournament_game:
+            try:
+                tournament_queue_ids[self.tournament_name].remove(self.user_id)
+            except:
+                print(f"User_id {self.user_id} not in list {tournament_queue_ids[self.tournament_name]}", flush=True)
+            try:
+                tournament_queue[self.tournament_name].remove(self)
+            except:
+                print(f"Consumer {self.user_id} not in list {tournament_queue[self.tournament_name]}", flush=True)
+        else:
+            try:
+                waiting_ids.remove(self.user_id)
+            except:
+                print(f"User_id {self.user_id} not in list {waiting_ids}", flush=True)
+            try:
+                waiting_queue.remove(self)
+            except:
+                print(f"Consumer {self.user_id} not in list {waiting_queue}", flush=True)
+        """
         if self.game_state and self.user_id == self.game_state.consumer_1_id:
             self.game_state.consumer_1 = None
         elif self.game_state and self.user_id == self.game_state.consumer_2_id:
             self.game_state.consumer_2 = None
+        """
         # active_players.discard(self.user_id)
         #self.game_thread.join()  # Wait for the thread to finish before exiting
         if self.group_name:
@@ -466,14 +497,14 @@ class PongConsumer(AsyncWebsocketConsumer):
         player2_user.game_stats = player2_stats
         await sync_to_async(player2_user.save)()
 
-    async def update_tournament_stats(self, winner):
+    async def update_tournament_stats(self, winner_id):
 
-        print(f"\033[96mUPDATE_TOURNAMENT_STATS CALLED, winner : {winner}\033[0m", flush=True)
-        player_user = await sync_to_async(CustomUser.objects.get)(id=self.user_id)
+        print(f"\033[96mUPDATE_TOURNAMENT_STATS CALLED, winner_id : {winner_id}\033[0m", flush=True)
+        player_user = await sync_to_async(CustomUser.objects.get)(id=winner_id)
         player_stats = player_user.tournament_stats
         player_stats['total'] = player_stats.get('total', 0) + 1
 
-        if winner:
+        if winner_id:
             player_stats['wins'] = player_stats.get('wins', 0) + 1
 
         player_user._stats = player_stats
