@@ -25,7 +25,8 @@ async function createTournament(tournamentName)
 			if (data.status === 'success')
 			{
                 alert('Tournament created successfully! Wait until it is full.');
-				initializeTournamentGame(tournamentName);
+				localStorage.setItem('tournament_name', tournamentName);
+				navigateTo('/home/game/tournament/t_game/');
 	 		}
 			else
 			{
@@ -74,7 +75,7 @@ async function joinTournament(tournamentName)
 			    tournament: tournamentName,
 			    user_id: uid,
 			};
-			const response = await fetch('/home/game/tournament/join/checker',
+			const response = await fetch('/home/game/tournament/join/checker/',
 			{
 				method: 'POST',
 				headers:
@@ -89,7 +90,8 @@ async function joinTournament(tournamentName)
 			if (data.status === 'success')
 			{
 				alert("Joined a tournament successfully. You will join automatically when it's full.");
-				initializeTournamentGame(tournamentName);
+				localStorage.setItem('tournament_name', tournamentName);
+				navigateTo('/home/game/tournament/t_game/');
 			}
 			else
 			{
@@ -105,7 +107,7 @@ async function joinTournament(tournamentName)
 						alert('You can not join more than 1 tournament at a time.');
 						break;
 					default:
-						await checkRefresh(data, '/home/game/tournament/join/checker', token);
+						await checkRefresh(data, '/home/game/tournament/join/checker/', token);
 				}
 			}
 		}

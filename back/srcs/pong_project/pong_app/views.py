@@ -538,8 +538,11 @@ def create_tournament_view(request):
 def join_tournament_view(request):
 
 	if request.method == 'GET':
+		tournaments_data = []
 		tournaments = Tournament.objects.all()
-		tournaments_data = [{'name': tournament.name, 'players': len(tournament.participants)} for tournament in tournaments]
+		for tournament in tournaments:
+			if tournament.finished == False:
+				tournaments_data.append({'name': tournament.name, 'players': len(tournament.participants)})
 		return JsonResponse({'status': 'success', 'tournaments': tournaments_data}, status=200, safe=False)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
@@ -571,7 +574,9 @@ def join_tournament_checker(request):
 		if len(tournament.participants) == 4:
 			return JsonResponse({'status': 'error', 'message': "Tournament is full!"}, status=403, safe=False)
 
-		if Tournament.objects.filter(participants__contains={user.username: str(user_id)}).exists():
+		#try:
+		active_tournament = Tournament.objects.filter(participants=user.username, finished=False)
+		if active_tournament:
 			return JsonResponse({'status': 'error', 'message': "User can not join another tournament!"}, status=400)
 		tournament.participants[user.username] = user_id
 		tournament.save()
@@ -610,6 +615,13 @@ def gameTournamentOptions(request):
 @csrf_exempt
 @jwt_required
 def notFound(request):
+	if request.method == 'GET':
+		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+@jwt_required
+def gameTournament(request):
 	if request.method == 'GET':
 		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)

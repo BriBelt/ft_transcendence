@@ -33,6 +33,7 @@ class Tournament(models.Model):
 	name = models.CharField(max_length=15)
 	# Key = User chosen tag, value = user instance
 	participants = models.JSONField(default=dict)
+	finished = models.BooleanField(default=False)
 	winner = models.CharField(max_length=12, blank=True, null=True)
 
 	def __str__(self):

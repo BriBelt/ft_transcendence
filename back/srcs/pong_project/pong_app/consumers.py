@@ -483,6 +483,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                 if not self.tournament_name in tournament_lost:
                     tournament_lost[self.tournament_name] = []
                 tournament_lost[self.tournament_name].append(self.game_state.player2.user_id)
+                await self.player_2.send(text_data=json.dumps({'message': 'Tournament is over'}))
                 await self.send(text_data=json.dumps({'message': f'Winner {self.game_state.player1.user_id}'}))
                 await self.player_2.send(text_data=json.dumps({'message': f'Winner {self.game_state.player1.user_id}'}))
         else:
@@ -491,6 +492,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                 if not self.tournament_name in tournament_lost:
                     tournament_lost[self.tournament_name] = []
                 tournament_lost[self.tournament_name].append(self.game_state.player1.user_id)
+                await self.send(text_data=json.dumps({'message': 'Tournament is over'}))
                 await self.send(text_data=json.dumps({'message': f'Winner {self.game_state.player2.user_id}'}))
                 await self.player_2.send(text_data=json.dumps({'message': f'Winner {self.game_state.player2.user_id}'}))
         player1_user.game_stats = player1_stats
@@ -509,6 +511,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 
         print(f"\033[96mUPDATE_TOURNAMENT_STATS CALLED, winner_id : {winner_id}\033[0m", flush=True)
         player_user = await sync_to_async(CustomUser.objects.get)(id=winner_id)
+        current_tournament = await sync_to_async(Tournament.objects.get)(name=self.tournament_name)
+        current_tournament.finished = True
         player_stats = player_user.tournament_stats
         player_stats['total'] = player_stats.get('total', 0) + 1
 
@@ -516,6 +520,9 @@ class PongConsumer(AsyncWebsocketConsumer):
             player_stats['wins'] = player_stats.get('wins', 0) + 1
 
         player_user._stats = player_stats
+        await self.send(text_data=json.dumps({'message': 'Tournament is over'}))
+        await self.player_2.send(text_data=json.dumps({'message': 'Tournament is over'}))
+        await sync_to_async(current_tournament.save)()
         await sync_to_async(player_user.save)()
 
 
