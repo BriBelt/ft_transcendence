@@ -301,7 +301,10 @@ class PongConsumer(AsyncWebsocketConsumer):
         if self.score():
             if self.game_state.player1.score >= 7 or self.game_state.player2.score >= 7:
                 winner = 1 if self.game_state.player1.score >= 7 else 2
-                await self.update_game_stats(winner)
+                if self.is_tournament_game and self.tournament_name in tournament_lost and len(tournament_lost[self.tournament_name]) == 3:
+                    await self.update_tournament_stats(winner_id)
+                else:
+                    await self.update_game_stats(winner)
                 position_updated = {
                     'Player1': self.game_state.player1.y,
                     'Player2': self.game_state.player2.y,
@@ -354,16 +357,18 @@ class PongConsumer(AsyncWebsocketConsumer):
 
             await asyncio.sleep(0.033)  # 0.016 -> Approx 60 FPS
             if self.ended:
+                """
                 if self.is_tournament_game and self.tournament_name in tournament_lost and len(tournament_lost[self.tournament_name]) == 3:
                     winner_id = self.game_state.player1.user_id if self.game_state.player1.score >= 7 else self.game_state.player2.user_id
                     await self.update_tournament_stats(winner_id)
+                """
                 await asyncio.sleep(1)
                 await self.close()
                 await self.player_2.close()
              
     
     async def disconnect(self, close_code):
-        logger.info(f"Disconnected: {close_code}")
+        print(f"Disconnected: {close_code}", flush=True)
         if self.is_tournament_game:
             try:
                 tournament_queue_ids[self.tournament_name].remove(self.user_id)
@@ -479,12 +484,15 @@ class PongConsumer(AsyncWebsocketConsumer):
                     tournament_lost[self.tournament_name] = []
                 tournament_lost[self.tournament_name].append(self.game_state.player2.user_id)
                 await self.send(text_data=json.dumps({'message': f'Winner {self.game_state.player1.user_id}'}))
+                await self.player_2.send(text_data=json.dumps({'message': f'Winner {self.game_state.player1.user_id}'}))
         else:
             player1_stats['losses'] = player1_stats.get('losses', 0) + 1
-            if not self.tournament_name in tournament_lost:
-                tournament_lost[self.tournament_name] = []
-            tournament_lost[self.tournament_name].append(self.game_state.player1.user_id)
-            await self.send(text_data=json.dumps({'message': f'Winner {self.game_state.player2.user_id}'}))
+            if self.is_tournament_game:
+                if not self.tournament_name in tournament_lost:
+                    tournament_lost[self.tournament_name] = []
+                tournament_lost[self.tournament_name].append(self.game_state.player1.user_id)
+                await self.send(text_data=json.dumps({'message': f'Winner {self.game_state.player2.user_id}'}))
+                await self.player_2.send(text_data=json.dumps({'message': f'Winner {self.game_state.player2.user_id}'}))
         player1_user.game_stats = player1_stats
         await sync_to_async(player1_user.save)()
 

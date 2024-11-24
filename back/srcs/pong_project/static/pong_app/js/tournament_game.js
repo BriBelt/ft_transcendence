@@ -36,6 +36,8 @@ function initializeTournamentGame(tournamentName){
     }
     
     let context;
+    let gamesocket = null;
+    let isGameSocketOpen = false;
     let isSocketOpen = false;
     let isFinalMatch = false;
     
@@ -71,9 +73,8 @@ function initializeTournamentGame(tournamentName){
     socket.onclose = function(event) {
         console.log("Tournament webSocket is closed now.");
         isSocketOpen = false;
-        if (isFinalMatch === true){
-            url = 'wss://' + window.location.host + '/ws/pong-socket/' + tournamentName + '/'  + userid + '/';
-            createGameSocket(url);
+        if (isFinalMatch == true){
+            initializeTournamentGame(tournamentName)
         }
     };
     
@@ -93,13 +94,16 @@ function initializeTournamentGame(tournamentName){
             if (data.message.includes("Winner")){
                 winnerDetails = data.message.match(/Winner (\d+)/);
                 const winnerId = winnerDetails ? parseInt(winnerDetails[1], 10) : null;
+                console.log(`Winner ${winnerId}`)
+                console.log(`Player ${userid}`)
+                alert(`Winner ${winnerId}`)
                 if (score1 === 7) displayWinnerBanner("Player 1");
                 if (score2 === 7) displayWinnerBanner("Player 2");
-                if (parseInt(userid, 10) === winnerId){
+                if (parseInt(userid, 10) == parseInt(winnerId, 10)){
                     isFinalMatch = true;
-                    isSocketOpen = false;
+                    //isSocketOpen = false;
                     console.log("Preparando partida final...");
-                    socket.close();
+                    //socket.close();
                 }
             }
         }
@@ -147,38 +151,6 @@ function initializeTournamentGame(tournamentName){
         //}
     //};
 
-    function createGameSocket(url) {
-        socket = new WebSocket(url);
-
-        socket.onopen = function () {
-            console.log("GameWebSocket abierto");
-            isSocketOpen = true;
-        };
-
-        socket.onclose = function () {
-            console.log("GameWebSocket cerrado");
-            isSocketOpen = false;
-        };
-
-        socket.onerror = function (error) {
-            console.error("Error en GameWebSocket:", error);
-        };
-
-        socket.onmessage = function (event) {
-            //console.log("Mensaje recibido en socket:", event.data);
-            const data = JSON.parse(event.data);
-
-            // Actualiza posiciones y puntajes
-            player1.y = data['Player1'];
-            player2.y = data['Player2'];
-            ball.x = data['ballX'];
-            ball.y = data['ballY'];
-            score1 = data['Score1'];
-            score2 = data['Score2'];
-            update();
-        };
-    }
-
 
     // Funciones de movimiento
     document.removeEventListener("keyup", stopDjango);
@@ -218,6 +190,14 @@ function initializeTournamentGame(tournamentName){
                 }
             }));
         }
+        else if (gamesocket && isGameSocketOpen){
+            gamesocket.send(JSON.stringify({
+                'position': {
+                    'key': keycode,// ArrowUp or ArrowDown
+                    'action': action//"move" or "stop"
+                }
+            }));
+        }
     }
 
     function displayWinnerBanner(winner) {
@@ -234,11 +214,19 @@ function initializeTournamentGame(tournamentName){
         const winnerId = (score1 === 7) ? player1Id : player2Id;
         // is its a final, notify TournamentConsumer to save data
         if (isFinalMatch) {
-            socket.send(JSON.stringify({
-                'type': "end_tournament",
-                'winner_id': winnerId
-            }));
-        }
+            if (isSocketOpen){
+                socket.send(JSON.stringify({
+                    'type': "end_tournament",
+                    'winner_id': winnerId
+                }));
+            }
+            else if (isGameSocketOpen){
+                gamesocket.send(JSON.stringify({
+                    'type': "end_tournament",
+                    'winner_id': winnerId
+                }));
+            }
+            }
     }
             
     function update() {
