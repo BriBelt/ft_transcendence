@@ -8,7 +8,7 @@ import logging
 import time
 import threading
 from asgiref.sync import sync_to_async
-from .models import Paddle, Board, Ball, Game, CustomUser
+from .models import Tournament, Paddle, Board, Ball, Game, CustomUser
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)  # or logging.ERROR for fewer logs
@@ -301,10 +301,13 @@ class PongConsumer(AsyncWebsocketConsumer):
         if self.score():
             if self.game_state.player1.score >= 7 or self.game_state.player2.score >= 7:
                 winner = 1 if self.game_state.player1.score >= 7 else 2
+                await self.update_game_stats(winner)
                 if self.is_tournament_game and self.tournament_name in tournament_lost and len(tournament_lost[self.tournament_name]) == 3:
+                    if winner == 1:
+                        winner_id = self.player_1.user_id
+                    else:
+                        winner_id = self.player_2.user_id
                     await self.update_tournament_stats(winner_id)
-                else:
-                    await self.update_game_stats(winner)
                 position_updated = {
                     'Player1': self.game_state.player1.y,
                     'Player2': self.game_state.player2.y,

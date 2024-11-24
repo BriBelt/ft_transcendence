@@ -24,6 +24,8 @@ class CustomUser(AbstractUser):
 	tournament_stats = models.JSONField(default=dict)
 	# self so that can be related witj user model,
 	friends = models.ManyToManyField('self', blank=True)
+	user_in_online_game = models.BooleanField(default=False)
+	user_in_tournament = models.BooleanField(default=False)
 	#id = models.IntegerField()
 
 	def __str__(self):
@@ -74,8 +76,8 @@ class Ball:
 		#self.velocityX = 1
 		#self.velocityY = 2
 		list1 = [1, -1]
-		self.velocityX = 5 * random.choice(list1) # 5
-		self.velocityY = 6 * random.choice(list1) # 6
+		self.velocityX = 10 * random.choice(list1) # 5
+		self.velocityY = 20 * random.choice(list1) # 6
 
 class Paddle:
 	def __init__(self, number, board, user_id) -> None:
