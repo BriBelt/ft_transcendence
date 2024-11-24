@@ -37,8 +37,6 @@ function initializeTournamentGame(tournamentName){
     
     let context;
     let isSocketOpen = false;
-    let isGameSocketOpen = false;
-    let gamesocket;
     let isFinalMatch = false;
     
     // Close existing WebSocket connection if open
@@ -72,6 +70,11 @@ function initializeTournamentGame(tournamentName){
     
     socket.onclose = function(event) {
         console.log("Tournament webSocket is closed now.");
+        isSocketOpen = false;
+        if (isFinalMatch === true){
+            url = 'wss://' + window.location.host + '/ws/pong-socket/' + tournamentName + '/'  + userid + '/';
+            createGameSocket(url);
+        }
     };
     
     socket.onerror = function(error) {
@@ -93,10 +96,10 @@ function initializeTournamentGame(tournamentName){
                 if (score1 === 7) displayWinnerBanner("Player 1");
                 if (score2 === 7) displayWinnerBanner("Player 2");
                 if (parseInt(userid, 10) === winnerId){
-                    //socket.close();
+                    isFinalMatch = true;
                     isSocketOpen = false;
                     console.log("Preparando partida final...");
-                    initializeTournamentGame(tournamentName);
+                    socket.close();
                 }
             }
         }
@@ -143,6 +146,38 @@ function initializeTournamentGame(tournamentName){
 
         //}
     //};
+
+    function createGameSocket(url) {
+        socket = new WebSocket(url);
+
+        socket.onopen = function () {
+            console.log("GameWebSocket abierto");
+            isSocketOpen = true;
+        };
+
+        socket.onclose = function () {
+            console.log("GameWebSocket cerrado");
+            isSocketOpen = false;
+        };
+
+        socket.onerror = function (error) {
+            console.error("Error en GameWebSocket:", error);
+        };
+
+        socket.onmessage = function (event) {
+            //console.log("Mensaje recibido en socket:", event.data);
+            const data = JSON.parse(event.data);
+
+            // Actualiza posiciones y puntajes
+            player1.y = data['Player1'];
+            player2.y = data['Player2'];
+            ball.x = data['ballX'];
+            ball.y = data['ballY'];
+            score1 = data['Score1'];
+            score2 = data['Score2'];
+            update();
+        };
+    }
 
 
     // Funciones de movimiento

@@ -73,8 +73,8 @@ class Ball:
 		#self.velocityX = 1
 		#self.velocityY = 2
 		list1 = [1, -1]
-		self.velocityX = 5 * random.choice(list1) 
-		self.velocityY = 6 * random.choice(list1)
+		self.velocityX = 20 * random.choice(list1) # 5
+		self.velocityY = 30 * random.choice(list1) # 6
 
 class Paddle:
 	def __init__(self, number, board, user_id) -> None:
