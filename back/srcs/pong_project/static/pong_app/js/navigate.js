@@ -20,7 +20,7 @@ function loadPage(url, data)
 	else if (url === '/home/game/local/')
 		initializeLocalGame();
 	else if (url === '/home/game/online/')
-		startOnlineGame();
+		initializeGame();
 	else if (url === '/home/game/tournament/')
 		loadTournamentSection();
 	else if (url === '/home/game/tournament/join/')

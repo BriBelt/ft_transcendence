@@ -286,7 +286,7 @@ async function initializeGame()
 				startOnlineGame();
 			}
 			else
-				await checkRefreshToken(token);
+				await checkRefreshToken(token);//QUE HACER SI RESPONDE QUE ESTA EN UN TORNEO?
 		}
 		catch(error)
 		{

@@ -519,8 +519,15 @@ def create_tournament_view(request):
 
 			# Check if user is on another tournament
 			active_tournament = Tournament.objects.filter(participants=user.username, finished=False)
-			if active_tournament:
+			print(f"Active tournaments: {active_tournament}", flush=True)
+			if user.user_in_online_game == True:
 				return JsonResponse({'status': 'error', 'message': "User can not join another tournament!"}, status=405)
+
+			if user.user_in_tournament == True:
+				tournaments = Tournament.objects.all()
+				for tournament in tournaments:
+					if tournament.finished == False and tournament.name != tour_name:
+						return JsonResponse({'status': 'error', 'message': "User can not join another tournament!"}, status=405)
 
             # Create tournament and add user to it
 			participants = {user.username: user_id}
@@ -571,8 +578,13 @@ def join_tournament_checker(request):
 			return JsonResponse({'status': 'error', 'message': 'User not found.'}, status=404)
 
 		if user.user_in_online_game == True:
-			return JsonResponse({'status': 'error', 'message': "User already playing an online game!"}, status=400)
+			return JsonResponse({'status': 'error', 'message': "User already playing an online game!"}, status=405)
 
+		if user.user_in_tournament == True:
+			tournaments = Tournament.objects.all()
+			for tournament in tournaments:
+				if tournament.finished == False and tournament.name != tour_name:
+					return JsonResponse({'status': 'error', 'message': "User can not join another tournament!"}, status=405)
 
 		if user.username in tournament.participants:
 			tournament.participants.pop(user.username)
@@ -613,9 +625,10 @@ def gameLocal(request):
 def gameOnline(request):
 	if request.method == 'GET':
 		user = request.user
+		print(f"user: {user} y sobre si está o no en un torneo: {user.user_in_tournament}")
 		if user.user_in_tournament == True:
-			return JsonResponse({'status': 'error', 'message': "User has joined a tournament, can not play an online game!"}, status=400)
-		user.user_in_tournament = True
+			return JsonResponse({'status': 'error', 'message': "User has joined a tournament, can not play an online game!"}, status=405)
+		user.user_in_online_game = True
 		user.save()
 		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)

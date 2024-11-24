@@ -489,6 +489,10 @@ class PongConsumer(AsyncWebsocketConsumer):
                 await self.player_2.send(text_data=json.dumps({'message': 'Tournament is over'}))
                 await self.send(text_data=json.dumps({'message': f'Winner {self.game_state.player1.user_id}'}))
                 await self.player_2.send(text_data=json.dumps({'message': f'Winner {self.game_state.player1.user_id}'}))
+                player2_user.user_in_online_game = False
+            else:
+                player1_user.user_in_online_game = False
+                player2_user.user_in_online_game = False
         else:
             player1_stats['losses'] = player1_stats.get('losses', 0) + 1
             if self.is_tournament_game:
@@ -498,6 +502,10 @@ class PongConsumer(AsyncWebsocketConsumer):
                 await self.send(text_data=json.dumps({'message': 'Tournament is over'}))
                 await self.send(text_data=json.dumps({'message': f'Winner {self.game_state.player2.user_id}'}))
                 await self.player_2.send(text_data=json.dumps({'message': f'Winner {self.game_state.player2.user_id}'}))
+                player1_user.user_in_online_game = False
+            else:
+                player1_user.user_in_online_game = False
+                player2_user.user_in_online_game = False
         player1_user.game_stats = player1_stats
         await sync_to_async(player1_user.save)()
 
