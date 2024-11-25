@@ -228,24 +228,7 @@ def loginView(request):
 		if user.check_password(password + settings.PEPPER):
 			# If the user has 2FA active, we send the needed code
 			if user.tfa is True:
-				user.otp = generate_random_digits()
-				user.otp_expDate = timezone.now() + timedelta(hours=1)
-				user.save()
-				email = user.email
-				userOtp = user.otp
-
-				message = MIMEText(f'Your verification code is: {userOtp}')
-				message['Subject'] = 'Verification code'
-				message['From'] = settings.EMAIL_HOST_USER 
-				message['To'] = email
-
-				smtp_connection = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
-				smtp_connection.starttls()
-				smtp_connection.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
-				smtp_connection.send_message(message)
-				smtp_connection.quit()
-
-				return JsonResponse({'status': 'success', 'message': 'Verification code sent'}, status=200)
+				return JsonResponse({'status': 'success', 'message': 'Verification code needed'}, status=200)
 			token = create_jwt_token(user)
 			refresh_token = create_jwt_refresh_token(user)
 			user.is_online = True
@@ -287,13 +270,18 @@ def	logoutView(request):
 @csrf_exempt
 def verify2FA(request):
 	if request.method == 'POST':
-		username = request.POST.get('username')
-		otp = request.POST.get('otp')
+		data = json.loads(request.body)
+		username = data.get('username')
+		otp = data.get('otp')
+		print(username, flush=True)
+		print(otp, flush=True)
 		try:
 			user = CustomUser.objects.get(username=username)
 
 			if user is not None:
+				print("USER OTP: " + user.otp, flush=True)
 				if (user.otp == otp and user.otp_expDate is not None and user.otp_expDate > timezone.now()):
+					print("Inside the if for verify2FA", flush=True)
 					token = create_jwt_token(user)
 					user.is_online = True
 					user.save()
@@ -304,14 +292,49 @@ def verify2FA(request):
 							status=200
 						)
 				else:
+					print("Inside the else", flush=True)
 					return JsonResponse({'status': 'error', 'message': 'Expired code'}, status=400)
 			else:
+				print("Inside the else for invalid user", flush=True)
 				return JsonResponse({'status': 'error', 'message': 'Invalid code'}, status=400)
 		except(CustomUser.DoesNotExist):
 			print("USER DOES NOT EXIST?!", flush=True)
 			return JsonResponse({'status': 'error', 'message': 'User does not exist'}, status=400)
+	print("Is not a POST request", flush=True)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
+@csrf_exempt
+def give2FA(request):
+	if request.method == 'POST':
+		data = json.loads(request.body)
+		username = data.get('username')
+
+		try:
+			print("USER -------- " + username, flush=True)
+			user = CustomUser.objects.get(username=username)
+			user.otp = generate_random_digits()
+			user.otp_expDate = timezone.now() + timedelta(hours=1)
+			user.save()
+			email = user.email
+			userOtp = user.otp
+
+			message = MIMEText(f'Your verification code is: {userOtp}')
+			message['Subject'] = 'Verification code'
+			message['From'] = settings.EMAIL_HOST_USER 
+			message['To'] = email
+
+			smtp_connection = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
+			smtp_connection.starttls()
+			smtp_connection.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+			smtp_connection.send_message(message)
+			smtp_connection.quit()
+
+			return JsonResponse({'status': 'success', 'message': 'Verification code sent'}, status=200)
+		except(CustomUser.DoesNotExist):
+			print("USER DOES NOT EXIST?!", flush=True)
+			return JsonResponse({'status': 'error', 'message': 'User does not exist'}, status=400)
+	print("NON VALID REQUEST METHOD", flush=True)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
 @jwt_required
 def Home(request):
@@ -471,7 +494,12 @@ def AddFriend(request):
 		data = json.loads(request.body)
 		friend_username = data.get('friend_username')
 		try:
+			if friend_username == user.username:
+				return JsonResponse({'status': 'error', 'message': 'Same user'}, status=404)
 			friend = CustomUser.objects.get(username=friend_username)
+			if friend in user.friends.all():
+				return JsonResponse({'status': 'error', 'message': 'Already added'}, status=404)
+		#	if user.friends.filter(id=friend.id).exists():
 			user.friends.add(friend)
 			return JsonResponse({'status': 'success', 'message': f'{friend_username} added as a friend'}, status=200)
 		except CustomUser.DoesNotExist:

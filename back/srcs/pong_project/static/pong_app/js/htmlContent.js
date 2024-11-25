@@ -72,21 +72,21 @@ function profileSettingsHTML(data, avatarUrl)
 				<div class="card-body text-center">
 					<img src="${avatarUrl}" alt="Profile Picture" class="img-thumbnail" style="background-color: #362c45; width: 70%; height: 50%;">
 					<form id="profile-settings" style="padding: 30px 20px;">
-						<div class="form-group row" style="justify-content: center;">
+						<div class="form-group row" id="usernameDiv" style="justify-content: center;">
 							<label for="username" class="col-form-label">Username</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="username" value=${data.username}>
 								<span id="username-error" class="error-message"></span>
 							</div>
 						</div>
-						<div class="form-group row" style="justify-content: center;">
+						<div class="form-group row" id="passwordDiv" style="justify-content: center;">
 							<label for="password" class="col-form-label">Password</label>
 							<div class="col-sm-10">
 								<input type="password" class="form-control" id="password" placeholder="********">
 								<span id="password-error" class="error-message"></span>
 							</div>
 						</div>
-						<div class="form-group row" style="justify-content: center;"> 
+						<div class="form-group row" id="twofaDiv" style="justify-content: center;"> 
 							<div class="col-sm-10" >
 								<label for="twofa" class="col-form-label row" style="justify-content: center;">Activate 2FA</label>
 								<input type="checkbox" id="twofa">
@@ -132,6 +132,11 @@ function loadGenericHTML(type)
 					<label for="password">Password</label>
 					<input type="password" class="form-control" id="password" placeholder="Enter password">
 						<span id="password-error" class="error-message"></span>
+				</div>
+				<div class="form-group" id="codeDiv" style="display: none;">
+					<label for="code">Auth code</label>
+					<input type="code" class="form-control" id="code" placeholder="Enter auth code">
+						<span id="code-error" class="error-message"></span>
 				</div>
 				<button class="custom-button" id="submit">Submit</button>
 			</form>
