@@ -1,5 +1,3 @@
- //board
-
 class Board{
     constructor(width=900, height=500){
         this.width = width;
@@ -38,7 +36,6 @@ class Ball{
 }
 
 let context;
-let socket;
 let isSocketOpen = false;
 
 let board = new Board(900, 500);
@@ -289,7 +286,7 @@ async function initializeGame()
 				startOnlineGame();
 			}
 			else
-				await checkRefreshToken(token);
+				await checkRefreshToken(token);//QUE HACER SI RESPONDE QUE ESTA EN UN TORNEO?
 		}
 		catch(error)
 		{

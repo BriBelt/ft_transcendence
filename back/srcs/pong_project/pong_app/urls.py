@@ -40,8 +40,8 @@ urlpatterns = [
 	path('home/game/tournament/', views.gameTournamentOptions, name='gameTornamentOptions'),
 	path('home/game/tournament/create/', views.create_tournament_view, name='create_tournament'),
 	path('home/game/tournament/join/', views.join_tournament_view, name='join_tournament'),
-	path('home/game/tournament/join/checker', views.join_tournament_checker, name='join_tournament_checker'),
-
+	path('home/game/tournament/join/checker/', views.join_tournament_checker, name='join_tournament_checker'),
+	path('home/game/tournament/t_game/', views.gameTournament, name='gameTournament'),
 	# Game
 	#path('<str:game_id>/', views.game, name='create_game')
 ]

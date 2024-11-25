@@ -546,11 +546,22 @@ def create_tournament_view(request):
 				return JsonResponse({'status': 'error', 'message': 'User not found.'}, status=404)
 
 			# Check if user is on another tournament
-			if Tournament.objects.filter(participants__contains={user.username: str(user_id)}).exists():
-				return JsonResponse({'status': 'error', 'message': 'User is already in another tournament.'}, status=400)
+			active_tournament = Tournament.objects.filter(participants=user.username, finished=False)
+			print(f"Active tournaments: {active_tournament}", flush=True)
+			if user.user_in_online_game == True:
+				return JsonResponse({'status': 'error', 'message': "User can not join another tournament!"}, status=405)
+
+			if user.user_in_tournament == True:
+				tournaments = Tournament.objects.all()
+				for tournament in tournaments:
+					if tournament.finished == False and tournament.name != tour_name:
+						return JsonResponse({'status': 'error', 'message': "User can not join another tournament!"}, status=405)
 
             # Create tournament and add user to it
 			participants = {user.username: user_id}
+			print(f"User in tournament: {user.user_in_tournament} {user.user_in_online_game}", flush=True)
+			user.user_in_tournament = True
+			user.save()
 			tournament = Tournament.objects.create(name=tour_name, participants=participants)
 			return JsonResponse({'status': 'success', 'message': 'Tournament created successfully!'}, status=200)
 
@@ -566,8 +577,11 @@ def create_tournament_view(request):
 def join_tournament_view(request):
 
 	if request.method == 'GET':
+		tournaments_data = []
 		tournaments = Tournament.objects.all()
-		tournaments_data = [{'name': tournament.name, 'players': len(tournament.participants)} for tournament in tournaments]
+		for tournament in tournaments:
+			if tournament.finished == False:
+				tournaments_data.append({'name': tournament.name, 'players': len(tournament.participants)})
 		return JsonResponse({'status': 'success', 'tournaments': tournaments_data}, status=200, safe=False)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
@@ -591,6 +605,15 @@ def join_tournament_checker(request):
 		except CustomUser.DoesNotExist:
 			return JsonResponse({'status': 'error', 'message': 'User not found.'}, status=404)
 
+		if user.user_in_online_game == True:
+			return JsonResponse({'status': 'error', 'message': "User already playing an online game!"}, status=405)
+
+		if user.user_in_tournament == True:
+			tournaments = Tournament.objects.all()
+			for tournament in tournaments:
+				if tournament.finished == False and tournament.name != tour_name:
+					return JsonResponse({'status': 'error', 'message': "User can not join another tournament!"}, status=405)
+
 		if user.username in tournament.participants:
 			tournament.participants.pop(user.username)
 			tournament.save()
@@ -599,9 +622,13 @@ def join_tournament_checker(request):
 		if len(tournament.participants) == 4:
 			return JsonResponse({'status': 'error', 'message': "Tournament is full!"}, status=403, safe=False)
 
-		if Tournament.objects.filter(participants__contains={user.username: str(user_id)}).exists():
-			return JsonResponse({'status': 'error', 'message': "User can not join another tournament!"}, status=400)
+		#try:
+		active_tournament = Tournament.objects.filter(participants=user.username, finished=False)
+		if active_tournament:
+			return JsonResponse({'status': 'error', 'message': "User can not join another tournament!"}, status=405)
 		tournament.participants[user.username] = user_id
+		user.user_in_tournament = True
+		user.save()
 		tournament.save()
 		return JsonResponse({'status': 'success', 'message': 'User joined the tournament!'}, status=200)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
@@ -625,6 +652,12 @@ def gameLocal(request):
 @jwt_required
 def gameOnline(request):
 	if request.method == 'GET':
+		user = request.user
+		print(f"user: {user} y sobre si está o no en un torneo: {user.user_in_tournament}")
+		if user.user_in_tournament == True:
+			return JsonResponse({'status': 'error', 'message': "User has joined a tournament, can not play an online game!"}, status=405)
+		user.user_in_online_game = True
+		user.save()
 		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
@@ -638,6 +671,13 @@ def gameTournamentOptions(request):
 @csrf_exempt
 @jwt_required
 def notFound(request):
+	if request.method == 'GET':
+		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+@jwt_required
+def gameTournament(request):
 	if request.method == 'GET':
 		return JsonResponse({'status': 'success', 'message': 'Page loaded correctly.'}, status=200)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)

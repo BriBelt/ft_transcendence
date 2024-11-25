@@ -1,5 +1,42 @@
+async function initializeTournament()
+{
+	const app = document.getElementById('app');
+	const token = localStorage.getItem('access');
+	if (token)
+	{
+		try
+		{
+			const response = await fetch('/home/game/tournament/t_game',
+			{
+				method: 'GET',
+				headers:
+				{
+					'Authorization': `Bearer ${token}`,
+					'Content-Type': 'application/json'
+				}
+			});
+			const data = await response.json();
+			if (data.status === 'success')
+			{
+				initializeTournamentGame();
+			}
+			else
+				await checkRefreshToken(token);
+		}
+		catch(error)
+		{
+			notAuthorized(error);
+		}
+	}
+	else
+	{
+		notAuthorized(error);
+	}
+}
 
-function initializeTournamentGame(tournamentName){
+
+function initializeTournamentGame(){
+    const tournamentName = localStorage.getItem('tournament_name');
     class Board{
         constructor(width=900, height=500){
             this.width = width;
@@ -37,10 +74,9 @@ function initializeTournamentGame(tournamentName){
     }
     
     let context;
-    let socket;
-    let isSocketOpen = false;
+    let gamesocket = null;
     let isGameSocketOpen = false;
-    let gamesocket;
+    let isSocketOpen = false;
     let isFinalMatch = false;
     
     // Close existing WebSocket connection if open
@@ -74,6 +110,10 @@ function initializeTournamentGame(tournamentName){
     
     socket.onclose = function(event) {
         console.log("Tournament webSocket is closed now.");
+        isSocketOpen = false;
+        if (isFinalMatch == true){
+            initializeTournamentGame();
+        }
     };
     
     socket.onerror = function(error) {
@@ -89,16 +129,22 @@ function initializeTournamentGame(tournamentName){
         console.log(data);
 
         if (data.message){
+            if (data.message.includes("Tournament is over")){
+                localStorage.removeItem('tournament_name');
+            }
             if (data.message.includes("Winner")){
                 winnerDetails = data.message.match(/Winner (\d+)/);
                 const winnerId = winnerDetails ? parseInt(winnerDetails[1], 10) : null;
+                console.log(`Winner ${winnerId}`)
+                console.log(`Player ${userid}`)
+                alert(`Winner ${winnerId}`)
                 if (score1 === 7) displayWinnerBanner("Player 1");
                 if (score2 === 7) displayWinnerBanner("Player 2");
-                if (parseInt(userid, 10) === winnerId){
-                    socket.close();
-                    isSocketOpen = false;
+                if (parseInt(userid, 10) == parseInt(winnerId, 10)){
+                    isFinalMatch = true;
+                    //isSocketOpen = false;
                     console.log("Preparando partida final...");
-                    initializeTournamentGame(tournamentName);
+                    //socket.close();
                 }
             }
         }
@@ -112,39 +158,7 @@ function initializeTournamentGame(tournamentName){
             score2 = data['Score2'];
             update();
         }
-
-
-//        const data = JSON.parse(event.data);
-//            
-//        if (data.message) {
-//            let matchDetails;
-//            if (data.message.includes("Final match between")) {
-//                isFinalMatch = true;
-//                matchDetails = data.message.match(/Final match between (\d+) and (\d+) is starting!/);
-//                console.log('FINAL MATCH SHOULD BE ABOUT TO BEGIN!!!!!!!!!!!!!!')
-//                if (gamesocket) {
-//                    gamesocket.close();
-//                    isGameSocketOpen = false;
-//                }
-//            } else if (data.message.includes("Match between")) {
-//                isFinalMatch = false;
-//                matchDetails = data.message.match(/Match between (\d+) and (\d+) is starting!/);
-//            }
-//            console.log('MATCH DETAILS: ' + matchDetails);
-//            if (matchDetails) {
-//                player1Id = matchDetails[1];
-//                player2Id = matchDetails[2];
-//
-//                console.log(`Player IDs for final match: player1Id = ${player1Id}, player2Id = ${player2Id}`);
-//                // Identificar al oponente para crear el `gamesocket`
-//                const opponentId = (player1Id === userid) ? player2Id : player1Id;
-//                const gamesocketUrl = `wss://${window.location.host}/ws/pong-socket/${userid}/${opponentId}/`;
-//                console.log("Creando gamesocket con URL:", gamesocketUrl);
-//                createGameSocket(gamesocketUrl);
-        };
-
-        //}
-    //};
+    };
 
 
     // Funciones de movimiento
@@ -185,6 +199,14 @@ function initializeTournamentGame(tournamentName){
                 }
             }));
         }
+        else if (gamesocket && isGameSocketOpen){
+            gamesocket.send(JSON.stringify({
+                'position': {
+                    'key': keycode,// ArrowUp or ArrowDown
+                    'action': action//"move" or "stop"
+                }
+            }));
+        }
     }
 
     function displayWinnerBanner(winner) {
@@ -201,11 +223,19 @@ function initializeTournamentGame(tournamentName){
         const winnerId = (score1 === 7) ? player1Id : player2Id;
         // is its a final, notify TournamentConsumer to save data
         if (isFinalMatch) {
-            socket.send(JSON.stringify({
-                'type': "end_tournament",
-                'winner_id': winnerId
-            }));
-        }
+            if (isSocketOpen){
+                socket.send(JSON.stringify({
+                    'type': "end_tournament",
+                    'winner_id': winnerId
+                }));
+            }
+            else if (isGameSocketOpen){
+                gamesocket.send(JSON.stringify({
+                    'type': "end_tournament",
+                    'winner_id': winnerId
+                }));
+            }
+            }
     }
             
     function update() {
@@ -253,3 +283,4 @@ function initializeTournamentGame(tournamentName){
 }
 
 window.initializeTournamentGame = initializeTournamentGame;
+window.initializeTournament = initializeTournament;

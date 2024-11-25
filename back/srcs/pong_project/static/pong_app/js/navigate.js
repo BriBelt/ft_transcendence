@@ -27,6 +27,8 @@ function loadPage(url, data)
 		loadTournamentsSection();
 	else if (url === '/home/game/tournament/create/')
 		loadCreateTournament();
+	else if (url === '/home/game/tournament/t_game/')
+		initializeTournament();
 	else if (url === '/home/friends/')
 		loadFriendsSection();
 //	else if (url != '/home/callback.html/')
