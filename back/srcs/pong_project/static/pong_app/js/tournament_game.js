@@ -1,5 +1,3 @@
-let tournament_anouncement;
-
 async function initializeTournament()
 {
 	const app = document.getElementById('app');
@@ -149,6 +147,13 @@ function initializeTournamentGame(){
                     //socket.close();
                 }
             }
+            if (data.type === "announcement") {
+                const announcement = data.message;
+                console.log(announcement);
+        
+                // Muestra el mensaje en la interfaz
+                displayAnnouncement(data.player1_username, data.player2_username);
+            }
         }
         else{
             // Actualiza posiciones y puntajes
@@ -238,6 +243,30 @@ function initializeTournamentGame(){
                 }));
             }
             }
+    }
+
+    function displayAnnouncement(player1, player2) {
+        const originalUpdate = update; // Guarda una referencia al método original de actualización
+
+        // Desactiva temporalmente el método de actualización
+        update = function() {};
+
+        context.fillStyle = "white";
+        context.font = "40px Arial"; // Tamaño y fuente del texto
+        const text = `Tournament Match: ${player1} vs ${player2}`;
+        const textWidth = context.measureText(text).width;
+    
+        // Limpiar el canvas para el anuncio
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    
+        // Mostrar el anuncio en el centro del canvas
+        context.fillText(text, (canvas.width / 2) - (textWidth / 2), canvas.height / 2);
+    
+        // Remover el anuncio después
+        setTimeout(() => {
+            update = originalUpdate; // Restaura el método de actualización original
+            update();
+        }, 1900);
     }
             
     function update() {

@@ -225,6 +225,21 @@ class PongConsumer(AsyncWebsocketConsumer):
 
         print(f"!!!!!!Jugador {self.player_number} se unió a la sala: {self.group_name}!!!!!!", flush=True)
 
+        # Share usernames to anounce them
+        if player_number == 2 and self.is_tournament_game:
+            player1_user = await sync_to_async(CustomUser.objects.get)(id=self.player_1.user_id)
+            player2_user = await sync_to_async(CustomUser.objects.get)(id=self.player_2.user_id)
+            print(f"\033[33mABOUT TO SEND ANOUNCEMENT!!\033[0m", flush=True)
+
+            await self.channel_layer.group_send(
+            self.group_name,
+            {
+                "type": "announce_players",
+                "player1_username": player1_user.username,
+                "player2_username": player2_user.username,
+            }
+            )
+
         if player_number == 1 and not self.game_state.game_loop_started:# and not hasattr(self.game_state, 'game_loop_started'):
             if not self.game_state.board:
                 print("INIZIALICING GAME OBJECTS", flush=True)
@@ -336,6 +351,7 @@ class PongConsumer(AsyncWebsocketConsumer):
     async def game_loop(self):
         print("GAME LOOP CALLED", flush=True)
         self.running = True
+        await asyncio.sleep(2)
         while self.running:
             await self.move_ball()
             self.move_players()
@@ -429,6 +445,15 @@ class PongConsumer(AsyncWebsocketConsumer):
             print("Attempted to send message, but WebSocket is closed.", flush=True)
     #except Exception as e:
         #logger.error(f"Error sending position: {e}")
+
+    async def announce_players(self, event):
+        await self.send(text_data=json.dumps({
+            "type": "announcement",
+            "message": f"Tournament Match between {event['player1_username']} and {event['player2_username']} is about to begin!",
+            "player1_username": event["player1_username"],
+            "player2_username": event["player2_username"],
+        }))
+
 
     async def receive(self, text_data):
         print("!!!!!RECIBIDO!!!", flush=True)

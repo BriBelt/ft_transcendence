@@ -1,0 +1,2035 @@
+Attaching to nginx, back, db
+[36mback     |[0m Using selector: EpollSelector
+[36mback     |[0m Migrations for 'pong_app':
+[36mback     |[0m   pong_project/pong_app/migrations/0001_initial.py
+[36mback     |[0m     - Create model CustomUser
+[36mback     |[0m     - Create model Tournament
+[36mback     |[0m     - Create model Game
+[36mback     |[0m Using selector: EpollSelector
+[36mback     |[0m Operations to perform:
+[36mback     |[0m   Apply all migrations: admin, auth, contenttypes, pong_app, sessions
+[36mback     |[0m Running migrations:
+[36mback     |[0m   Applying contenttypes.0001_initial... OK
+[36mback     |[0m   Applying contenttypes.0002_remove_content_type_name... OK
+[36mback     |[0m   Applying auth.0001_initial... OK
+[36mback     |[0m   Applying auth.0002_alter_permission_name_max_length... OK
+[36mback     |[0m   Applying auth.0003_alter_user_email_max_length... OK
+[36mback     |[0m   Applying auth.0004_alter_user_username_opts... OK
+[36mback     |[0m   Applying auth.0005_alter_user_last_login_null... OK
+[36mback     |[0m   Applying auth.0006_require_contenttypes_0002... OK
+[36mback     |[0m   Applying auth.0007_alter_validators_add_error_messages... OK
+[36mback     |[0m   Applying auth.0008_alter_user_username_max_length... OK
+[36mback     |[0m   Applying auth.0009_alter_user_last_name_max_length... OK
+[36mback     |[0m   Applying auth.0010_alter_group_name_max_length... OK
+[36mback     |[0m   Applying auth.0011_update_proxy_permissions... OK
+[36mback     |[0m   Applying auth.0012_alter_user_first_name_max_length... OK
+[36mback     |[0m   Applying pong_app.0001_initial... OK
+[36mback     |[0m   Applying admin.0001_initial... OK
+[36mback     |[0m   Applying admin.0002_logentry_remove_auto_add... OK
+[36mback     |[0m   Applying admin.0003_logentry_add_action_flag_choices... OK
+[36mback     |[0m   Applying sessions.0001_initial... OK
+[36mback     |[0m Using selector: EpollSelector
+[36mback     |[0m Superuser admin created
+[36mback     |[0m Using selector: EpollSelector
+[36mback     |[0m Using selector: EpollSelector
+[36mback     |[0m Watching for file changes with StatReloader
+[36mback     |[0m Watching for file changes with StatReloader
+[36mback     |[0m HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+[36mback     |[0m Configuring endpoint tcp:port=8000:interface=0.0.0.0
+[36mback     |[0m Listening on TCP address 0.0.0.0:8000
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 54988]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 54988]
+[36mback     |[0m HTTP close for ['172.23.0.4', 54988]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 54988]
+[36mback     |[0m HTTP GET / 200 [0.02, 172.23.0.4:54988]
+[36mback     |[0m HTTP GET / 200 [0.02, 172.23.0.4:54988]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55000]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55000]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55000]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55000]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55000]
+[36mback     |[0m HTTP GET /static/pong_app/css/styles.css 200 [0.01, 172.23.0.4:55000]
+[36mback     |[0m HTTP GET /static/pong_app/css/styles.css 200 [0.01, 172.23.0.4:55000]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55004]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55004]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55004]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55004]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55004]
+[36mback     |[0m HTTP GET /static/pong_app/js/main.js 200 [0.00, 172.23.0.4:55004]
+[36mback     |[0m HTTP GET /static/pong_app/js/main.js 200 [0.00, 172.23.0.4:55004]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55006]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55006]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55006]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55006]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55006]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleProfile.js 200 [0.00, 172.23.0.4:55006]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleProfile.js 200 [0.00, 172.23.0.4:55006]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55020]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55034]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55042]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55046]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55052]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55062]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55020]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55062]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55034]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55042]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55020]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55020]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55020]
+[36mback     |[0m HTTP GET /static/pong_app/js/tournamentHtml.js 200 [0.01, 172.23.0.4:55020]
+[36mback     |[0m HTTP GET /static/pong_app/js/tournamentHtml.js 200 [0.01, 172.23.0.4:55020]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55052]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55046]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55062]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55062]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55062]
+[36mback     |[0m HTTP GET /static/pong_app/js/profileSettings.js 200 [0.01, 172.23.0.4:55062]
+[36mback     |[0m HTTP GET /static/pong_app/js/profileSettings.js 200 [0.01, 172.23.0.4:55062]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55052]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55052]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55052]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleCredentials.js 200 [0.01, 172.23.0.4:55052]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleCredentials.js 200 [0.01, 172.23.0.4:55052]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55034]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55034]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55034]
+[36mback     |[0m HTTP GET /static/pong_app/js/local_game.js 200 [0.01, 172.23.0.4:55034]
+[36mback     |[0m HTTP GET /static/pong_app/js/local_game.js 200 [0.01, 172.23.0.4:55034]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55042]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55042]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55042]
+[36mback     |[0m HTTP GET /static/pong_app/js/navigate.js 200 [0.01, 172.23.0.4:55042]
+[36mback     |[0m HTTP GET /static/pong_app/js/navigate.js 200 [0.01, 172.23.0.4:55042]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55076]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55046]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55046]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55046]
+[36mback     |[0m HTTP GET /static/pong_app/js/loadForms.js 200 [0.02, 172.23.0.4:55046]
+[36mback     |[0m HTTP GET /static/pong_app/js/loadForms.js 200 [0.02, 172.23.0.4:55046]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55076]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55076]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55076]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55076]
+[36mback     |[0m HTTP GET /static/pong_app/js/oauth.js 200 [0.00, 172.23.0.4:55076]
+[36mback     |[0m HTTP GET /static/pong_app/js/oauth.js 200 [0.00, 172.23.0.4:55076]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55084]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55092]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55102]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55110]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55126]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55140]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55084]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55092]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55102]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55110]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55084]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55084]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55084]
+[36mback     |[0m HTTP GET /static/pong_app/js/pong_game.js 200 [0.01, 172.23.0.4:55084]
+[36mback     |[0m HTTP GET /static/pong_app/js/pong_game.js 200 [0.01, 172.23.0.4:55084]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55110]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55110]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55110]
+[36mback     |[0m HTTP GET /static/pong_app/js/logout.js 200 [0.01, 172.23.0.4:55110]
+[36mback     |[0m HTTP GET /static/pong_app/js/logout.js 200 [0.01, 172.23.0.4:55110]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55102]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55102]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55102]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleFriends.js 200 [0.01, 172.23.0.4:55102]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleFriends.js 200 [0.01, 172.23.0.4:55102]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55092]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55092]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55092]
+[36mback     |[0m HTTP GET /static/pong_app/js/signUp.js 200 [0.01, 172.23.0.4:55092]
+[36mback     |[0m HTTP GET /static/pong_app/js/signUp.js 200 [0.01, 172.23.0.4:55092]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55126]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55140]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55150]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55126]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55126]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55126]
+[36mback     |[0m HTTP GET /static/pong_app/js/jwt.js 200 [0.01, 172.23.0.4:55126]
+[36mback     |[0m HTTP GET /static/pong_app/js/jwt.js 200 [0.01, 172.23.0.4:55126]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55140]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55140]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55140]
+[36mback     |[0m HTTP GET /static/pong_app/js/htmlContent.js 200 [0.01, 172.23.0.4:55140]
+[36mback     |[0m HTTP GET /static/pong_app/js/htmlContent.js 200 [0.01, 172.23.0.4:55140]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55166]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55150]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55176]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55150]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55150]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55150]
+[36mback     |[0m HTTP GET /static/pong_app/js/tournament_game.js 200 [0.01, 172.23.0.4:55150]
+[36mback     |[0m HTTP GET /static/pong_app/js/tournament_game.js 200 [0.01, 172.23.0.4:55150]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55166]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55166]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55166]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55166]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleTournaments.js 200 [0.01, 172.23.0.4:55166]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleTournaments.js 200 [0.01, 172.23.0.4:55166]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55176]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 55176]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55176]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55176]
+[36mback     |[0m HTTP GET /static/pong_app/css/background2.gif 200 [0.01, 172.23.0.4:55176]
+[36mback     |[0m HTTP GET /static/pong_app/css/background2.gif 200 [0.01, 172.23.0.4:55176]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55184]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55192]
+[36mback     |[0m Performing system checks...
+[36mback     |[0m 
+[36mback     |[0m System check identified no issues (0 silenced).
+[36mback     |[0m November 25, 2024 - 20:39:47
+[36mback     |[0m Django version 4.2.13, using settings 'pong_project.settings'
+[36mback     |[0m Starting ASGI/Daphne version 4.0.0 development server at http://0.0.0.0:8000/
+[36mback     |[0m Quit the server with CONTROL-C.
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3MjAyLCJpYXQiOjE3MzI1NjY5MDJ9.jHJiq4LWIHTy_2KBytaaYtyMQr86wcd8aJD0dCUT27g
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3MjAyLCJpYXQiOjE3MzI1NjY5MDJ9.jHJiq4LWIHTy_2KBytaaYtyMQr86wcd8aJD0dCUT27g
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3MjAyLCJpYXQiOjE3MzI1NjY5MDJ9.jHJiq4LWIHTy_2KBytaaYtyMQr86wcd8aJD0dCUT27g
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3MjAyLCJpYXQiOjE3MzI1NjY5MDJ9.jHJiq4LWIHTy_2KBytaaYtyMQr86wcd8aJD0dCUT27g
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m Username: josito, Status: OFFLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55184]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55184]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55184]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.01, 172.23.0.4:55184]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.01, 172.23.0.4:55184]
+[36mback     |[0m Bad Request: /home/
+[36mback     |[0m Bad Request: /home/
+[36mback     |[0m HTTP 400 response started for ['172.23.0.4', 55192]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55192]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55192]
+[36mback     |[0m HTTP GET /home/ 400 [0.02, 172.23.0.4:55192]
+[36mback     |[0m HTTP GET /home/ 400 [0.02, 172.23.0.4:55192]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55200]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55200]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55200]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55200]
+[36mback     |[0m HTTP GET / 200 [0.01, 172.23.0.4:55200]
+[36mback     |[0m HTTP GET / 200 [0.01, 172.23.0.4:55200]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55202]
+[36mback     |[0m HTTP 304 response started for ['172.23.0.4', 55202]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55202]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55202]
+[36mback     |[0m HTTP GET /static/pong_app/css/styles.css 304 [0.00, 172.23.0.4:55202]
+[36mback     |[0m HTTP GET /static/pong_app/css/styles.css 304 [0.00, 172.23.0.4:55202]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55214]
+[36mback     |[0m HTTP 304 response started for ['172.23.0.4', 55214]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55214]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55214]
+[36mback     |[0m HTTP GET /static/pong_app/js/pong_game.js 304 [0.00, 172.23.0.4:55214]
+[36mback     |[0m HTTP GET /static/pong_app/js/pong_game.js 304 [0.00, 172.23.0.4:55214]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55220]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55226]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55240]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55248]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55262]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55264]
+[36mback     |[0m HTTP 304 response started for ['172.23.0.4', 55226]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55226]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55226]
+[36mback     |[0m HTTP GET /static/pong_app/js/tournament_game.js 304 [0.01, 172.23.0.4:55226]
+[36mback     |[0m HTTP GET /static/pong_app/js/tournament_game.js 304 [0.01, 172.23.0.4:55226]
+[36mback     |[0m HTTP 304 response started for ['172.23.0.4', 55240]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55240]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55240]
+[36mback     |[0m HTTP GET /static/pong_app/js/navigate.js 304 [0.01, 172.23.0.4:55240]
+[36mback     |[0m HTTP GET /static/pong_app/js/navigate.js 304 [0.01, 172.23.0.4:55240]
+[36mback     |[0m HTTP 304 response started for ['172.23.0.4', 55220]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55220]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55220]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleFriends.js 304 [0.01, 172.23.0.4:55220]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleFriends.js 304 [0.01, 172.23.0.4:55220]
+[36mback     |[0m HTTP 304 response started for ['172.23.0.4', 55248]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55248]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55248]
+[36mback     |[0m HTTP GET /static/pong_app/js/logout.js 304 [0.01, 172.23.0.4:55248]
+[36mback     |[0m HTTP GET /static/pong_app/js/logout.js 304 [0.01, 172.23.0.4:55248]
+[36mback     |[0m HTTP 304 response started for ['172.23.0.4', 55262]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55262]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55262]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleCredentials.js 304 [0.01, 172.23.0.4:55262]
+[36mback     |[0m HTTP GET /static/pong_app/js/handleCredentials.js 304 [0.01, 172.23.0.4:55262]
+[36mback     |[0m HTTP 304 response started for ['172.23.0.4', 55264]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55264]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55264]
+[36mback     |[0m HTTP GET /static/pong_app/js/profileSettings.js 304 [0.01, 172.23.0.4:55264]
+[36mback     |[0m HTTP GET /static/pong_app/js/profileSettings.js 304 [0.01, 172.23.0.4:55264]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 45566]
+[36mback     |[0m HTTP 304 response started for ['172.23.0.4', 45566]
+[36mback     |[0m HTTP close for ['172.23.0.4', 45566]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45566]
+[36mback     |[0m HTTP GET /static/pong_app/js/htmlContent.js 304 [0.00, 172.23.0.4:45566]
+[36mback     |[0m HTTP GET /static/pong_app/js/htmlContent.js 304 [0.00, 172.23.0.4:45566]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 45572]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 45586]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3MjEwLCJpYXQiOjE3MzI1NjY5MTB9.wehWlDdSIB73NI1UY6ybvnbP-4ev9mVHYlr0DvI57dY
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3MjEwLCJpYXQiOjE3MzI1NjY5MTB9.wehWlDdSIB73NI1UY6ybvnbP-4ev9mVHYlr0DvI57dY
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3MjEwLCJpYXQiOjE3MzI1NjY5MTB9.wehWlDdSIB73NI1UY6ybvnbP-4ev9mVHYlr0DvI57dY
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3MjEwLCJpYXQiOjE3MzI1NjY5MTB9.wehWlDdSIB73NI1UY6ybvnbP-4ev9mVHYlr0DvI57dY
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m Username: pepita, Status: OFFLINE
+[36mback     |[0m Bad Request: /home/
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 45572]
+[36mback     |[0m Bad Request: /home/
+[36mback     |[0m HTTP close for ['172.23.0.4', 45572]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45572]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:45572]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:45572]
+[36mback     |[0m HTTP 400 response started for ['172.23.0.4', 45586]
+[36mback     |[0m HTTP close for ['172.23.0.4', 45586]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45586]
+[36mback     |[0m HTTP GET /home/ 400 [0.02, 172.23.0.4:45586]
+[36mback     |[0m HTTP GET /home/ 400 [0.02, 172.23.0.4:45586]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 45592]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 45596]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token expired
+[36mback     |[0m Inside wrapper, checking access
+[36mback     |[0m Access token expired!
+[36mback     |[0m Token founded!
+[36mback     |[0m Token expired
+[36mback     |[0m Inside wrapper, checking access
+[36mback     |[0m Access token expired!
+[36mback     |[0m Unauthorized: /get_user_info/
+[36mback     |[0m Unauthorized: /get_user_info/
+[36mback     |[0m Unauthorized: /home/
+[36mback     |[0m Unauthorized: /home/
+[36mback     |[0m HTTP 401 response started for ['172.23.0.4', 45596]
+[36mback     |[0m HTTP close for ['172.23.0.4', 45596]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45596]
+[36mback     |[0m HTTP GET /get_user_info/ 401 [0.01, 172.23.0.4:45596]
+[36mback     |[0m HTTP GET /get_user_info/ 401 [0.01, 172.23.0.4:45596]
+[36mback     |[0m HTTP 401 response started for ['172.23.0.4', 45592]
+[36mback     |[0m HTTP close for ['172.23.0.4', 45592]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45592]
+[36mback     |[0m HTTP GET /home/ 401 [0.01, 172.23.0.4:45592]
+[36mback     |[0m HTTP GET /home/ 401 [0.01, 172.23.0.4:45592]
+[36mback     |[0m HTTP b'POST' request for ['172.23.0.4', 45608]
+[36mback     |[0m No token in header, checking if it is in body!
+[36mback     |[0m Token founded!
+[36mback     |[0m Token expired
+[36mback     |[0m Inside wrapper, checking access
+[36mback     |[0m Refresh token sent!
+[36mback     |[0m Refresh is still active!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3MjAyLCJpYXQiOjE3MzI1NjY5MDJ9.jHJiq4LWIHTy_2KBytaaYtyMQr86wcd8aJD0dCUT27g
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3MjAyLCJpYXQiOjE3MzI1NjY5MDJ9.jHJiq4LWIHTy_2KBytaaYtyMQr86wcd8aJD0dCUT27g
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m Inside verify Refresh
+[36mback     |[0m -------------------------------------
+[36mback     |[0m eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTA3LCJpYXQiOjE3MzI1NjcyMDd9.9dBfRAUwFqrSB5joM0EAg_mS1gvr5RCJqmfZpFUEAT8
+[36mback     |[0m -------------------------------------
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 45608]
+[36mback     |[0m HTTP close for ['172.23.0.4', 45608]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45608]
+[36mback     |[0m HTTP POST /verify-refresh/ 200 [0.01, 172.23.0.4:45608]
+[36mback     |[0m HTTP POST /verify-refresh/ 200 [0.01, 172.23.0.4:45608]
+[36mback     |[0m HTTP b'POST' request for ['172.23.0.4', 45612]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 45612]
+[36mback     |[0m HTTP close for ['172.23.0.4', 45612]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45612]
+[36mback     |[0m HTTP POST /login/ 200 [0.22, 172.23.0.4:45612]
+[36mback     |[0m HTTP POST /login/ 200 [0.22, 172.23.0.4:45612]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 45618]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 45630]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m There is a token in header!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m Token founded!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 45618]
+[36mback     |[0m HTTP close for ['172.23.0.4', 45618]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45618]
+[36mback     |[0m HTTP GET /home/ 200 [0.02, 172.23.0.4:45618]
+[36mback     |[0m HTTP GET /home/ 200 [0.02, 172.23.0.4:45618]
+[36mback     |[0m Username: josito, Status: ONLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 45630]
+[36mback     |[0m HTTP close for ['172.23.0.4', 45630]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45630]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.03, 172.23.0.4:45630]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.03, 172.23.0.4:45630]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 45636]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 45646]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token expired
+[36mback     |[0m Token founded!
+[36mback     |[0m Inside wrapper, checking access
+[36mback     |[0m Token expired
+[36mback     |[0m Inside wrapper, checking access
+[36mback     |[0m Access token expired!
+[36mback     |[0m Access token expired!
+[36mback     |[0m Unauthorized: /get_user_info/
+[36mback     |[0m Unauthorized: /get_user_info/
+[36mback     |[0m Unauthorized: /home/
+[36mback     |[0m Unauthorized: /home/
+[36mback     |[0m HTTP 401 response started for ['172.23.0.4', 45646]
+[36mback     |[0m HTTP close for ['172.23.0.4', 45646]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45646]
+[36mback     |[0m HTTP GET /get_user_info/ 401 [0.01, 172.23.0.4:45646]
+[36mback     |[0m HTTP GET /get_user_info/ 401 [0.01, 172.23.0.4:45646]
+[36mback     |[0m HTTP 401 response started for ['172.23.0.4', 45636]
+[36mback     |[0m HTTP close for ['172.23.0.4', 45636]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45636]
+[36mback     |[0m HTTP GET /home/ 401 [0.02, 172.23.0.4:45636]
+[36mback     |[0m HTTP GET /home/ 401 [0.02, 172.23.0.4:45636]
+[36mback     |[0m HTTP b'POST' request for ['172.23.0.4', 45662]
+[36mback     |[0m No token in header, checking if it is in body!
+[36mback     |[0m Token founded!
+[36mback     |[0m Token expired
+[36mback     |[0m Inside wrapper, checking access
+[36mback     |[0m Refresh token sent!
+[36mback     |[0m Refresh is still active!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3MjEwLCJpYXQiOjE3MzI1NjY5MTB9.wehWlDdSIB73NI1UY6ybvnbP-4ev9mVHYlr0DvI57dY
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3MjEwLCJpYXQiOjE3MzI1NjY5MTB9.wehWlDdSIB73NI1UY6ybvnbP-4ev9mVHYlr0DvI57dY
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m Inside verify Refresh
+[36mback     |[0m -------------------------------------
+[36mback     |[0m eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTE1LCJpYXQiOjE3MzI1NjcyMTV9.QDAF2xxI0srAJLxlaAY6q_3hVpYTRdJMwPlswAF2kdo
+[36mback     |[0m -------------------------------------
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 45662]
+[36mback     |[0m HTTP close for ['172.23.0.4', 45662]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 45662]
+[36mback     |[0m HTTP POST /verify-refresh/ 200 [0.01, 172.23.0.4:45662]
+[36mback     |[0m HTTP POST /verify-refresh/ 200 [0.01, 172.23.0.4:45662]
+[36mback     |[0m HTTP b'POST' request for ['172.23.0.4', 52164]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 52164]
+[36mback     |[0m HTTP close for ['172.23.0.4', 52164]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 52164]
+[36mback     |[0m HTTP POST /login/ 200 [0.24, 172.23.0.4:52164]
+[36mback     |[0m HTTP POST /login/ 200 [0.24, 172.23.0.4:52164]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 52174]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 52180]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m Username: pepita, Status: ONLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 52180]
+[36mback     |[0m HTTP close for ['172.23.0.4', 52180]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 52180]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:52180]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:52180]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 52174]
+[36mback     |[0m HTTP close for ['172.23.0.4', 52174]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 52174]
+[36mback     |[0m HTTP GET /home/ 200 [0.02, 172.23.0.4:52174]
+[36mback     |[0m HTTP GET /home/ 200 [0.02, 172.23.0.4:52174]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 52190]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 52196]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Token founded!
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m Username: josito, Status: ONLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 52190]
+[36mback     |[0m HTTP close for ['172.23.0.4', 52190]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 52190]
+[36mback     |[0m HTTP GET /home/game/ 200 [0.03, 172.23.0.4:52190]
+[36mback     |[0m HTTP GET /home/game/ 200 [0.03, 172.23.0.4:52190]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 52196]
+[36mback     |[0m HTTP close for ['172.23.0.4', 52196]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 52196]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.03, 172.23.0.4:52196]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.03, 172.23.0.4:52196]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 52200]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m Username: josito, Status: ONLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 52200]
+[36mback     |[0m HTTP close for ['172.23.0.4', 52200]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 52200]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.01, 172.23.0.4:52200]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.01, 172.23.0.4:52200]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 52208]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m Username: josito, Status: ONLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 52208]
+[36mback     |[0m HTTP close for ['172.23.0.4', 52208]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 52208]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.01, 172.23.0.4:52208]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.01, 172.23.0.4:52208]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 52224]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m Username: josito, Status: ONLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 52224]
+[36mback     |[0m HTTP close for ['172.23.0.4', 52224]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 52224]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.01, 172.23.0.4:52224]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.01, 172.23.0.4:52224]
+[36mback     |[0m HTTP b'POST' request for ['172.23.0.4', 52236]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m Active tournaments: <QuerySet []>
+[36mback     |[0m User in tournament: False False
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 52236]
+[36mback     |[0m HTTP close for ['172.23.0.4', 52236]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 52236]
+[36mback     |[0m HTTP POST /home/game/tournament/create/ 200 [0.03, 172.23.0.4:52236]
+[36mback     |[0m HTTP POST /home/game/tournament/create/ 200 [0.03, 172.23.0.4:52236]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 54924]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 54930]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m Username: josito, Status: ONLINE
+[36mback     |[0m HTTP 301 response started for ['172.23.0.4', 54924]
+[36mback     |[0m HTTP close for ['172.23.0.4', 54924]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 54924]
+[36mback     |[0m HTTP GET /home/game/tournament/t_game 301 [0.03, 172.23.0.4:54924]
+[36mback     |[0m HTTP GET /home/game/tournament/t_game 301 [0.03, 172.23.0.4:54924]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 54930]
+[36mback     |[0m HTTP close for ['172.23.0.4', 54930]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 54930]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.03, 172.23.0.4:54930]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.03, 172.23.0.4:54930]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 54938]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZXhwIjoxNzMyNTY3NTEzLCJpYXQiOjE3MzI1NjcyMTN9.V_iTrWgyFTxvxeDfd60PAkInab6YWpCLHKekC4RdIck
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 2
+[36mback     |[0m Payload ID: 2
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 54938]
+[36mback     |[0m HTTP close for ['172.23.0.4', 54938]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 54938]
+[36mback     |[0m HTTP GET /home/game/tournament/t_game/ 200 [0.01, 172.23.0.4:54938]
+[36mback     |[0m HTTP GET /home/game/tournament/t_game/ 200 [0.01, 172.23.0.4:54938]
+[36mback     |[0m WebSocket HANDSHAKING /ws/pong-socket/champion/2/ [172.23.0.4:54954]
+[36mback     |[0m WebSocket HANDSHAKING /ws/pong-socket/champion/2/ [172.23.0.4:54954]
+[36mback     |[0m Upgraded connection ['172.23.0.4', 54954] to WebSocket
+[36mback     |[0m Users that lost: {}
+[36mback     |[0m SUPER DEBUG: 2, [], None and None
+[36mback     |[0m !!!!!! queue length = 1
+[36mback     |[0m WebSocket ['172.23.0.4', 54954] open and established
+[36mback     |[0m WebSocket CONNECT /ws/pong-socket/champion/2/ [172.23.0.4:54954]
+[36mback     |[0m WebSocket CONNECT /ws/pong-socket/champion/2/ [172.23.0.4:54954]
+[36mback     |[0m WebSocket ['172.23.0.4', 54954] accepted by application
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 54962]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 54968]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m There is a token in header!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m Token founded!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m Username: pepita, Status: ONLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 54962]
+[36mback     |[0m HTTP close for ['172.23.0.4', 54962]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 54962]
+[36mback     |[0m HTTP GET /home/game/ 200 [0.02, 172.23.0.4:54962]
+[36mback     |[0m HTTP GET /home/game/ 200 [0.02, 172.23.0.4:54962]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 54968]
+[36mback     |[0m HTTP close for ['172.23.0.4', 54968]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 54968]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:54968]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:54968]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 54982]
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:56 +0000] "GET / HTTP/1.1" 200 3627 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:56 +0000] "GET /static/pong_app/css/styles.css HTTP/1.1" 200 2735 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:56 +0000] "GET /static/pong_app/js/main.js HTTP/1.1" 200 1848 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/handleProfile.js HTTP/1.1" 200 1739 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/tournamentHtml.js HTTP/1.1" 200 3050 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/profileSettings.js HTTP/1.1" 200 3083 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/handleCredentials.js HTTP/1.1" 200 5129 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/local_game.js HTTP/1.1" 200 8507 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/navigate.js HTTP/1.1" 200 1221 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/loadForms.js HTTP/1.1" 200 8386 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/oauth.js HTTP/1.1" 200 4342 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/pong_game.js HTTP/1.1" 200 7489 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/logout.js HTTP/1.1" 200 3531 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/handleFriends.js HTTP/1.1" 200 3974 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/signUp.js HTTP/1.1" 200 2395 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/jwt.js HTTP/1.1" 200 1751 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/htmlContent.js HTTP/1.1" 200 8393 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/tournament_game.js HTTP/1.1" 200 9883 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/js/handleTournaments.js HTTP/1.1" 200 3452 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /static/pong_app/css/background2.gif HTTP/1.1" 200 63533 "https://localhost:8000/static/pong_app/css/styles.css" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /get_user_info/ HTTP/1.1" 200 109 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:39:57 +0000] "GET /home/ HTTP/1.1" 400 64 "https://localhost:8000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET / HTTP/1.1" 200 3627 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET /static/pong_app/css/styles.css HTTP/1.1" 304 0 "https://localhost:8000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET /static/pong_app/js/pong_game.js HTTP/1.1" 304 0 "https://localhost:8000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET /static/pong_app/js/tournament_game.js HTTP/1.1" 304 0 "https://localhost:8000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET /static/pong_app/js/navigate.js HTTP/1.1" 304 0 "https://localhost:8000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET /static/pong_app/js/handleFriends.js HTTP/1.1" 304 0 "https://localhost:8000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET /static/pong_app/js/logout.js HTTP/1.1" 304 0 "https://localhost:8000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET /static/pong_app/js/handleCredentials.js HTTP/1.1" 304 0 "https://localhost:8000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET /static/pong_app/js/profileSettings.js HTTP/1.1" 304 0 "https://localhost:8000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET /static/pong_app/js/htmlContent.js HTTP/1.1" 304 0 "https://localhost:8000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET /get_user_info/ HTTP/1.1" 200 109 "https://localhost:8000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:05 +0000] "GET /home/ HTTP/1.1" 400 64 "https://localhost:8000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m Username: pepita, Status: ONLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 54982]
+[36mback     |[0m HTTP close for ['172.23.0.4', 54982]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 54982]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.01, 172.23.0.4:54982]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.01, 172.23.0.4:54982]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 54984]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m Username: pepita, Status: ONLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 54984]
+[36mback     |[0m HTTP close for ['172.23.0.4', 54984]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 54984]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:54984]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:54984]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 54992]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55008]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m Username: pepita, Status: ONLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 54992]
+[36mback     |[0m HTTP close for ['172.23.0.4', 54992]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 54992]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:54992]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:54992]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55008]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55008]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55008]
+[36mback     |[0m HTTP GET /home/game/tournament/join/ 200 [0.02, 172.23.0.4:55008]
+[36mback     |[0m HTTP GET /home/game/tournament/join/ 200 [0.02, 172.23.0.4:55008]
+[36mback     |[0m HTTP b'POST' request for ['172.23.0.4', 55012]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m PARTS: {'josito': '2'}
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55012]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55012]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55012]
+[36mback     |[0m HTTP POST /home/game/tournament/join/checker/ 200 [0.02, 172.23.0.4:55012]
+[36mback     |[0m HTTP POST /home/game/tournament/join/checker/ 200 [0.02, 172.23.0.4:55012]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55024]
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 55036]
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m There is a token in header!
+[36mback     |[0m Token founded!
+[36mback     |[0m there is a token and it didn`t expire!
+[36mback     |[0m get_user_from_jwt, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m decode_jwt_token, TOKEN to be decode: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZXhwIjoxNzMyNTY3NTIwLCJpYXQiOjE3MzI1NjcyMjB9.EVZNyWdWfqeK9dLT6enRzLr-V9-H0CwAgewF98pibGo
+[36mback     |[0m Payload ID, AFTER jwt.decode	: 3
+[36mback     |[0m Payload ID: 3
+[36mback     |[0m Username: pepita, Status: ONLINE
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55024]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55024]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55024]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:55024]
+[36mback     |[0m HTTP GET /get_user_info/ 200 [0.02, 172.23.0.4:55024]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 55036]
+[36mback     |[0m HTTP close for ['172.23.0.4', 55036]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 55036]
+[36mback     |[0m HTTP GET /home/game/tournament/t_game/ 200 [0.02, 172.23.0.4:55036]
+[36mback     |[0m HTTP GET /home/game/tournament/t_game/ 200 [0.02, 172.23.0.4:55036]
+[36mback     |[0m WebSocket HANDSHAKING /ws/pong-socket/champion/3/ [172.23.0.4:55044]
+[36mback     |[0m WebSocket HANDSHAKING /ws/pong-socket/champion/3/ [172.23.0.4:55044]
+[36mback     |[0m Upgraded connection ['172.23.0.4', 55044] to WebSocket
+[36mback     |[0m Users that lost: {}
+[36mback     |[0m SUPER DEBUG: 3, [2], None and None
+[36mback     |[0m !!!!!! queue length = 2
+[36mback     |[0m WebSocket ['172.23.0.4', 55044] open and established
+[36mback     |[0m WebSocket CONNECT /ws/pong-socket/champion/3/ [172.23.0.4:55044]
+[36mback     |[0m WebSocket CONNECT /ws/pong-socket/champion/3/ [172.23.0.4:55044]
+[36mback     |[0m WebSocket ['172.23.0.4', 55044] accepted by application
+[36mback     |[0m specific..inmemory!ymIhyyEsPxuU
+[36mback     |[0m !!!!!!Jugador 1 se unió a la sala: pong_game_2_3!!!!!!
+[36mback     |[0m specific..inmemory!hhLExYOeHmCN
+[36mback     |[0m !!!!!!Jugador 2 se unió a la sala: pong_game_2_3!!!!!!
+[36mback     |[0m GAME LOOP CALLED
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:07 +0000] "GET /get_user_info/ HTTP/1.1" 401 53 "https://localhost:8000/login/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:07 +0000] "GET /home/ HTTP/1.1" 401 53 "https://localhost:8000/login/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:07 +0000] "POST /verify-refresh/ HTTP/1.1" 200 219 "https://localhost:8000/login/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:13 +0000] "POST /login/ HTTP/1.1" 200 223 "https://localhost:8000/login/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:14 +0000] "GET /home/ HTTP/1.1" 200 83 "https://localhost:8000/home/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:14 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:15 +0000] "GET /get_user_info/ HTTP/1.1" 401 53 "https://localhost:8000/login/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:15 +0000] "GET /home/ HTTP/1.1" 401 53 "https://localhost:8000/login/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:15 +0000] "POST /verify-refresh/ HTTP/1.1" 200 219 "https://localhost:8000/login/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:20 +0000] "POST /login/ HTTP/1.1" 200 223 "https://localhost:8000/login/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:20 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:20 +0000] "GET /home/ HTTP/1.1" 200 83 "https://localhost:8000/home/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:22 +0000] "GET /home/game/ HTTP/1.1" 200 58 "https://localhost:8000/home/game/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:22 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/game/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:23 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/game/tournament/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:23 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/game/tournament/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:23 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/game/tournament/create/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:25 +0000] "POST /home/game/tournament/create/ HTTP/1.1" 200 68 "https://localhost:8000/home/game/tournament/create/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:26 +0000] "GET /home/game/tournament/t_game HTTP/1.1" 301 5 "https://localhost:8000/home/game/tournament/t_game/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:26 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/game/tournament/t_game/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:26 +0000] "GET /home/game/tournament/t_game/ HTTP/1.1" 200 58 "https://localhost:8000/home/game/tournament/t_game/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:28 +0000] "GET /home/game/ HTTP/1.1" 200 58 "https://localhost:8000/home/game/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:28 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/game/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:29 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/game/tournament/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:29 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/game/tournament/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:29 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/game/tournament/join/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:29 +0000] "GET /home/game/tournament/join/ HTTP/1.1" 200 74 "https://localhost:8000/home/game/tournament/join/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:30 +0000] "POST /home/game/tournament/join/checker/ HTTP/1.1" 200 63 "https://localhost:8000/home/game/tournament/join/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:30 +0000] "GET /get_user_info/ HTTP/1.1" 200 108 "https://localhost:8000/home/game/tournament/t_game/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:30 +0000] "GET /home/game/tournament/t_game/ HTTP/1.1" 200 58 "https://localhost:8000/home/game/tournament/t_game/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:50 +0000] "GET /static/pong_app/css/styles.css HTTP/1.1" 200 2735 "https://localhost:8000/home/game/tournament/t_game/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 2024/11/25 20:40:50 [error] 9#9: *88 recv() failed (104: Connection reset by peer) while proxying upgraded connection, client: 172.23.0.1, server: jaimmartpc, request: "GET /ws/pong-socket/champion/2/ HTTP/1.1", upstream: "http://172.23.0.3:8000/ws/pong-socket/champion/2/", host: "localhost:8000"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:50 +0000] "GET /ws/pong-socket/champion/2/ HTTP/1.1" 101 53212 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+[32mnginx    |[0m 172.23.0.1 - - [25/Nov/2024:20:40:50 +0000] "GET /ws/pong-socket/champion/3/ HTTP/1.1" 101 53177 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+[33mdb       |[0m The files belonging to this database system will be owned by user "postgres".
+[33mdb       |[0m This user must also own the server process.
+[33mdb       |[0m 
+[33mdb       |[0m The database cluster will be initialized with locale "en_US.utf8".
+[33mdb       |[0m The default database encoding has accordingly been set to "UTF8".
+[33mdb       |[0m The default text search configuration will be set to "english".
+[33mdb       |[0m 
+[33mdb       |[0m Data page checksums are disabled.
+[33mdb       |[0m 
+[33mdb       |[0m fixing permissions on existing directory /var/lib/postgresql/data ... ok
+[33mdb       |[0m creating subdirectories ... ok
+[33mdb       |[0m selecting dynamic shared memory implementation ... posix
+[33mdb       |[0m selecting default max_connections ... 100
+[33mdb       |[0m selecting default shared_buffers ... 128MB
+[33mdb       |[0m selecting default time zone ... Etc/UTC
+[33mdb       |[0m creating configuration files ... ok
+[33mdb       |[0m running bootstrap script ... ok
+[33mdb       |[0m performing post-bootstrap initialization ... ok
+[33mdb       |[0m syncing data to disk ... ok
+[33mdb       |[0m 
+[33mdb       |[0m 
+[33mdb       |[0m Success. You can now start the database server using:
+[33mdb       |[0m 
+[33mdb       |[0m     pg_ctl -D /var/lib/postgresql/data -l logfile start
+[33mdb       |[0m 
+[33mdb       |[0m initdb: warning: enabling "trust" authentication for local connections
+[33mdb       |[0m You can change this by editing pg_hba.conf or using the option -A, or
+[33mdb       |[0m --auth-local and --auth-host, the next time you run initdb.
+[33mdb       |[0m waiting for server to start....2024-11-25 20:39:33.178 UTC [48] LOG:  starting PostgreSQL 13.16 (Debian 13.16-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+[33mdb       |[0m 2024-11-25 20:39:33.179 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+[33mdb       |[0m 2024-11-25 20:39:33.183 UTC [49] LOG:  database system was shut down at 2024-11-25 20:39:32 UTC
+[33mdb       |[0m 2024-11-25 20:39:33.189 UTC [48] LOG:  database system is ready to accept connections
+[33mdb       |[0m  done
+[33mdb       |[0m server started
+[33mdb       |[0m CREATE DATABASE
+[33mdb       |[0m 
+[33mdb       |[0m 
+[33mdb       |[0m /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+[33mdb       |[0m 
+[33mdb       |[0m 2024-11-25 20:39:33.398 UTC [48] LOG:  received fast shutdown request
+[33mdb       |[0m waiting for server to shut down....2024-11-25 20:39:33.399 UTC [48] LOG:  aborting any active transactions
+[33mdb       |[0m 2024-11-25 20:39:33.403 UTC [48] LOG:  background worker "logical replication launcher" (PID 55) exited with exit code 1
+[33mdb       |[0m 2024-11-25 20:39:33.403 UTC [50] LOG:  shutting down
+[33mdb       |[0m 2024-11-25 20:39:33.424 UTC [48] LOG:  database system is shut down
+[33mdb       |[0m  done
+[33mdb       |[0m server stopped
+[33mdb       |[0m 
+[33mdb       |[0m PostgreSQL init process complete; ready for start up.
+[33mdb       |[0m 
+[33mdb       |[0m 2024-11-25 20:39:33.546 UTC [1] LOG:  starting PostgreSQL 13.16 (Debian 13.16-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+[33mdb       |[0m 2024-11-25 20:39:33.546 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+[33mdb       |[0m 2024-11-25 20:39:33.546 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+[33mdb       |[0m 2024-11-25 20:39:33.548 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+[33mdb       |[0m 2024-11-25 20:39:33.551 UTC [63] LOG:  database system was shut down at 2024-11-25 20:39:33 UTC
+[33mdb       |[0m 2024-11-25 20:39:33.557 UTC [1] LOG:  database system is ready to accept connections
+[33mdb       |[0m 2024-11-25 20:42:06.355 UTC [1] LOG:  received fast shutdown request
+[33mdb       |[0m 2024-11-25 20:42:06.355 UTC [1] LOG:  aborting any active transactions
+[33mdb       |[0m 2024-11-25 20:42:06.358 UTC [1] LOG:  background worker "logical replication launcher" (PID 69) exited with exit code 1
+[33mdb       |[0m 2024-11-25 20:42:06.358 UTC [64] LOG:  shutting down
+[33mdb       |[0m 2024-11-25 20:42:06.381 UTC [1] LOG:  database system is shut down
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[32mnginx    |[0m 2024/11/25 20:40:50 [error] 9#9: *99 recv() failed (104: Connection reset by peer) while proxying upgraded connection, client: 172.23.0.1, server: jaimmartpc, request: "GET /ws/pong-socket/champion/3/ HTTP/1.1", upstream: "http://172.23.0.3:8000/ws/pong-socket/champion/3/", host: "localhost:8000"
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m WebSocket incoming frame on ['172.23.0.4', 54954]
+[36mback     |[0m WebSocket incoming frame on ['172.23.0.4', 54954]
+[36mback     |[0m !!!!!RECIBIDO!!!
+[36mback     |[0m [91mPlayer number : 1[0m
+[36mback     |[0m [91mKey : ControlLeft[0m
+[36mback     |[0m [91mAction : move[0m
+[36mback     |[0m !!!!!RECIBIDO!!!
+[36mback     |[0m [91mPlayer number : 1[0m
+[36mback     |[0m [91mKey : ShiftLeft[0m
+[36mback     |[0m [91mAction : move[0m
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m [96mUPDATE_GAME_STATS CALLED, winner : 2[0m
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m WebSocket incoming frame on ['172.23.0.4', 55044]
+[36mback     |[0m !!!!!RECIBIDO!!!
+[36mback     |[0m Unexpected error: 'position'
+[36mback     |[0m WebSocket incoming frame on ['172.23.0.4', 54954]
+[36mback     |[0m !!!!!RECIBIDO!!!
+[36mback     |[0m [91mPlayer number : 1[0m
+[36mback     |[0m [91mKey : KeyI[0m
+[36mback     |[0m [91mAction : move[0m
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m WebSocket incoming frame on ['172.23.0.4', 55044]
+[36mback     |[0m !!!!!RECIBIDO!!!
+[36mback     |[0m Unexpected error: 'position'
+[36mback     |[0m WebSocket incoming frame on ['172.23.0.4', 54954]
+[36mback     |[0m !!!!!RECIBIDO!!!
+[36mback     |[0m [91mPlayer number : 1[0m
+[36mback     |[0m [91mKey : KeyI[0m
+[36mback     |[0m [91mAction : stop[0m
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 54954]
+[36mback     |[0m Sent WebSocket packet to client for ['172.23.0.4', 55044]
+[36mback     |[0m WebSocket incoming frame on ['172.23.0.4', 55044]
+[36mback     |[0m !!!!!RECIBIDO!!!
+[36mback     |[0m Unexpected error: 'position'
+[36mback     |[0m HTTP b'GET' request for ['172.23.0.4', 59050]
+[36mback     |[0m HTTP 200 response started for ['172.23.0.4', 59050]
+[36mback     |[0m HTTP response chunk for ['172.23.0.4', 59050]
+[36mback     |[0m HTTP close for ['172.23.0.4', 59050]
+[36mback     |[0m HTTP response complete for ['172.23.0.4', 59050]
+[36mback     |[0m HTTP GET /static/pong_app/css/styles.css 200 [0.00, 172.23.0.4:59050]
+[36mback     |[0m HTTP GET /static/pong_app/css/styles.css 200 [0.00, 172.23.0.4:59050]
+[36mback     |[0m WebSocket closed for ['172.23.0.4', 54954]
+[36mback     |[0m WebSocket DISCONNECT /ws/pong-socket/champion/2/ [172.23.0.4:54954]
+[36mback     |[0m WebSocket DISCONNECT /ws/pong-socket/champion/2/ [172.23.0.4:54954]
+[36mback     |[0m WebSocket closed for ['172.23.0.4', 55044]
+[36mback     |[0m WebSocket DISCONNECT /ws/pong-socket/champion/3/ [172.23.0.4:55044]
+[36mback     |[0m WebSocket DISCONNECT /ws/pong-socket/champion/3/ [172.23.0.4:55044]
+[36mback     |[0m Disconnected: 1000
+[36mback     |[0m User_id 2 not in list []
+[36mback     |[0m Consumer 2 not in list []
+[36mback     |[0m GameState deleted
+[36mback     |[0m Disconnected: 1000
+[36mback     |[0m User_id 3 not in list []
+[36mback     |[0m Consumer 3 not in list []
+[36mback     |[0m GameState deleted
+[36mback     |[0m WebSocket HANDSHAKING /ws/pong-socket/champion/3/ [172.23.0.4:59052]
+[36mback     |[0m WebSocket HANDSHAKING /ws/pong-socket/champion/3/ [172.23.0.4:59052]
+[36mback     |[0m Upgraded connection ['172.23.0.4', 59052] to WebSocket
+[36mback     |[0m Users that lost: {'champion': [2]}
+[36mback     |[0m SUPER DEBUG: 3, [], None and None
+[36mback     |[0m !!!!!! queue length = 1
+[36mback     |[0m WebSocket ['172.23.0.4', 59052] open and established
+[36mback     |[0m WebSocket CONNECT /ws/pong-socket/champion/3/ [172.23.0.4:59052]
+[36mback     |[0m WebSocket CONNECT /ws/pong-socket/champion/3/ [172.23.0.4:59052]
+[36mback     |[0m WebSocket ['172.23.0.4', 59052] accepted by application
+[36mback     |[0m WebSocket closed for ['172.23.0.4', 59052]
+[36mback     |[0m WebSocket DISCONNECT /ws/pong-socket/champion/3/ [172.23.0.4:59052]
+[36mback     |[0m WebSocket DISCONNECT /ws/pong-socket/champion/3/ [172.23.0.4:59052]
+[36mback     |[0m Disconnected: 1006
