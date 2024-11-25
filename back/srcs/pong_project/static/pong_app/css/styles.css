@@ -166,9 +166,10 @@ body
 .friend-card
 {
 	display: flex;
+	color: #362c45;
 	justify-content: space-between;
 	align-items: center;
-	background-color: white;
+	background-color: #C3B0DB;
 	border-radius: 10px;
 	padding: 10px;
 	gap: 5px;

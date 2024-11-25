@@ -31,8 +31,8 @@ function loadPage(url, data)
 		initializeTournament();
 	else if (url === '/home/friends/')
 		loadFriendsSection();
-	else
-		loadNotFound();
+//	else if (url != '/home/callback.html/')
+//		loadNotFound();
 }
 
 function navigateTo(url, data)

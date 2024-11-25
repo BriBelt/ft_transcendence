@@ -4,80 +4,77 @@ function logInHandler()
 
     if (loginForm)
     {
-        loginForm.addEventListener('submit', function(event)
+    	try
 	{
-            event.preventDefault();
-
-            const formData =
-	    {
-                username: document.getElementById('username').value,
-                password: document.getElementById('password').value
-            };
-
-	    if (validateInput(formData, 'login'))
-	    {
-                fetch('/login/',
+		loginForm.addEventListener('submit', async function(event)
 		{
-                    method: 'POST',
-                    headers:
+		    event.preventDefault();
+
+		    const formData =
 		    {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                })
-			    .then(response => response.json())
-                .then(data =>
-		{
-                    if (data.status === 'success')
+			username: document.getElementById('username').value,
+			password: document.getElementById('password').value
+		    };
+
+		    if (validateInput(formData, 'login'))
 		    {
-			localStorage.setItem('userid', data.userid);
-			if (data.message === 'Verification code sent')
+			const response = await fetch('/login/',
 			{
-				code = prompt('Enter the verification code: ');
-				if (handle2FA(code))
-				{
+			    method: 'POST',
+			    headers:
+			    {
+				'Content-Type': 'application/json'
+			    },
+			    body: JSON.stringify(formData)
+			});
+			const data = await response.json();
 
-					alert('Valid code');
-					return;
-				}
-				else 
+			if (data.status === 'success')
+			{
+				localStorage.setItem('userid', data.userid);
+				const code = document.getElementById('code').value;
+				if (code)
 				{
-					alert('Non-valid code');
-					return;
+					handle2FA(code);
 				}
-
+				else if (data.message === 'Logged in successfully!')
+				{
+					localStorage.setItem('access', data.access);
+					localStorage.setItem('playing', 'false');
+					alert('Log in successful!');
+					navigateTo('/home/');
+				}
+				else if (data.message === 'Verification code needed')
+				{
+					const codeDiv = document.getElementById('codeDiv');
+					codeDiv.style.display = '';
+					await askForCode(formData);
+				}
 			}
 			else
 			{
-				localStorage.setItem('access', data.access);
-				localStorage.setItem('playing', 'false');
-				alert('Log in successful!');
-				navigateTo('/home/');
+				console.log('Inside else');
+				if (data.message === 'Invalid credentials')
+				{
+					showMessage('password-error', 'Invalid password. Try again');
+				}
+				else if (data.message === 'Invalid username')
+				{
+					showMessage('username-error', 'Invalid username');
+				}
+				else
+				{
+					alert('Your account is not verified, please check your email.')
+					showMessage('email-error', 'Account is not verified, please check your email');
+				}
 			}
-                    }
-		    else
-		    {
-		    	console.log('Inside else');
-		    	if (data.message === 'Invalid credentials')
-			{
-				showMessage('password-error', 'Invalid password. Try again');
-			}
-		    	else if (data.message === 'Invalid username')
-			{
-				showMessage('username-error', 'Invalid username');
-			}
-			else
-			{
-				alert('Your account is not verified, please check your email.')
-				showMessage('email-error', 'Account is not verified, please check your email');
-			}
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
-        });
+		}
+	    });
+	}
+        catch(error)
+	{
+             console.error('Error:', error);
+        }
     }
     else
     {
@@ -85,38 +82,70 @@ function logInHandler()
     }
 }
 
-function handle2FA(code)
+async function askForCode(userData)
+{
+	try
+	{
+		const response = await fetch('/login/2fa-code/', 
+		{
+                    method: 'POST',
+                    headers:
+		    {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+		});
+		const data = await response.json();
+
+		if (data.status === 'success')
+		{
+			return (true);
+		}
+		else
+		{
+			console.error('Error:', data.message);
+			return (false);
+		}
+	}
+	catch(error)
+	{
+		console.error('Error:', error);
+		return (false);
+	}
+}
+
+async function handle2FA(code)
 {
 	const formData =
 	{
 		username: document.getElementById('username').value,
 		otp: code
 	};
-	fetch('/login/verify-2fa/',
+	if (code)
 	{
-	    method: 'POST',
-	    headers:
-	    {
-		'Content-Type': 'application/json'
-	    },
-	    body: JSON.stringify(formData)
-	})
-	.then(response => response.json())
-	.then(data =>
-	{
-	    if (data.status === 'success')
-	    {
-		localStorage.setItem('access', data.access);
-		alert('Log in successful!');
-		navigateTo('/home/');
-		return (true);
-	    }
-	    else
-	    {
-		showMessage('code-error', 'Incorrect verification code, please try again.');
-		return (false);
-	    }
-	})
+		const response = await fetch('/login/verify-2fa/',
+		{
+		    method: 'POST',
+		    headers:
+		    {
+			'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify(formData)
+		});
+
+		const data = await response.json();
+		if (data.status === 'success')
+		{
+			localStorage.setItem('access', data.access);
+			alert('Log in successful!');
+			navigateTo('/home/');
+		}
+		else
+		{
+			showMessage('code-error', 'Incorrect verification code, try again.');
+			askForCode(formData);
+		}
+	}
 }
 
 function validateInput(formData, form)

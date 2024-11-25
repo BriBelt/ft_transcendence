@@ -8,6 +8,7 @@ urlpatterns = [
 	path('login/', views.loginView, name='login'),
 	path('logout/', views.logoutView, name='logout'),
 	path('login/verify-2fa/', views.verify2FA, name='verify2FA'),
+	path('login/2fa-code/', views.give2FA, name='give2FA'),
 	path('', views.main_view, name='main'),
 	path('not-found/', views.notFound, name='not-found'),
 

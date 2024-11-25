@@ -79,7 +79,7 @@ async function logoutUser()
             if (data.status === 'success')
     	    {
                     localStorage.removeItem('access');
-                    navigateTo('/login/');
+                    navigateTo('/');
             }
     	    else
     	    {

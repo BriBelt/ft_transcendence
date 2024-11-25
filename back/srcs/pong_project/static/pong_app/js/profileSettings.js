@@ -22,12 +22,14 @@ async function loadProfileSettings()
 				const twofa = document.getElementById('twofa');
 				twofa.checked = data.tfa;
 
-				const username_field = document.getElementById('username');
-				const password_field = document.getElementById('password');
+				const username_field = document.getElementById('usernameDiv');
+				const password_field = document.getElementById('passwordDiv');
+				const twofa_field = document.getElementById('twofaDiv');
 				if (data.intra)
 				{
 					username_field.classList.add('d-none');	
 					password_field.classList.add('d-none');	
+					twofa_field.classList.add('d-none');	
 				}
 				const save = document.getElementById('save-changes');
 				if (save)
