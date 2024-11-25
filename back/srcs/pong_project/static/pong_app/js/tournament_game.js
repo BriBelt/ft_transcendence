@@ -1,3 +1,5 @@
+let tournament_anouncement;
+
 async function initializeTournament()
 {
 	const app = document.getElementById('app');
@@ -137,7 +139,7 @@ function initializeTournamentGame(){
                 const winnerId = winnerDetails ? parseInt(winnerDetails[1], 10) : null;
                 console.log(`Winner ${winnerId}`)
                 console.log(`Player ${userid}`)
-                alert(`Winner ${winnerId}`)
+                //alert(`Winner ${winnerId}`)//Q
                 if (score1 === 7) displayWinnerBanner("Player 1");
                 if (score2 === 7) displayWinnerBanner("Player 2");
                 if (parseInt(userid, 10) == parseInt(winnerId, 10)){

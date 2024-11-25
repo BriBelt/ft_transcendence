@@ -521,7 +521,7 @@ def create_tournament_view(request):
 			active_tournament = Tournament.objects.filter(participants=user.username, finished=False)
 			print(f"Active tournaments: {active_tournament}", flush=True)
 			if user.user_in_online_game == True:
-				return JsonResponse({'status': 'error', 'message': "User can not join another tournament!"}, status=405)
+				return JsonResponse({'status': 'error', 'message': "User can not join another game!"}, status=405)
 
 			if user.user_in_tournament == True:
 				tournaments = Tournament.objects.all()

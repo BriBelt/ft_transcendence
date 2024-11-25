@@ -45,6 +45,9 @@ async function createTournament(tournamentName)
 					case 'User is already in another tournament.':
 						alert('You are already in an active tournament.');
 						break;
+					case 'User can not join another game!':
+						alert('You have already joined an online game, finish it before creating a tournament.');
+						break;
 					default:
 						await checkRefresh(data, '/home/game/tournament/create/', token);
 				}
@@ -105,6 +108,9 @@ async function joinTournament(tournamentName)
 						break;
 					case 'User can not join another tournament!':
 						alert('You can not join more than 1 tournament at a time.');
+						break;
+					case 'User already playing an online game!':
+						alert('You are already playing an online game, finish it before joining a tournament.');
 						break;
 					default:
 						await checkRefresh(data, '/home/game/tournament/join/checker/', token);

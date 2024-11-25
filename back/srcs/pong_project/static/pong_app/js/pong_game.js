@@ -286,7 +286,12 @@ async function initializeGame()
 				startOnlineGame();
 			}
 			else
-				await checkRefreshToken(token);//QUE HACER SI RESPONDE QUE ESTA EN UN TORNEO?
+			{
+				if (data.message.includes('User has joined a tournament'))
+					alert('You have already joined a tournament, you must play one game at a time.');
+				else
+					await checkRefreshToken(token);
+			}
 		}
 		catch(error)
 		{
