@@ -452,6 +452,7 @@ class PongConsumer(AsyncWebsocketConsumer):
             "message": f"Tournament Match between {event['player1_username']} and {event['player2_username']} is about to begin!",
             "player1_username": event["player1_username"],
             "player2_username": event["player2_username"],
+            "tournament_name": self.tournament_name,
         }))
 
 

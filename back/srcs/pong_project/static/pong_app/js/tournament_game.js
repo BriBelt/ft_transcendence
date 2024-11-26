@@ -152,7 +152,7 @@ function initializeTournamentGame(){
                 console.log(announcement);
         
                 // Muestra el mensaje en la interfaz
-                displayAnnouncement(data.player1_username, data.player2_username);
+                displayAnnouncement(data.player1_username, data.player2_username, data.tournament_name);
             }
         }
         else{
@@ -245,15 +245,15 @@ function initializeTournamentGame(){
             }
     }
 
-    function displayAnnouncement(player1, player2) {
+    function displayAnnouncement(player1, player2, t_name) {
         const originalUpdate = update; // Guarda una referencia al método original de actualización
 
         // Desactiva temporalmente el método de actualización
         update = function() {};
 
         context.fillStyle = "white";
-        context.font = "40px Arial"; // Tamaño y fuente del texto
-        const text = `Tournament Match: ${player1} vs ${player2}`;
+        context.font = "40px Arial";
+        const text = `${t_name}'s tournament match: ${player1} vs ${player2}`;
         const textWidth = context.measureText(text).width;
     
         // Limpiar el canvas para el anuncio
