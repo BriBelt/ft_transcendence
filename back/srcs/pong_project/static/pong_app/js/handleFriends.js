@@ -24,9 +24,13 @@ async function loadFriendsSection()
 				<div class="options-container">
 					<div class="option">
 						<h3><b>Friends</b></h3>
-						<button class="custom-button" id="add-friend" style="background-color: green; width: 10%;">
-							<i class="fas fa-user-plus"></i>
-						</button>
+						<div style="display: flex; align-items: center; gap: 0.5rem;"> 
+							<input type="username" class="form-control" id="username" placeholder="Enter username"> 
+							<button class="custom-button" id="add-friend" style="background-color: green; width: 10%;">
+								<i class="fas fa-user-plus"></i>
+							</button>
+						</div>
+						<span id="adduser-error" class="error-message"></span>
 						<div class="friends-list" style="width: 100%;">
 				`;
 
@@ -53,19 +57,19 @@ async function loadFriendsSection()
 
 				document.querySelectorAll('.remove-friend').forEach(button =>
 				{
-					button.addEventListener('click', function(event)
+					button.addEventListener('click', async function(event)
 					{
 						const username = event.target.getAttribute('data-username');
-						removeFriend(username);
+						await removeFriend(username);
 					});
 				});
 
-				document.getElementById('add-friend').addEventListener('click', function()
+				document.getElementById('add-friend').addEventListener('click', async function()
 				{
-					const username = prompt("Enter the username of the friend you want to add:");
+					const username = document.getElementById('username').value;
 					if (username)
 					{
-						addFriend(username);
+						await addFriend(username);
 					}
 				});
 			}
@@ -105,24 +109,10 @@ async function addFriend(username)
 			});
 			const data = await response.json();
 			if (data.status === 'success')
-			{
-				alert('Friend was added successfully.');
-			}
+				await loadFriendsSection();
 			else
 			{
-				if (data.message === 'Same user')
-				{
-					alert('That\'s sad, but you cannot add yourself as a friend.');
-				}
-				else if (data.message === 'User not found')
-				{
-					alert('Uh-oh, seems like that user does not exist.');
-				}
-				else if (data.message === 'Already added')
-				{
-					alert('This user a is already your friend.');
-				}
-				else if (data.message === 'Access unauthorized')
+				if (data.message === 'Access unauthorized')
 				{
 				    const result = await checkRefreshToken(token);
 				    if (result === "valid")
@@ -131,12 +121,13 @@ async function addFriend(username)
 					logoutItem.classList.remove('d-none');
 				    }
 				}
+				else
+					showMessage('adduser-error', data.message);	
 			}
-			await loadFriendsSection();
 		}
 		catch(error)
 		{
-			alert('Error: ' + error);
+			console.error('Error: ' + error);
 		}
 	}
 	else
@@ -169,6 +160,8 @@ async function removeFriend(username)
 				alert(data.message);
 				loadFriendsSection();
 			}
+			else
+				showMessage('adduser-error', data.message);	
 		}
 		catch(error)
 		{

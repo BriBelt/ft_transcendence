@@ -495,16 +495,15 @@ def AddFriend(request):
 		friend_username = data.get('friend_username')
 		try:
 			if friend_username == user.username:
-				return JsonResponse({'status': 'error', 'message': 'Same user'}, status=404)
+				return JsonResponse({'status': 'error', 'message': 'That\'s sad, but you cannot add yourself as a friend.'}, status=400)
 			friend = CustomUser.objects.get(username=friend_username)
 			if friend in user.friends.all():
-				return JsonResponse({'status': 'error', 'message': 'Already added'}, status=404)
-		#	if user.friends.filter(id=friend.id).exists():
+				return JsonResponse({'status': 'error', 'message': 'This user a is already your friend.'}, status=409)
 			user.friends.add(friend)
-			return JsonResponse({'status': 'success', 'message': f'{friend_username} added as a friend'}, status=200)
-		except CustomUser.DoesNotExist:
-			return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
-	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+			return JsonResponse({'status': 'success', 'message': f'{friend_username} added as a friend'}, status=400)
+		except Exception as e:
+			return JsonResponse({'status': 'error', 'message': '{str(e)}'}, status=404)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
 @csrf_exempt
 @jwt_required
@@ -518,8 +517,8 @@ def RemoveFriend(request):
 			friend = CustomUser.objects.get(username=friend_username)
 			user.friends.remove(friend)
 			return JsonResponse({'status': 'success', 'message': f'{friend_username} removed from friends'}, status=200)
-		except CustomUser.DoesNotExist:
-			return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
+		except Exception as e:
+			return JsonResponse({'status': 'error', 'message': '{str(e)}'}, status=404)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
 
