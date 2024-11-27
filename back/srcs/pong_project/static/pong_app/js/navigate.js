@@ -31,12 +31,18 @@ function loadPage(url, data)
 		initializeTournament();
 	else if (url === '/home/friends/')
 		loadFriendsSection();
-//	else if (url != '/home/callback.html/')
-//		loadNotFound();
+	else 
+		loadNotFound();
 }
 
 function navigateTo(url, data)
 {
+	if (url.includes('callback.html'))
+	{
+		window.location.href = url;
+		return;
+	}
+
 	window.history.pushState({}, '', url);
 	loadPage(url, data);
 	updateLogoutButtonVisibility();

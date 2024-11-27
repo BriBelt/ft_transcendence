@@ -61,12 +61,26 @@ class BallL {
 
         // Check if the ballL hits player 1
         if (this.x <= player1L.x + player1L.width && this.y + this.height >= player1L.y && this.y <= player1L.y + player1L.height) {
+			const paddleCenter = player1L.y + player1L.height / 2; // Centro de la pala
+			const hitPos = (this.y - paddleCenter) / (player1L.height / 2); // Posición de impacto normalizada
+
+			this.velocityY += hitPos * 3; // Modificar la velocidad vertical según el impacto
+
+			// Ajustar la posición para evitar que la pelota se atasque en la pala
+			this.x = player1L.x + player1L.width + 1;
             this.velocityX = -this.velocityX;
         }
 
         // Check if the ballL hits player 2
         if (this.x + this.width >= player2L.x && this.y + this.height >= player2L.y && this.y <= player2L.y + player2L.height) {
-            this.velocityX = -this.velocityX;
+            const paddleCenter = player2L.y + player2L.height / 2; // Centro de la pala
+			const hitPos = (this.y - paddleCenter) / (player2L.height / 2); // Posición de impacto normalizada
+
+			this.velocityY += hitPos * 3; // Modificar la velocidad vertical según el impacto
+
+			// Ajustar la posición para evitar que la pelota se atasque en la pala
+			this.x = player2L.x - this.width - 1;
+			this.velocityX = -Math.abs(this.velocityX);
         }
 
         //// Reset ballL position if it goes off screen (left or right)
@@ -107,6 +121,7 @@ let boardL = new BoardL(900, 500);
 let player1L = new PlayerL(1, boardL);
 let player2L = new PlayerL(2, boardL);
 let ballL = new BallL(boardL);
+let running = false;
 
 function saveLocalGameState()
 {
@@ -158,6 +173,13 @@ function clearLocalGameState()
 
 async function startLocalGame()
 {
+	if (running){
+		running = false;
+		await new Promise((resolve) => setTimeout(resolve, 50)); // Espera un frame antes de reiniciar
+	}
+
+	running = true;
+
 	const playing = localStorage.getItem('playing');
 	if (playing === 'true')
 	{
@@ -171,7 +193,6 @@ async function startLocalGame()
 	contextL = canvas.getContext("2d");
 	canvas.width = boardL.width;
 	canvas.height = boardL.height;
-	let running = true;
 
 	// Control players using keyboardL
 	document.addEventListener("keydown", movePlayer);
@@ -252,6 +273,8 @@ async function startLocalGame()
 	    // Game loop to update positions and render the game
 	 function gameLoop()
 	 {
+		if (!running) return;
+
 		const playing = localStorage.getItem('playing');
 	 	if (playing !== 'True')
 		{
@@ -293,7 +316,7 @@ async function startLocalGame()
 
 		// Continuously call gameLoop
 		if (running)
-		    requestAnimationFrame(gameLoop);
+			requestAnimationFrame(gameLoop);
 	 }
 }
 
