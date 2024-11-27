@@ -21,6 +21,16 @@ function homeHTML(data)
 		`);
 }
 
+function usersStatsHTML()
+{
+	return(`
+			<div class="options-container">
+				<div class="option">
+					<h3><b>Leaderboard</b></h3>
+					<div class="friends-list" style="width: 100%;">
+			`);
+}
+
 function profileHTML(data, avatarUrl)
 {
 //?. allows access to a property (total, wins or losses) of game_stats only if game_stats is defined and not null.
@@ -57,6 +67,44 @@ function profileHTML(data, avatarUrl)
 						<button id="edit-profile" class="custom-button">
 							<i class="fas fa-user-edit"></i>
 						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		`);
+}
+
+function otherUserProfileHTML(userInfo, avatarUrl)
+{
+//?. allows access to a property (total, wins or losses) of game_stats only if game_stats is defined and not null.
+	const gamesPlayed = userInfo.game_stats?.total || 0;
+	const gamesWon = userInfo.game_stats?.wins || 0;
+	const gamesLost = userInfo.game_stats?.losses || 0;
+//	The username is not being picked up. Both bottom buttons are not being centered
+	return(`
+		<div id="profile-settings" class="container mt-4" style="font-family: 'Courier New', Courier, Monospace;">
+			<div class="card mx-auto" style="max-width: 500px; background-color: #745c94; border-radius: 20px;">
+				<div class="card-body text-center">
+					<img src="${avatarUrl}" alt="Profile Picture" class="img-thumbnail mb-3" style="background-color: #362c45; border-radius: 20px;">
+					<h3 id="username" style="padding: 10px 10px;">${userInfo.username}</h3>
+					<div class="container" style="box-sizing: border-box; width: 100%; padding: 0; margin: 0;">
+						<div class="container" style="width: 40%; background-color: #C3B0DB; color: #362c45; border-radius: 20px; margin-top: 20px;">
+							<ul class="list-group list-group-flush mb-3">
+								<b>Games & Tournaments</b>
+								<li class="list-group item">
+									Played: 
+									<span id="games-played">${gamesPlayed}</span>
+								</li>
+								<li class="list-group item">
+									Won: 
+									<span id="games-won">${gamesWon}</span>
+								</li>
+								<li class="list-group item">
+									Lost: 
+									<span id="games-lost">${gamesLost}</span>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -222,3 +270,5 @@ window.loadGenericHTML = loadGenericHTML;
 window.loadNotFoundHTML = loadNotFoundHTML;
 window.loadNotAuthorizedHTML = loadNotAuthorizedHTML;
 window.loadInitialHTML = loadInitialHTML;
+window.otherUserProfileHTML = otherUserProfileHTML;
+window.usersStatsHTML = usersStatsHTML;

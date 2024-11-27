@@ -1,10 +1,19 @@
 function loadPage(url, data)
 {
 	console.log(url);
-	if (url == '/' || url == '')
+	if (url && (url.includes('callback.html') || url.includes('access=')))
+		return;
+	else if (url == '/' || url == '')
 		loadInitialPage();
 	else if (url == '/home/')
 		loadHome();
+	else if (url == '/home/users/')
+		loadUsers();
+	else if (url == '/home/users/user/')
+	{
+		const username = localStorage.getItem('otherUser');
+		loadOtherUserProfile(username);
+	}
 	else if (url  == '/login/')
 		loadLoginForm();
 	else if (url  == '/signup/')
@@ -37,12 +46,6 @@ function loadPage(url, data)
 
 function navigateTo(url, data)
 {
-	if (url.includes('callback.html'))
-	{
-		window.location.href = url;
-		return;
-	}
-
 	window.history.pushState({}, '', url);
 	loadPage(url, data);
 	updateLogoutButtonVisibility();

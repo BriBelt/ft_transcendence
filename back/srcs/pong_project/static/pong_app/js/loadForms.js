@@ -56,6 +56,123 @@ function loadEmailConfirmation()
 	emailConfirmationHandler();
 }
 
+async function loadUsers()
+{
+	const app = document.getElementById('app');
+	const token = localStorage.getItem('access');
+
+	if (token)
+	{
+		try
+		{
+			const response = await fetch('/home/users/',
+			{
+				method: 'GET',
+				headers:
+				{
+					'Authorization': `Bearer ${token}`,
+					'Content-Type': 'application/json'
+				}
+			});
+
+			const data = await response.json();
+			if (data.status === 'success')
+			{
+				let usersHTML = usersStatsHTML();
+
+				data.users.forEach(user =>
+				{
+					usersHTML += `
+							<div class="friend-card">
+								<span class="user-username">${user.username}</span>
+								<span class="user-status ${user.online ? 'online' : 'offline'}">
+									${user.online ? 'Online' : 'Offline'}
+								</span>
+								<div class="friend-actions">
+									<button data-username="${user.username}" class="custom-button remove-friend" style="align-items: left;">
+										<i class="fa-solid fa-circle-info"></i>
+									</button>
+								</div>
+							</div>`
+				});
+				usersHTML +=	`</div>
+					</div>
+				</div>`;
+
+				app.innerHTML = usersHTML;
+				document.querySelectorAll('.remove-friend').forEach(button =>
+				{
+					button.addEventListener('click', async function(event)
+					{
+						event.preventDefault();
+						const username = event.target.getAttribute('data-username');
+						localStorage.setItem('otherUser', username);
+						navigateTo('/home/users/user/');
+					});
+				});
+				
+			}
+			else
+			{
+				await checkRefresh(data, '/home/users/user/', token);
+			}
+		}
+		catch(error)
+		{
+			notAuthorized(error);
+		}
+	}
+	else
+	{
+		notAuthorized(error);
+	}
+}
+
+async function loadOtherUserProfile(otherUser)
+{
+	const app = document.getElementById('app');
+	const token = localStorage.getItem('access');
+
+	if (token)
+	{
+		try
+		{
+			const userData = {'other_username': otherUser};
+			alert(otherUser);
+			const response = await fetch('/home/users/user/',
+			{
+				method: 'POST',
+				headers:
+				{
+					'Authorization': `Bearer ${token}`,
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(userData)
+			});
+			const data = await response.json();
+			if (data.status === 'success')
+			{
+				alert('INSIDE SUCCESS');
+				app.innerHTML = otherUserProfileHTML(data.userInfo, "");
+			}
+			else
+			{
+				alert('INSIDE ERROR');
+				await checkRefresh(data, '/home/users/user/', token);
+			}
+		}
+		catch(error)
+		{
+			alert('INSIDE CATCH ERROR: ' + error);
+			notAuthorized(error);
+		}
+	}
+	else
+	{
+		notAuthorized(error);
+	}
+}
+
 // HTML for the SignUp page
 function loadSignupForm()
 {
@@ -250,15 +367,18 @@ async function loadHome()
 			else
 			{
 				await checkRefresh(data, '/home/', token);
+				alert(data.message);
 			}
 		}
 		 catch(error)
 		 {
+			alert('INSIDE ERROR, TOKEN NOT FOUND IN LOADHOME');
 			notAuthorized(error);
 		}
 	}
 	else
 	{
+		alert('INSIDE ELSE, TOKEN NOT FOUND IN LOADHOME');
 		notAuthorized(error);
 	}
 }
@@ -422,3 +542,5 @@ window.loadSignupForm = loadSignupForm;
 window.loadHome = loadHome;
 window.loadNotFound = loadNotFound;
 window.loadInitialPage = loadInitialPage;
+window.loadUsers = loadUsers;
+window.loadOtherUserProfile = loadOtherUserProfile;

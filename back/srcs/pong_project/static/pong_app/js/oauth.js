@@ -17,11 +17,11 @@ async function getAuthUrl()
 		if (data.status === 'success')
 		{
 			const authUrl =  `${data.auth_endpoint}?client_id=${data.client_id}&redirect_uri=${data.redirect_uri}&response_type=${data.scope}`
-			console.log('AUTH URL = ' + authUrl);
 			return (authUrl);
 		}
 		else
 		{
+			console.error('Error fetching API settings: ', data.message);
 			alert('Could not retrieve API settings');
 			return (null);
 		}
@@ -71,16 +71,11 @@ async function verifyCode(code)
 		});
 		const data = await response.json();
 		if (data.status === 'success')
-		{
-			console.log('Code verified');
-			alert('Code verification successful');
 			handle42Info(data.userInfo);
-		}
 		else
 		{
 			console.log('Error: ', data.message);
 			alert('Code verification failed');
-			alert("ex verifyCode1: " + data.message);
 		}
 	}
 	catch(error)
@@ -113,10 +108,7 @@ async function handle42Info(userInfo)
 		{
 			const jsonData = JSON.parse(data);
 			if (jsonData.status === 'success')
-			{
-				alert('OAuth login/signup successful');
 				window.location.href = jsonData.redirect_url;
-			}
 			else
 			{
 				console.log('Error: ', jsonData.message);
@@ -128,7 +120,6 @@ async function handle42Info(userInfo)
 			console.error('Error: ', e);
 			console.error('Response: ', data);
 			alert('Failed to create the user');
-			alert("ex handle42Info1: " + e);
 		}
 	}
 	catch(error)
@@ -150,15 +141,12 @@ document.addEventListener('DOMContentLoaded', () =>
 
 	if (access)
 	{
-		console.log('Inside event listener, found tokens');
 		localStorage.setItem('access', access);
-		alert("Successfully found the access code");
 		window.history.replaceState({}, document.title, "/home/");
 		navigateTo('/home/');
 	}
 	if (code)
 	{
-		console.log('Inside event listener, found code');
 		verifyCode(code);
 	}
 });

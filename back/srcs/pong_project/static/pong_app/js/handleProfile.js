@@ -46,26 +46,6 @@ async function loadProfile()
 			else
 			{
 				await checkRefresh(data, '/home/profile/', token);
-//				console.log(data.status);
-//				console.log(data.message);
-//				console.log('Inside the else for the data message')
-//				if (data.message === 'Access unauthorized')
-//				{
-//					const result = await checkRefreshToken(token);
-//					console.log('Inside the access unauthorized')
-//					if (result)
-//					{
-//						console.log('Inside result');
-//						console.log(result);
-//						navigateTo('/home/profile/');
-//					}
-//				}
-//				else
-//				{
-//					console.log('Inside the else for unauthorized')
-//					alert('You are not authorized to view this page. Please log in.');
-//					navigateTo('/login/');
-//				}
 			}
 		}
 		catch(error)

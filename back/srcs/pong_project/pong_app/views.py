@@ -487,6 +487,45 @@ def FriendsList(request):
 
 @csrf_exempt
 @jwt_required
+def UsersStats(request):
+
+	if request.method == 'GET':
+		user = request.user
+		users = CustomUser.objects.all()
+		users_data = [{'username': other.username, 'online': other.is_online} for other in users]
+		return JsonResponse({'status': 'success', 'users': users_data}, status=200, safe=False)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+@jwt_required
+def OtherUserProfile(request):
+
+	if request.method == 'POST':
+		user = request.user
+		data = json.loads(request.body)
+		other_username = data.get('other_username')
+		try:
+			print("------------------------------------------", flush=True)
+			print("INSIDE OTHERUSERPROFILE", flush=True)
+			print(other_username, flush=True)
+			print("------------------------------------------", flush=True)
+			otherUser = CustomUser.objects.get(username=other_username)
+			userInfo = {
+				'avatar': str(otherUser.avatar.url) if otherUser.avatar else None,
+				'username': other_username,
+				'game_stats': otherUser.game_stats,
+			}
+			return JsonResponse({'status': 'success', 'userInfo': userInfo}, status=200)
+		except CustomUser.DoesNotExist:
+			print("User not found:", other_username, flush=True)
+			return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
+		except Exception as e:
+			print("INSIDE OTHERUSERPROFILE EXCEPTION", flush=True)
+			return JsonResponse({'status': 'error', 'message': '{str(e)}'}, status=404)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+@jwt_required
 def AddFriend(request):
 
 	if request.method == 'POST':
