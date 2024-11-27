@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pong_app.urls')),
+
 ]
 
 # Configuration to serve media files  in development mode
