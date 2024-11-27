@@ -226,19 +226,30 @@ class PongConsumer(AsyncWebsocketConsumer):
         print(f"!!!!!!Jugador {self.player_number} se unió a la sala: {self.group_name}!!!!!!", flush=True)
 
         # Share usernames to anounce them
-        if player_number == 2 and self.is_tournament_game:
+        if player_number == 2:
             player1_user = await sync_to_async(CustomUser.objects.get)(id=self.player_1.user_id)
             player2_user = await sync_to_async(CustomUser.objects.get)(id=self.player_2.user_id)
             print(f"\033[33mABOUT TO SEND ANOUNCEMENT!!\033[0m", flush=True)
 
-            await self.channel_layer.group_send(
-            self.group_name,
-            {
-                "type": "announce_players",
-                "player1_username": player1_user.username,
-                "player2_username": player2_user.username,
-            }
-            )
+            if self.is_tournament_game:
+                await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    "type": "announce_players",
+                    "player1_username": player1_user.username,
+                    "player2_username": player2_user.username,
+                }
+                )
+            else:
+                await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    "type": "announce_Qmatch",
+                    "player1_username": player1_user.username,
+                    "player2_username": player2_user.username,
+                }
+                )
+
 
         if player_number == 1 and not self.game_state.game_loop_started:# and not hasattr(self.game_state, 'game_loop_started'):
             if not self.game_state.board:
@@ -453,6 +464,13 @@ class PongConsumer(AsyncWebsocketConsumer):
             "player1_username": event["player1_username"],
             "player2_username": event["player2_username"],
             "tournament_name": self.tournament_name,
+        }))
+    async def announce_Qmatch(self, event):
+        await self.send(text_data=json.dumps({
+            "type": "announcement",
+            "message": f"Quick Match between {event['player1_username']} and {event['player2_username']} is about to begin!",
+            "player1_username": event["player1_username"],
+            "player2_username": event["player2_username"],
         }))
 
 

@@ -37,6 +37,7 @@ class Ball{
 
 let context;
 let isSocketOpen = false;
+let qMatchStarted = false;
 
 let board = new Board(900, 500);
 let player1 = new Player(1, board);
@@ -149,24 +150,37 @@ async function startOnlineGame()
 
 	socket.onmessage = function(event)
 	{
-		
-		console.log("RECIEVING MESSAGE FROM WS!!")
-		console.log(event.data)
-		// Parse the JSON data received from the server
 		const data = JSON.parse(event.data);
 
-		// Update player1's position with the received data
-		player1.y = data['Player1'];
+		if (data.type === "announcement")
+		{
+			qMatchStarted = true;
+            const announcement = data.message;
+            console.log(announcement);
+    
+            // Muestra el mensaje en la interfaz
+            displayAnnouncement(data.player1_username, data.player2_username);
+		}
+		else
+		{
+			console.log("RECIEVING MESSAGE FROM WS!!")
+			console.log(event.data)
+			// Parse the JSON data received from the server
+			const data = JSON.parse(event.data);
 
-		// Update player2's position with the received data
-		player2.y = data['Player2'];
+			// Update player1's position with the received data
+			player1.y = data['Player1'];
 
-		ball.x = data['ballX'];
-		ball.y = data['ballY'];
+			// Update player2's position with the received data
+			player2.y = data['Player2'];
 
-		player1.score = data['Score1']
-		player2.score = data['Score2']
-		update();
+			ball.x = data['ballX'];
+			ball.y = data['ballY'];
+
+			player1.score = data['Score1']
+			player2.score = data['Score2']
+			update();
+		}
 	}
 
 	let canvas = document.getElementById("board");
@@ -197,6 +211,8 @@ async function startOnlineGame()
 
 	function sendPlayerData(keycode, action)
 	{
+		if (!qMatchStarted)
+			return;
 		console.log('!!SENDING DATA!!!');
 		if (isSocketOpen)
 		{
@@ -222,10 +238,37 @@ async function startOnlineGame()
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		// Draw the banner in the center of the canvas
 		context.fillText(text, (canvas.width / 2) - (textWidth / 2), canvas.height / 2);
+		qMatchStarted = false;
 	}
+
+	function displayAnnouncement(player1, player2) {
+        const originalUpdate = update; // Guarda una referencia al método original de actualización
+
+        // Desactiva temporalmente el método de actualización
+        update = function() {};
+
+        context.fillStyle = "white";
+        context.font = "40px Arial";
+        const text = `Quick match: ${player1} vs ${player2}`;
+        const textWidth = context.measureText(text).width;
+    
+        // Limpiar el canvas para el anuncio
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    
+        // Mostrar el anuncio en el centro del canvas
+        context.fillText(text, (canvas.width / 2) - (textWidth / 2), canvas.height / 2);
+    
+        // Remover el anuncio después
+        setTimeout(() => {
+            update = originalUpdate; // Restaura el método de actualización original
+            update();
+        }, 1900);
+    }
 	    
 	function update()
 	{
+		if (!qMatchStarted)
+			return;
 		saveOnlineGameState();
 		//requestAnimationFrame(update);
 		context.clearRect(0, 0, board.width, board.height);

@@ -78,6 +78,7 @@ function initializeTournamentGame(){
     let isGameSocketOpen = false;
     let isSocketOpen = false;
     let isFinalMatch = false;
+    let gameStarted = false;
     
     // Close existing WebSocket connection if open
     if (socket) {
@@ -148,6 +149,7 @@ function initializeTournamentGame(){
                 }
             }
             if (data.type === "announcement") {
+                gameStarted = true;
                 const announcement = data.message;
                 console.log(announcement);
         
@@ -198,6 +200,8 @@ function initializeTournamentGame(){
     }
 
     function sendPlayerData(keycode, action){
+        if (!gameStarted)
+            return;
         if (socket && isSocketOpen){
             socket.send(JSON.stringify({
                 'position': {
@@ -243,6 +247,7 @@ function initializeTournamentGame(){
                 }));
             }
             }
+        gameStarted = false;
     }
 
     function displayAnnouncement(player1, player2, t_name) {
