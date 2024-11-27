@@ -122,6 +122,7 @@ let player1L = new PlayerL(1, boardL);
 let player2L = new PlayerL(2, boardL);
 let ballL = new BallL(boardL);
 let running = false;
+let game_ended = false;
 
 function saveLocalGameState()
 {
@@ -179,6 +180,15 @@ async function startLocalGame()
 	}
 
 	running = true;
+
+	if (game_ended)
+	{
+		//Restore objects if it's a new game
+		player1L = new PlayerL(1, boardL);
+    	player2L = new PlayerL(2, boardL);
+    	ballL = new BallL(boardL);
+		game_ended = false;
+	}
 
 	const playing = localStorage.getItem('playing');
 	if (playing === 'true')
@@ -261,12 +271,16 @@ async function startLocalGame()
 		    displayWinnerBanner("Player 1");
 		    clearLocalGameState();
 		    running = false;
+			game_ended = true;
+			//playing = 'false';
 		}
 		else if (player2L.score === 7)
 		{
-		    displayWinnerBanner("Player 2");
-		    clearLocalGameState();
-		    running = false;
+			displayWinnerBanner("Player 2");
+			clearLocalGameState();
+			running = false;
+			game_ended = true;
+			//playing = 'false';
 		}
 	 }
 

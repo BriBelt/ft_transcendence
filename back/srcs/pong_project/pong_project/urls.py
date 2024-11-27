@@ -24,7 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pong_app.urls')),
 
-    #re_path(r'^.*$', lambda request: render(request, 'pong_app/index.html')),
 ]
 
 # Configuration to serve media files  in development mode

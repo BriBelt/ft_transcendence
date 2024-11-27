@@ -37,6 +37,8 @@ async function initializeTournament()
 
 function initializeTournamentGame(){
     const tournamentName = localStorage.getItem('tournament_name');
+    if (!tournamentName)
+        return;
     class Board{
         constructor(width=900, height=500){
             this.width = width;

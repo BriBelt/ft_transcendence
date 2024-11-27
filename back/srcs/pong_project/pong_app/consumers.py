@@ -22,7 +22,8 @@ def ballOutOfBounds(yPosition, ball, board):
 waiting_queue = []
 tournament_queue = {}
 tournament_queue_ids = {}
-tournament_lost = {} 
+tournament_lost = {}
+tournament_wins = {} 
 waiting_ids = []
 active_players = []
 game_states = {}
@@ -66,7 +67,9 @@ class PongConsumer(AsyncWebsocketConsumer):
         self.player_number = None
         self.game_state = None
         self.ended = False
-        self.is_tournament_game = True if self.tournament_name and len(self.tournament_name) > 0 else False
+        self.is_tournament_game = False
+        if self.tournament_name and len(self.tournament_name) > 0:
+            self.is_tournament_game = True
         min_id = 0
         max_id = 0
         check = 0
@@ -185,12 +188,49 @@ class PongConsumer(AsyncWebsocketConsumer):
 
             await self.accept()
             # if there are sufficient players start if not wait
-            if len(tournament_queue[self.tournament_name]) == 2:
+            if len(tournament_queue[self.tournament_name]) >= 2 and len(tournament_queue_ids[self.tournament_name]) >= 2:
                     
-                self.player_1 = tournament_queue[self.tournament_name].pop(0)
-                self.player_2 = tournament_queue[self.tournament_name].pop(0)
-                tournament_queue_ids[self.tournament_name].pop(0)
-                tournament_queue_ids[self.tournament_name].pop(0)
+                
+                print(f"USERS THAT WIN: {tournament_wins}", flush=True)
+                print(f"QUEUE IDS: {tournament_queue_ids[self.tournament_name]}", flush=True)
+                if self.tournament_name in tournament_wins and (
+                    tournament_queue_ids[self.tournament_name][0] in tournament_wins[self.tournament_name]
+                    and tournament_queue_ids[self.tournament_name][1] not in tournament_wins
+                ):
+                    temp = tournament_queue[self.tournament_name].pop(0)
+                    temp_id = tournament_queue_ids[self.tournament_name].pop(0)
+                    tournament_queue[self.tournament_name].append(temp)
+                    tournament_queue_ids[self.tournament_name].append(temp_id)
+
+                elif self.tournament_name in tournament_wins and (
+                    tournament_queue_ids[self.tournament_name][0] not in tournament_wins[self.tournament_name]
+                    and tournament_queue_ids[self.tournament_name][1] in tournament_wins[self.tournament_name]
+                ):
+                    temp = tournament_queue[self.tournament_name].pop(1)
+                    temp_id = tournament_queue_ids[self.tournament_name].pop(1)
+                    tournament_queue[self.tournament_name].append(temp)
+                    tournament_queue_ids[self.tournament_name].append(temp_id)
+
+                if (
+                    self.tournament_name not in tournament_wins
+                    or (
+                        tournament_queue_ids[self.tournament_name][0] not in tournament_wins[self.tournament_name]
+                        and tournament_queue_ids[self.tournament_name][1] not in tournament_wins[self.tournament_name]
+                    )
+                    or (
+                        tournament_queue_ids[self.tournament_name][0] in tournament_wins[self.tournament_name]
+                        and tournament_queue_ids[self.tournament_name][1] in tournament_wins[self.tournament_name]
+                    )
+                ):
+                    print(f"TOURNAMENT_QUEUES IDS: {tournament_queue_ids}", flush=True)
+                    self.player_1 = tournament_queue[self.tournament_name].pop(0)
+                    self.player_2 = tournament_queue[self.tournament_name].pop(0)
+                    tournament_queue_ids[self.tournament_name].pop(0)
+                    tournament_queue_ids[self.tournament_name].pop(0)
+
+                else:
+                    return
+
                 self.player_1.player_1 = self.player_1
                 self.player_1.player_2 = self.player_2
                 min_id = self.player_1.user_id
@@ -224,11 +264,14 @@ class PongConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_add(self.group_name, self.channel_name)
 
         print(f"!!!!!!Jugador {self.player_number} se unió a la sala: {self.group_name}!!!!!!", flush=True)
+        ids = self.group_name.split('_')
+        id1 = int(ids[2]) 
+        id2 = int(ids[3])
 
         # Share usernames to anounce them
         if player_number == 2:
-            player1_user = await sync_to_async(CustomUser.objects.get)(id=self.player_1.user_id)
-            player2_user = await sync_to_async(CustomUser.objects.get)(id=self.player_2.user_id)
+            player1_user = await sync_to_async(CustomUser.objects.get)(id=id1)
+            player2_user = await sync_to_async(CustomUser.objects.get)(id=id2)
             print(f"\033[33mABOUT TO SEND ANOUNCEMENT!!\033[0m", flush=True)
 
             if self.is_tournament_game:
@@ -531,6 +574,12 @@ class PongConsumer(AsyncWebsocketConsumer):
                     tournament_lost[self.tournament_name] = []
                 tournament_lost[self.tournament_name].append(self.game_state.player2.user_id)
                 await self.player_2.send(text_data=json.dumps({'message': 'Tournament is over'}))
+
+                if not self.tournament_name in tournament_wins:
+                    tournament_wins[self.tournament_name] = []
+                tournament_wins[self.tournament_name].append(self.game_state.player1.user_id)
+
+
                 await self.send(text_data=json.dumps({'message': f'Winner {self.game_state.player1.user_id}'}))
                 await self.player_2.send(text_data=json.dumps({'message': f'Winner {self.game_state.player1.user_id}'}))
                 player2_user.user_in_online_game = False
@@ -544,6 +593,11 @@ class PongConsumer(AsyncWebsocketConsumer):
                     tournament_lost[self.tournament_name] = []
                 tournament_lost[self.tournament_name].append(self.game_state.player1.user_id)
                 await self.send(text_data=json.dumps({'message': 'Tournament is over'}))
+                
+                if not self.tournament_name in tournament_wins:
+                    tournament_wins[self.tournament_name] = []
+                tournament_wins[self.tournament_name].append(self.game_state.player2.user_id)
+                
                 await self.send(text_data=json.dumps({'message': f'Winner {self.game_state.player2.user_id}'}))
                 await self.player_2.send(text_data=json.dumps({'message': f'Winner {self.game_state.player2.user_id}'}))
                 player1_user.user_in_online_game = False
@@ -565,20 +619,34 @@ class PongConsumer(AsyncWebsocketConsumer):
     async def update_tournament_stats(self, winner_id):
 
         print(f"\033[96mUPDATE_TOURNAMENT_STATS CALLED, winner_id : {winner_id}\033[0m", flush=True)
+        # Actualiza las estadísticas del ganador
         player_user = await sync_to_async(CustomUser.objects.get)(id=winner_id)
         current_tournament = await sync_to_async(Tournament.objects.get)(name=self.tournament_name)
         current_tournament.finished = True
+    
         player_stats = player_user.tournament_stats
         player_stats['total'] = player_stats.get('total', 0) + 1
-
-        if winner_id:
-            player_stats['wins'] = player_stats.get('wins', 0) + 1
-
-        player_user._stats = player_stats
+        player_stats['wins'] = player_stats.get('wins', 0) + 1
+        player_user.tournament_stats = player_stats
+    
+        await sync_to_async(player_user.save)()
+    
+        # Itera sobre los perdedores del torneo para actualizar sus estadísticas
+        if self.tournament_name in tournament_lost:
+            loser_ids = tournament_lost[self.tournament_name]
+            for loser_id in loser_ids:
+                if loser_id == winner_id:  # No actualizar estadísticas del ganador dos veces
+                    continue
+                loser_user = await sync_to_async(CustomUser.objects.get)(id=loser_id)
+                loser_stats = loser_user.tournament_stats
+                loser_stats['total'] = loser_stats.get('total', 0) + 1
+                loser_stats['losses'] = loser_stats.get('losses', 0) + 1
+                loser_user.tournament_stats = loser_stats
+                await sync_to_async(loser_user.save)()
+    
         await self.send(text_data=json.dumps({'message': 'Tournament is over'}))
         await self.player_2.send(text_data=json.dumps({'message': 'Tournament is over'}))
         await sync_to_async(current_tournament.save)()
-        await sync_to_async(player_user.save)()
 
 
 
