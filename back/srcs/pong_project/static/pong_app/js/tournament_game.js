@@ -290,24 +290,10 @@ function initializeTournamentGame(){
         context.fillRect(ball.x, ball.y, ball.width, ball.height);
         if (score1 == 7 || score2 == 7)
         {
-            if (score1 == 7){
+            if (score1 == 7)
                 displayWinnerBanner("Player 1");
-                if (userid === player1Id)
-                    console.log("eliminar esta linea es solo debug")
-                    // Logic to show "Next Game" button
-                else
-                    console.log("eliminar esta linea es solo debug")    
-                    // Logic to send back to tthe main menu 
-            }
-            else{
+            else
                 displayWinnerBanner("Player 2");
-                if (userid === player2Id)
-                    console.log("eliminar esta linea es solo debug")
-                    // Logic to show "Next Game" button
-                else
-                    console.log("eliminar esta linea es solo debug")    
-                    // Logic to send back to tthe main menu
-            }
         }
         else{
             context.fillText(score1.toString(), (board.width / 4), board.height/2);
