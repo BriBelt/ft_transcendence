@@ -565,20 +565,34 @@ class PongConsumer(AsyncWebsocketConsumer):
     async def update_tournament_stats(self, winner_id):
 
         print(f"\033[96mUPDATE_TOURNAMENT_STATS CALLED, winner_id : {winner_id}\033[0m", flush=True)
+        # Actualiza las estadísticas del ganador
         player_user = await sync_to_async(CustomUser.objects.get)(id=winner_id)
         current_tournament = await sync_to_async(Tournament.objects.get)(name=self.tournament_name)
         current_tournament.finished = True
+    
         player_stats = player_user.tournament_stats
         player_stats['total'] = player_stats.get('total', 0) + 1
-
-        if winner_id:
-            player_stats['wins'] = player_stats.get('wins', 0) + 1
-
-        player_user._stats = player_stats
+        player_stats['wins'] = player_stats.get('wins', 0) + 1
+        player_user.tournament_stats = player_stats
+    
+        await sync_to_async(player_user.save)()
+    
+        # Itera sobre los perdedores del torneo para actualizar sus estadísticas
+        if self.tournament_name in tournament_lost:
+            loser_ids = tournament_lost[self.tournament_name]
+            for loser_id in loser_ids:
+                if loser_id == winner_id:  # No actualizar estadísticas del ganador dos veces
+                    continue
+                loser_user = await sync_to_async(CustomUser.objects.get)(id=loser_id)
+                loser_stats = loser_user.tournament_stats
+                loser_stats['total'] = loser_stats.get('total', 0) + 1
+                loser_stats['losses'] = loser_stats.get('losses', 0) + 1
+                loser_user.tournament_stats = loser_stats
+                await sync_to_async(loser_user.save)()
+    
         await self.send(text_data=json.dumps({'message': 'Tournament is over'}))
         await self.player_2.send(text_data=json.dumps({'message': 'Tournament is over'}))
         await sync_to_async(current_tournament.save)()
-        await sync_to_async(player_user.save)()
 
 
 

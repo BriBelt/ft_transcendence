@@ -223,4 +223,4 @@ JWT_ALGORITHM = os.getenv('JWT_ALGORITHM')
 JWT_EXPIRATION_DELTA = timedelta(minutes=5)
 JWT_REFRESH_EXPIRATION_DELTA = timedelta(minutes=60)
 
-CSRF_TRUSTED_ORIGINS = [f'https://{HOST}:8000', 'wss://{HOST}:8000']
+CSRF_TRUSTED_ORIGINS = [f'https://{HOST}:8000', 'wss://{HOST}:8000', "https://localhost:8000"]
