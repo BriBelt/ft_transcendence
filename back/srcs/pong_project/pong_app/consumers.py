@@ -616,6 +616,21 @@ class PongConsumer(AsyncWebsocketConsumer):
         player2_user.game_stats = player2_stats
         await sync_to_async(player2_user.save)()
 
+        # New game model updates
+        game_data = {
+        'player1': player1_user.username,
+        'player2': player2_user.username,
+        'winner': player1_user.username if winner == 1 else player2_user.username,
+        'date': timezone.now()
+        }
+
+        # ** to unpack dict into various arguments
+        new_game = await sync_to_async(Game.objects.create)(**game_data)
+
+        # Link game to users
+        await sync_to_async(player1_user.games.add)(new_game)
+        await sync_to_async(player2_user.games.add)(new_game)
+
     async def update_tournament_stats(self, winner_id):
 
         print(f"\033[96mUPDATE_TOURNAMENT_STATS CALLED, winner_id : {winner_id}\033[0m", flush=True)
