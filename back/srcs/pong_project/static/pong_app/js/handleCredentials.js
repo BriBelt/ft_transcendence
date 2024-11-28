@@ -53,7 +53,6 @@ function logInHandler()
 			}
 			else
 			{
-				console.log('Inside else');
 				if (data.message === 'Invalid credentials')
 				{
 					showMessage('password-error', 'Invalid password. Try again');

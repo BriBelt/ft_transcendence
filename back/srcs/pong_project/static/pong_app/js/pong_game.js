@@ -46,7 +46,7 @@ let ball = new Ball(board);
 
 function saveOnlineGameState()
 {
-	console.log('INSIDE SAVE GAME STATE');
+
 	const gameState =
 	{
 		player1Score: player1.score,
@@ -68,7 +68,6 @@ function saveOnlineGameState()
 
 function loadOnlineGameState()
 {
-	console.log('INSIDE LOAD GAME STATE');
 	const savedState = JSON.parse(localStorage.getItem('state'));
 	if (savedState)
 	{
@@ -86,7 +85,6 @@ function loadOnlineGameState()
 
 function clearOnlineGameState()
 {
-	console.log('INSIDE CLEAR GAME STATE');
 	localStorage.removeItem('state');
 	localStorage.setItem('playing', 'false');
 }
@@ -103,7 +101,6 @@ async function startOnlineGame()
 	}
 	if (playing === 'true')
 	{
-		console.log('Is playing');
 		loadOnlineGameState();
 	}
 	else
@@ -118,7 +115,6 @@ async function startOnlineGame()
 //	let player1 = new Player(1, board);
 //	let player2 = new Player(2, board);
 //	let ball = new Ball(board);
-	console.log('initializeGame called');
 	loadGameCanvas();
 //	let score1 = 0;
 //	let score2 = 0;
@@ -133,14 +129,7 @@ async function startOnlineGame()
 
 	socket.onopen = function(event)
 	{
-		console.log("WebSocket is open now.");
-		// console.log(id);
 		isSocketOpen = true;
-	};
-    
-	socket.onclose = function(event)
-	{
-		console.log("WebSocket is closed now.");
 	};
 
 	socket.onerror = function(error)
@@ -156,15 +145,12 @@ async function startOnlineGame()
 		{
 			qMatchStarted = true;
             const announcement = data.message;
-            console.log(announcement);
     
             // Muestra el mensaje en la interfaz
             displayAnnouncement(data.player1_username, data.player2_username);
 		}
 		else
 		{
-			console.log("RECIEVING MESSAGE FROM WS!!")
-			console.log(event.data)
 			// Parse the JSON data received from the server
 			const data = JSON.parse(event.data);
 
@@ -213,7 +199,6 @@ async function startOnlineGame()
 	{
 		if (!qMatchStarted)
 			return;
-		console.log('!!SENDING DATA!!!');
 		if (isSocketOpen)
 		{
 			socket.send(JSON.stringify(

@@ -91,14 +91,12 @@ function initializeTournamentGame(){
     let player1 = new Player(1, board);
     let player2 = new Player(2, board);
     let ball = new Ball(board);
-    console.log('initializeGame called');
     loadGameCanvas();
     let score1 = 0;
     let score2 = 0;
     player1.velocityY = 0;
     player2.velocityY = 0;
     userid = localStorage.getItem('userid');
-    console.log(`User ID from localStorage: ${userid}`);
     //const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
     
     // TODO: generate id only when a new game is created, if not, select the id
@@ -106,13 +104,10 @@ function initializeTournamentGame(){
     //const socket = new WebSocket('ws://' + window.location.host + '/ws/pong-socket/' + id + '/');
     isSocketOpen = false;
     socket.onopen = function(event) {
-        console.log("Tournament webSocket is open now.");
-//        console.log(id);
         isSocketOpen = true;
     };
     
     socket.onclose = function(event) {
-        console.log("Tournament webSocket is closed now.");
         isSocketOpen = false;
         if (isFinalMatch == true){
             initializeTournamentGame();
@@ -129,8 +124,6 @@ function initializeTournamentGame(){
 
         const data = JSON.parse(event.data);
 
-        console.log(data);
-
         if (data.message){
             if (data.message.includes("Tournament is over")){
                 localStorage.removeItem('tournament_name');
@@ -138,23 +131,15 @@ function initializeTournamentGame(){
             if (data.message.includes("Winner")){
                 winnerDetails = data.message.match(/Winner (\d+)/);
                 const winnerId = winnerDetails ? parseInt(winnerDetails[1], 10) : null;
-                console.log(`Winner ${winnerId}`)
-                console.log(`Player ${userid}`)
-                //alert(`Winner ${winnerId}`)//Q
                 if (score1 === 7) displayWinnerBanner("Player 1");
                 if (score2 === 7) displayWinnerBanner("Player 2");
                 if (parseInt(userid, 10) == parseInt(winnerId, 10)){
                     isFinalMatch = true;
-                    //isSocketOpen = false;
-                    console.log("Preparando partida final...");
-                    //socket.close();
                 }
             }
             if (data.type === "announcement") {
                 gameStarted = true;
                 const announcement = data.message;
-                console.log(announcement);
-        
                 // Muestra el mensaje en la interfaz
                 displayAnnouncement(data.player1_username, data.player2_username, data.tournament_name);
             }

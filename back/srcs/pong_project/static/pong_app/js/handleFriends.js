@@ -80,7 +80,6 @@ async function loadFriendsSection()
 		}
 		catch(error)
 		{
-			console.log('INSIDE CATCH OF FRIENDS!');
 			notAuthorized(error);
 		}
 	}
@@ -117,7 +116,6 @@ async function addFriend(username)
 				    const result = await checkRefreshToken(token);
 				    if (result === "valid")
 				    {
-					console.log('Access expired but Refresh not, calling again function');
 					logoutItem.classList.remove('d-none');
 				    }
 				}

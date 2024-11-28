@@ -24,18 +24,14 @@ function loadCreateTournament()
 	const name = document.getElementById('name');
 	const create = document.getElementById('create-btn');
 
-	console.log("inside loadCreateTournament");
-
 	if (create)
 	{
-		console.log("create exists");
 		create.addEventListener('click', async function(event)
 		{
 			event.preventDefault();
 			if (name)
 			{
 				const tournamentName = name.value;
-				console.log("Tournament name: " + tournamentName);
 				await createTournament(tournamentName);
 			}
 			
@@ -93,8 +89,6 @@ async function loadTournamentsSection()
 					button.addEventListener('click', async function(event)
 					{
 						const tournamentName = event.currentTarget.getAttribute('data-tournament');
-						console.log("Someone clicked the button");
-						console.log(tournamentName);
 						await joinTournament(tournamentName);
 					});
 				});
@@ -106,7 +100,6 @@ async function loadTournamentsSection()
 		}
 		catch(error)
 		{
-			console.log('INSIDE CATCH OF TOURNAMENTS!');
 			notAuthorized(error);
 		}
 	}
