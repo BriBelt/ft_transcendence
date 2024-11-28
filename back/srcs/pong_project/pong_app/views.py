@@ -487,6 +487,17 @@ def FriendsList(request):
 
 @csrf_exempt
 @jwt_required
+def GamesList(request):
+
+	if request.method == 'GET':
+		user = request.user
+		games = user.games.all()
+		games_data = [{'player1': game.player1, 'player2': game.player2, 'date': game.date, 'winner': game.winner} for game in games]
+		return JsonResponse({'status': 'success', 'games': games_data}, status=200, safe=False)
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+@jwt_required
 def UsersStats(request):
 
 	if request.method == 'GET':
@@ -510,12 +521,13 @@ def OtherUserProfile(request):
 			print(other_username, flush=True)
 			print("------------------------------------------", flush=True)
 			otherUser = CustomUser.objects.get(username=other_username)
+			games = otherUser.games.all()
+			games_data = [{'player1': game.player1, 'player2': game.player2, 'date': game.date.strftime('%Y-%m-%d %H:%M:%S'), 'winner': game.winner} for game in games]
 			userInfo = {
 				'avatar': str(otherUser.avatar.url) if otherUser.avatar else None,
 				'username': other_username,
-				'game_stats': otherUser.game_stats,
 			}
-			return JsonResponse({'status': 'success', 'userInfo': userInfo}, status=200)
+			return JsonResponse({'status': 'success', 'userInfo': userInfo, 'games_data': games_data}, status=200)
 		except CustomUser.DoesNotExist:
 			print("User not found:", other_username, flush=True)
 			return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)

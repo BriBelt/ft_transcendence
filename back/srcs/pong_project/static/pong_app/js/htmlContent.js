@@ -74,36 +74,32 @@ function profileHTML(data, avatarUrl)
 		`);
 }
 
-function otherUserProfileHTML(userInfo, avatarUrl)
+function otherUserProfileHTML(userInfo, games_data)
 {
 //?. allows access to a property (total, wins or losses) of game_stats only if game_stats is defined and not null.
 	const gamesPlayed = userInfo.game_stats?.total || 0;
 	const gamesWon = userInfo.game_stats?.wins || 0;
 	const gamesLost = userInfo.game_stats?.losses || 0;
+
+	const gameRows = gamesData.map(game => `
+		<div class="game-entry" style="margin-bottom: 10px; border-bottom: 1px solid #DDD; padding-bottom: 10px;">
+		<p><b>Date:</b> ${game.date || 'N/A'}</p>
+		<p><b>Player 1:</b> ${game.player1 || 'N/A'}</p>
+		<p><b>Player 2:</b> ${game.player2 || 'N/A'}</p>
+		<p><b>Winner:</b> ${game.winner || 'N/A'}</p>
+		</div>
+		`).join('');
 //	The username is not being picked up. Both bottom buttons are not being centered
 	return(`
 		<div id="profile-settings" class="container mt-4" style="font-family: 'Courier New', Courier, Monospace;">
 			<div class="card mx-auto" style="max-width: 500px; background-color: #745c94; border-radius: 20px;">
 				<div class="card-body text-center">
-					<img src="${avatarUrl}" alt="Profile Picture" class="img-thumbnail mb-3" style="background-color: #362c45; border-radius: 20px;">
 					<h3 id="username" style="padding: 10px 10px;">${userInfo.username}</h3>
 					<div class="container" style="box-sizing: border-box; width: 100%; padding: 0; margin: 0;">
-						<div class="container" style="width: 40%; background-color: #C3B0DB; color: #362c45; border-radius: 20px; margin-top: 20px;">
-							<ul class="list-group list-group-flush mb-3">
-								<b>Games & Tournaments</b>
-								<li class="list-group item">
-									Played: 
-									<span id="games-played">${gamesPlayed}</span>
-								</li>
-								<li class="list-group item">
-									Won: 
-									<span id="games-won">${gamesWon}</span>
-								</li>
-								<li class="list-group item">
-									Lost: 
-									<span id="games-lost">${gamesLost}</span>
-								</li>
-							</ul>
+						<div class="scrollable-box"
+						style="margin-top: 20px; height: 200px; overflow-y: auto; background-color: #EFEFEF;
+						border-radius: 10px; padding: 10px; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);">
+						${gameRows || '<p>No game data available.</p>'}
 						</div>
 					</div>
 				</div>

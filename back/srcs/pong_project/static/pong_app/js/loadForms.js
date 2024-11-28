@@ -153,7 +153,7 @@ async function loadOtherUserProfile(otherUser)
 			const data = await response.json();
 			if (data.status === 'success')
 			{
-				app.innerHTML = otherUserProfileHTML(data.userInfo, "");
+				app.innerHTML = otherUserProfileHTML(data.userInfo, data.games_data);
 			}
 			else
 			{
@@ -171,6 +171,49 @@ async function loadOtherUserProfile(otherUser)
 		notAuthorized(error);
 	}
 }
+
+/*async function loadOtherUserProfile(otherUser)
+{
+	const app = document.getElementById('app');
+	const token = localStorage.getItem('access');
+
+	if (token)
+	{
+		try
+		{
+			const userData = {'other_username': otherUser};
+			alert(otherUser);
+			const response = await fetch('/home/users/user/',
+			{
+				method: 'POST',
+				headers:
+				{
+					'Authorization': `Bearer ${token}`,
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(userData)
+			});
+			const data = await response.json();
+			if (data.status === 'success')
+			{
+				app.innerHTML = otherUserProfileHTML(data.userInfo, "");
+			}
+			else
+			{
+				await checkRefresh(data, '/home/users/user/', token);
+			}
+		}
+		catch(error)
+		{
+			alert('Uh-oh, there was an unexpected error!');
+			notAuthorized(error);
+		}
+	}
+	else
+	{
+		notAuthorized(error);
+	}
+}*/
 
 // HTML for the SignUp page
 function loadSignupForm()
