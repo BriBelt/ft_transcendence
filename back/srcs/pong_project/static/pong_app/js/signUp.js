@@ -43,7 +43,8 @@ function signUpHandler()
                 })
                 .catch(error =>
 		{
-                    console.error('Error:', error);
+			alert('Uh-oh! There was an unexpected error.');
+			console.error('Error:', error);
                 });
 	    }
         });

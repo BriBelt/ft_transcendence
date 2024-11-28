@@ -46,7 +46,6 @@ let ball = new Ball(board);
 
 function saveOnlineGameState()
 {
-
 	const gameState =
 	{
 		player1Score: player1.score,
@@ -105,23 +104,13 @@ async function startOnlineGame()
 	}
 	else
 	{
-		localStorage.setItem('playing', 'true');
 		player1.score = 0;
 		player2.score = 0;
 		player1.velocityY = 0;
 		player2.velocityY = 0;
 	}
-//	let board = new Board(900, 500);
-//	let player1 = new Player(1, board);
-//	let player2 = new Player(2, board);
-//	let ball = new Ball(board);
 	loadGameCanvas();
-//	let score1 = 0;
-//	let score2 = 0;
-//	player1.velocityY = 0;
-//	player2.velocityY = 0;
 	userid = localStorage.getItem('userid');
-	//const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
 
 	// TODO: generate id only when a new game is created, if not, select the id
 	socket = new WebSocket('wss://' + window.location.host + '/ws/pong-socket/'  + userid + '/');	//const socket = new WebSocket('ws://' + window.location.host + '/ws/pong-socket/' + id + '/');
@@ -131,10 +120,10 @@ async function startOnlineGame()
 	{
 		isSocketOpen = true;
 	};
-
 	socket.onerror = function(error)
 	{
-		console.error("WebSocket Error: ", error);
+		alert('Uh-oh! There was an unexpected error.');
+		console.error('Error: ' + error);
 	};
 
 	socket.onmessage = function(event)
@@ -323,6 +312,8 @@ async function initializeGame()
 		}
 		catch(error)
 		{
+			alert('Uh-oh! There was an unexpected error.');
+			console.error('Error: ' + error);
 			notAuthorized(error);
 		}
 	}

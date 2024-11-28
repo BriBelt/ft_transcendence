@@ -25,6 +25,8 @@ async function initializeTournament()
 		}
 		catch(error)
 		{
+			alert('Uh-oh! There was an unexpected error.');
+			console.error('Error: ' + error);
 			notAuthorized(error);
 		}
 	}
@@ -97,11 +99,8 @@ function initializeTournamentGame(){
     player1.velocityY = 0;
     player2.velocityY = 0;
     userid = localStorage.getItem('userid');
-    //const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
     
-    // TODO: generate id only when a new game is created, if not, select the id
     socket = new WebSocket('wss://' + window.location.host + '/ws/pong-socket/' + tournamentName + '/'  + userid + '/');
-    //const socket = new WebSocket('ws://' + window.location.host + '/ws/pong-socket/' + id + '/');
     isSocketOpen = false;
     socket.onopen = function(event) {
         isSocketOpen = true;
@@ -115,7 +114,8 @@ function initializeTournamentGame(){
     };
     
     socket.onerror = function(error) {
-        console.error("WebSocket Error: ", error);
+	alert('Uh-oh! There was an unexpected error.');
+	console.error('Error: ' + error);
     };
 
     let player1Id;

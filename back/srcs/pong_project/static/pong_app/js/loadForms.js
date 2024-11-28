@@ -119,6 +119,7 @@ async function loadUsers()
 		}
 		catch(error)
 		{
+			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}
@@ -152,18 +153,16 @@ async function loadOtherUserProfile(otherUser)
 			const data = await response.json();
 			if (data.status === 'success')
 			{
-				alert('INSIDE SUCCESS');
 				app.innerHTML = otherUserProfileHTML(data.userInfo, "");
 			}
 			else
 			{
-				alert('INSIDE ERROR');
 				await checkRefresh(data, '/home/users/user/', token);
 			}
 		}
 		catch(error)
 		{
-			alert('INSIDE CATCH ERROR: ' + error);
+			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}
@@ -291,6 +290,7 @@ async function loadPlayGame(id)
 		}
 		catch(error)
 		{
+			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}
@@ -372,13 +372,12 @@ async function loadHome()
 		}
 		 catch(error)
 		 {
-			alert('INSIDE ERROR, TOKEN NOT FOUND IN LOADHOME');
+			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}
 	else
 	{
-		alert('INSIDE ELSE, TOKEN NOT FOUND IN LOADHOME');
 		notAuthorized(error);
 	}
 }
@@ -407,7 +406,6 @@ async function loadTournamentSection()
 
 			if (data.status === 'success')
 			{
-				console.log("success");
 				app.innerHTML = loadTournamentSectionHTML();
 				const create = document.getElementById('create-btn');
 				const join = document.getElementById('join-btn');
@@ -439,6 +437,7 @@ async function loadTournamentSection()
 		}
 		 catch(error)
 		 {
+			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}
@@ -450,9 +449,6 @@ async function loadTournamentSection()
 
 async function loadNotFound()
 {
-//	const app = document.getElementById('app');
-//	app.innerHTML = loadNotFoundHTML();
-
 	const app = document.getElementById('app');
 	const token = localStorage.getItem('access');
 
@@ -483,6 +479,7 @@ async function loadNotFound()
 		}
 		catch(error)
 		{
+			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}
