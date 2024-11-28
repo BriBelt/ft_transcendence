@@ -1,6 +1,5 @@
 function loadPage(url, data)
 {
-	console.log(url);
 	if (url && (url.includes('callback.html') || url.includes('access=')))
 		return;
 	else if (url == '/' || url == '')

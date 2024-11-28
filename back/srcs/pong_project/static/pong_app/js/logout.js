@@ -35,7 +35,6 @@ async function updateLogoutButtonVisibility()
                     const result = await checkRefreshToken(token);
                     if (result === "valid")
                     {
-                        console.log('Access expired but Refresh not, calling again function');
                         logoutItem.classList.remove('d-none');
                     }
                 }
@@ -88,7 +87,6 @@ async function logoutUser()
                     const result = await checkRefreshToken(token);
                     if (result === "valid")
                     {
-                        console.log('Access expired but Refresh not, navigating to route');
                         logoutUser();
                     }
                 }

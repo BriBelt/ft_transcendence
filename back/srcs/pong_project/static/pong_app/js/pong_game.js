@@ -120,7 +120,6 @@ async function startOnlineGame()
 	{
 		isSocketOpen = true;
 	};
-    
 	socket.onerror = function(error)
 	{
 		alert('Uh-oh! There was an unexpected error.');

@@ -131,7 +131,6 @@ function initializeTournamentGame(){
             if (data.message.includes("Winner")){
                 winnerDetails = data.message.match(/Winner (\d+)/);
                 const winnerId = winnerDetails ? parseInt(winnerDetails[1], 10) : null;
-                //alert(`Winner ${winnerId}`)//Q
                 if (score1 === 7) displayWinnerBanner("Player 1");
                 if (score2 === 7) displayWinnerBanner("Player 2");
                 if (parseInt(userid, 10) == parseInt(winnerId, 10)){

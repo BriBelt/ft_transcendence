@@ -137,7 +137,6 @@ async function sendUserData(userDict, token)
 	}
 	catch(error)
 	{
-		console.log('Inside the error');
 		notAuthorized(error);
 	}
 }

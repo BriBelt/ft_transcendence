@@ -97,12 +97,10 @@ class BallL {
     score(player1L, player2L, boardL) {
         if (this.x <= 0) {
             // Gol del jugador 2
-            console.log("player 2 scored");
             player2L.score += 1;
             this.resetPosition(boardL);
             } else if (this.x >= boardL.width) {
                 // Gol del jugador 1
-            console.log("player 1 scored");
             player1L.score += 1;
             this.resetPosition(boardL);
         }
@@ -126,7 +124,6 @@ let game_ended = false;
 
 function saveLocalGameState()
 {
-	console.log('INSIDE SAVE GAME STATE');
 	const gameState =
 	{
 		player1Score: player1L.score,
@@ -148,9 +145,7 @@ function saveLocalGameState()
 
 function loadLocalGameState()
 {
-	console.log('INSIDE LOAD GAME STATE');
 	const savedState = JSON.parse(localStorage.getItem('state'));
-	console.log(savedState);
 	if (savedState)
 	{
 		player1L.score = savedState.player1Score;
@@ -167,7 +162,6 @@ function loadLocalGameState()
 
 function clearLocalGameState()
 {
-	console.log('INSIDE CLEAR GAME STATE');
 	localStorage.removeItem('state');
 	localStorage.setItem('playing', 'false');
 }
@@ -193,7 +187,6 @@ async function startLocalGame()
 	const playing = localStorage.getItem('playing');
 	if (playing === 'true')
 	{
-		console.log('Is playing');
 		loadLocalGameState();
 	}
 	else

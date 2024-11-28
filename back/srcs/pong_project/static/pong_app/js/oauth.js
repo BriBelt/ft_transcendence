@@ -42,7 +42,6 @@ async function handleAuth()
 
 	if (authUrl)
 	{
-		console.log('Before redirecting to url');
 		window.location.href = authUrl;
 	}
 	else
@@ -75,7 +74,6 @@ async function verifyCode(code)
 		else
 		{
 			console.log('Error: ', data.message);
-			alert('Code verification failed');
 		}
 	}
 	catch(error)
