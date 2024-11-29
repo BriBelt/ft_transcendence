@@ -8,6 +8,7 @@ import logging
 import time
 import threading
 from asgiref.sync import sync_to_async
+from django.utils import timezone
 from .models import Tournament, Paddle, Board, Ball, Game, CustomUser
 
 logger = logging.getLogger(__name__)

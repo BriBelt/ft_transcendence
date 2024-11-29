@@ -81,7 +81,7 @@ function otherUserProfileHTML(userInfo, games_data)
 	const gamesWon = userInfo.game_stats?.wins || 0;
 	const gamesLost = userInfo.game_stats?.losses || 0;
 
-	const gameRows = gamesData.map(game => `
+	const gameRows = games_data.map(game => `
 		<div class="game-entry" style="margin-bottom: 10px; border-bottom: 1px solid #DDD; padding-bottom: 10px;">
 		<p><b>Date:</b> ${game.date || 'N/A'}</p>
 		<p><b>Player 1:</b> ${game.player1 || 'N/A'}</p>
@@ -99,7 +99,7 @@ function otherUserProfileHTML(userInfo, games_data)
 						<div class="scrollable-box"
 						style="margin-top: 20px; height: 200px; overflow-y: auto; background-color: #EFEFEF;
 						border-radius: 10px; padding: 10px; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);">
-						${gameRows || '<p>No game data available.</p>'}
+						${gameRows || '<p>No hay información disponible.</p>'}
 						</div>
 					</div>
 				</div>

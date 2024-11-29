@@ -487,17 +487,6 @@ def FriendsList(request):
 
 @csrf_exempt
 @jwt_required
-def GamesList(request):
-
-	if request.method == 'GET':
-		user = request.user
-		games = user.games.all()
-		games_data = [{'player1': game.player1, 'player2': game.player2, 'date': game.date, 'winner': game.winner} for game in games]
-		return JsonResponse({'status': 'success', 'games': games_data}, status=200, safe=False)
-	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-
-@csrf_exempt
-@jwt_required
 def UsersStats(request):
 
 	if request.method == 'GET':
