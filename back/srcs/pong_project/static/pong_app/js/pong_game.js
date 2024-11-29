@@ -38,6 +38,8 @@ class Ball{
 let context;
 let isSocketOpen = false;
 let qMatchStarted = false;
+let announcementShown = localStorage.getItem('announcementShown') === 'true';
+let no_refreshed_aShown = false;
 
 let board = new Board(900, 500);
 let player1 = new Player(1, board);
@@ -132,11 +134,13 @@ async function startOnlineGame()
 
 		if (data.type === "announcement")
 		{
-			qMatchStarted = true;
-            const announcement = data.message;
-    
+			const announcement = data.message;
+			
             // Muestra el mensaje en la interfaz
+			qMatchStarted = true;
             displayAnnouncement(data.player1_username, data.player2_username);
+			localStorage.setItem('announcementShown', 'true');
+			no_refreshed_aShown = true;
 		}
 		else
 		{
@@ -213,9 +217,12 @@ async function startOnlineGame()
 		// Draw the banner in the center of the canvas
 		context.fillText(text, (canvas.width / 2) - (textWidth / 2), canvas.height / 2);
 		qMatchStarted = false;
+		localStorage.setItem('announcementShown', 'false');
+		no_refreshed_aShown = false;
 	}
 
 	function displayAnnouncement(player1, player2) {
+		if (announcementShown || no_refreshed_aShown) return;
         const originalUpdate = update; // Guarda una referencia al método original de actualización
 
         // Desactiva temporalmente el método de actualización
