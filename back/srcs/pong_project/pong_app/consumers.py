@@ -679,7 +679,7 @@ class PlayerConsumer(AsyncWebsocketConsumer):
         self.user.is_online = False
         self.user.save()
 
-        await super().disconnect(close_code)
+        #await super().disconnect(close_code)
 
     async def receive(self):
         pass
