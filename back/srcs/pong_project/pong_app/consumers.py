@@ -687,185 +687,19 @@ class PongConsumer(AsyncWebsocketConsumer):
 
 
 
-class TournamentConsumer(AsyncWebsocketConsumer):
+class PlayerConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-
-        self.tournament_name = self.scope['url_route']['kwargs']['tournament']
         self.user_id = int(self.scope['url_route']['kwargs']['userid'])
-        self.group_name = None
-        self.final_started = False
-        print(f"\033[96muUSER: {self.user_id} , TOURNAMENT_GAME: {self.tournament_name} CONNECTED\033[0m", flush=True)
 
-        if len(tournament_ids) > 0:
-            for key in tournament_ids.keys():
-                print(f"KEY: {key}", flush=True)
-                ids = key.split('_')
-                if int(self.user_id) == int(ids[0]) or int(self.user_id) == int(ids[1]):
-                    self.group_name = key
-        # Inicializar el torneo si no existe en el registro
-        if self.tournament_name not in tournament_records:
-            tournament_records[self.tournament_name] = []
+        self.user = await CustomUser.objects.aget(id=self.user_id)
+        self.user.is_online = True
+        self.user.save()
 
-        # Verificar si el usuario ya está en el torneo
-        if self.user_id not in [player.user_id for player in tournament_records[self.tournament_name]]:
-            
-            # Añadir el consumidor actual al registro del torneo
-            tournament_records[self.tournament_name].append(self)
+    async def disconnect(self):
+        self.user.is_online = False
+        self.user.save()
 
+        #await super().disconnect(close_code)
 
-        # Aceptar la conexión WebSocket
-        await self.accept()
-
-        # Si hay 4 jugadores, iniciar las dos partidas(el 4 es el que inicia el torneo)
-        if len(tournament_records[self.tournament_name]) == 4:
-            # Inicializa el grupo de torneo para recibir mensajes de los juegos
-            self.tournament_group_name = f"tournament_{self.tournament_name}"
-            await self.channel_layer.group_add(self.tournament_group_name, self.channel_name)
-            await self.start_tournament()
-
-        elif len(tournament_records[self.tournament_name]) > 4:
-            print(f"Tournament {self.tournament_name} is already full.")
-            await self.close()
-            return
-
-    async def start_tournament(self):
-        players = tournament_records[self.tournament_name]
-        print("Starting matches for tournament:", self.tournament_name, flush=True)
-
-        # Emparejamiento de los 4 jugadores
-        self.match_1 = (players[0], players[1])
-        self.match_2 = (players[2], players[3])
-
-        # Iniciar la primera ronda
-        await self.start_match(self.match_1, False)
-        await self.start_match(self.match_2, False)
-
-    async def start_match(self, match, is_final):
-        """Iniciar una partida entre dos jugadores."""
-        print(f"\033[92mEMPEZANDO PARTIDA\033[0m", flush=True)
-        player1, player2 = match
-        game_group = f"match_{player1.user_id}_{player2.user_id}"
-
-        # Añadir ambos jugadores al grupo del canal
-        await self.channel_layer.group_add(game_group, player1.channel_name)
-        await self.channel_layer.group_add(game_group, player2.channel_name)
-
-        if is_final:
-            await self.channel_layer.group_send(
-                game_group,
-                {
-                    'type': 'game_start',
-                    'message': f"Final match between {player1.user_id} and {player2.user_id} is starting!"
-                }
-            )
-        else:
-            await self.channel_layer.group_send(
-                game_group,
-                {
-                    'type': 'game_start',
-                    'message': f"Match between {player1.user_id} and {player2.user_id} is starting!"
-                }
-            )
-
-    async def game_start(self, event):
-        message = event['message']
-        await self.send(text_data=json.dumps({'message': message}))
-
-    async def match_finished(self, event):
-        match_info = event['match_info']
-        winner_id = match_info['winner_id']
-        loser_id = match_info['loser_id']
-        match_players = match_info['match_players']
-
-        print(f"\033[96mPartida entre {match_players} ha terminado. Ganador: {winner_id}\033[0m", flush=True)
-        # Busca la instancia del ganador
-        players = tournament_records[self.tournament_name]
-        print(f"Players in tournament_records[{self.tournament_name}]: {[player.user_id for player in players]}")
-
-        winner_instance = next((player for player in players if player.user_id == winner_id), None)
-
-        # Verifica si se encontró el ganador
-        if winner_instance is None:
-            print(f"\033[91mNo se encontró una instancia para el ganador con user_id {winner_id}\033[0m", flush=True)
-        else:
-            print(f"\033[92mGanador encontrado: {winner_instance.user_id}\033[0m", flush=True)
-
-        # Guarda el ganador y llama a los métodos correspondientes según la lógica del torneo
-        # Comparar match_players con los IDs de manera más robusta para evitar errores de orden
-        match_1_ids = sorted([self.match_1[0].user_id, self.match_1[1].user_id])
-        match_2_ids = sorted([self.match_2[0].user_id, self.match_2[1].user_id])
-        sorted_match_players = sorted(match_players)
-
-        if sorted_match_players == match_1_ids:
-            self.winner_match_1 = winner_instance
-        elif sorted_match_players == match_2_ids:
-            self.winner_match_2 = winner_instance
-        # Si ambos ganadores de la primera ronda están listos, comienza la partida final
-        if hasattr(self, 'winner_match_1') and hasattr(self, 'winner_match_2') and not self.final_started:
-            print("\033[96mA punto de empezar la final\033[0m", flush=True)
-            self.final_started = True
-            await self.start_match((self.winner_match_1, self.winner_match_2), True)
-
-    async def end_match(self, match, winner):
-        """Finalizar una partida, actualiza los ganadores."""
-        player1, player2 = match
-        game_group = f"match_{player1.user_id}_{player2.user_id}"
-
-        # Quitar los jugadores del grupo del canal
-        await self.channel_layer.group_discard(game_group, player1.channel_name)
-        await self.channel_layer.group_discard(game_group, player2.channel_name)
-
-        # Registrar el ganador y preparar para la final si ambas partidas han terminado
-        if match == self.match_1:
-            self.winner_match_1 = winner
-        elif match == self.match_2:
-            self.winner_match_2 = winner
-
-        # Iniciar la partida final si los dos ganadores están listos
-        if hasattr(self, 'winner_match_1') and hasattr(self, 'winner_match_2'):
-            await self.start_match((self.winner_match_1, self.winner_match_2))
-
-    async def end_tournament(self, winner_id):
-        """Finaliza el torneo actual, actualizando estadísticas y cerrando conexiones."""
-        print(f"Tournament {self.tournament_name} finished. Winner: {winner_id}, self.user_id = {self.user_id}.", flush=True)
-
-        if winner_id == self.user_id:
-            # Actualizar las estadísticas del torneo para el ganador
-            print(f"\033[96mABOUT TO CALL UPDATE_TOURNAMENT_STATS BROOO\033[0m", flush=True)
-            await self.update_tournament_stats(winner_id)
-
-            # Cerrar todas las conexiones de los jugadores
-            for player in tournament_records[self.tournament_name]:
-                await player.close()    
-
-            # Eliminar el torneo del registro
-            del tournament_records[self.tournament_name]
-
-    async def update_tournament_stats(self, winner):
-
-        print(f"\033[96mUPDATE_TOURNAMENT_STATS CALLED, winner : {winner}\033[0m", flush=True)
-        player_user = await sync_to_async(CustomUser.objects.get)(id=self.user_id)
-        player_stats = player_user.tournament_stats
-        player_stats['total'] = player_stats.get('total', 0) + 1
-
-        if winner:
-            player_stats['wins'] = player_stats.get('wins', 0) + 1
-
-        player_user._stats = player_stats
-        await sync_to_async(player_user.save)()
-
-    async def disconnect(self, close_code):
-        """Maneja la desconexión de un usuario."""
-        if self.tournament_name in tournament_records:
-            tournament_records[self.tournament_name] = [
-                player for player in tournament_records[self.tournament_name] if player.user_id != self.user_id
-            ]
-
-        await super().disconnect(close_code)
-
-
-    async def receive(self, text_data):
-        data = json.loads(text_data)
-        if data['type'] == 'end_tournament':
-            winner_id = int(data['winner_id'])
-            await self.end_tournament(winner_id)
+    async def receive(self):
+        pass

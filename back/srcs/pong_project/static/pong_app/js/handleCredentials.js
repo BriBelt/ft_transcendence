@@ -1,3 +1,7 @@
+function connectUser(userid){
+	onlinesocket = new WebSocket('wss://' + window.location.host + '/ws/online/'  + userid + '/');
+}
+
 function logInHandler()
 {
     const loginForm = document.getElementById('login-form');
@@ -31,6 +35,7 @@ function logInHandler()
 
 			if (data.status === 'success')
 			{
+				connectUser(data.userid)
 				localStorage.setItem('userid', data.userid);
 				const code = document.getElementById('code').value;
 				if (code)
