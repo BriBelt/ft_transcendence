@@ -11,6 +11,8 @@ from asgiref.sync import sync_to_async
 from django.utils import timezone
 from .models import Tournament, Paddle, Board, Ball, Game, CustomUser
 from django.utils import timezone
+import jwt
+from django.conf import settings
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)  # or logging.ERROR for fewer logs
@@ -56,8 +58,26 @@ class GameState:
 
 class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        token = self.scope['url_route']['kwargs']['token']
 
-        self.user_id = int(self.scope['url_route']['kwargs']['userid'])
+        try:
+        # Decodificar el token usando el SECRET_KEY
+            payload = jwt.decode(token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
+            self.user_id = payload.get("id")  # Obtener el user_id del payload
+        
+            if not self.user_id:
+                raise jwt.InvalidTokenError("Invalid user_id in token")
+
+        except (ExpiredSignatureError, InvalidTokenError):
+            await self.accept()  # Acepta la conexión antes de enviar un mensaje
+            await self.send(text_data=json.dumps({
+                "type": "error",
+                "message": "authentication_failed"
+            }))
+            await self.close()
+            return
+
+        #self.user_id = int(self.scope['url_route']['kwargs']['userid'])
         try:
             self.tournament_name = self.scope['url_route']['kwargs']['tournament']
         except:

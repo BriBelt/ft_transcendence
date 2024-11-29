@@ -101,8 +101,14 @@ function clearOnlineGameState()
 
 async function startOnlineGame()
 {
-	// Close existing WebSocket connection if open
 	const playing = localStorage.getItem('playing');
+	const accessToken = localStorage.getItem('access');
+
+	if (!accessToken)
+	{
+        alert('No access token found. Please log in.');
+        return;
+    }
 
 	if (socket)
 	{
@@ -124,7 +130,7 @@ async function startOnlineGame()
 	userid = localStorage.getItem('userid');
 
 	// TODO: generate id only when a new game is created, if not, select the id
-	socket = new WebSocket('wss://' + window.location.host + '/ws/pong-socket/'  + userid + '/');	//const socket = new WebSocket('ws://' + window.location.host + '/ws/pong-socket/' + id + '/');
+	socket = new WebSocket('wss://' + window.location.host + '/ws/pong-socket/'  + accessToken + '/');	//const socket = new WebSocket('ws://' + window.location.host + '/ws/pong-socket/' + id + '/');
 	isSocketOpen = false;
 
 	socket.onopen = function(event)
@@ -141,7 +147,12 @@ async function startOnlineGame()
 	{
 		const data = JSON.parse(event.data);
 
-		if (data.type === "announcement")
+		if (data.type === 'error' && data.message === 'authentication_failed') {
+			alert('Authentication failed. Please log in again.');
+			socket.close();
+			return;
+		}
+		else if (data.type === "announcement")
 		{
 			const announcement = data.message;
 			
