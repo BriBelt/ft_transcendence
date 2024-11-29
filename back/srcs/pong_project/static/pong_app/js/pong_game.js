@@ -41,6 +41,15 @@ let qMatchStarted = false;
 let announcementShown = localStorage.getItem('announcementShown') === 'true';
 let no_refreshed_aShown = false;
 
+let waitingForOpponent;
+
+if (localStorage.getItem('waitingForOpponent') !== null) {
+    waitingForOpponent = localStorage.getItem('waitingForOpponent') === 'true';
+} else {
+    waitingForOpponent = true;
+    localStorage.setItem('waitingForOpponent', 'true');
+}
+
 let board = new Board(900, 500);
 let player1 = new Player(1, board);
 let player2 = new Player(2, board);
@@ -141,6 +150,7 @@ async function startOnlineGame()
             displayAnnouncement(data.player1_username, data.player2_username);
 			localStorage.setItem('announcementShown', 'true');
 			no_refreshed_aShown = true;
+			localStorage.setItem('waitingForOpponent', 'false');
 		}
 		else
 		{
@@ -178,6 +188,9 @@ async function startOnlineGame()
 	document.addEventListener("keyup", stopDjango);
 	document.addEventListener("keydown", moveDjango);
 	
+	if (waitingForOpponent)
+		displayWaitingMessage();
+
 	function moveDjango(e)
 	{
 		sendPlayerData(e.code, "move");
@@ -245,6 +258,16 @@ async function startOnlineGame()
             update();
         }, 1900);
     }
+
+	function displayWaitingMessage() {
+		if (!waitingForOpponent) return;
+		context.clearRect(0, 0, board.width, board.height);
+		context.fillStyle = "white";
+		context.font = "30px Arial";
+		const text = "Waiting for an opponent...";
+		const textWidth = context.measureText(text).width;
+		context.fillText(text, (board.width / 2) - (textWidth / 2), board.height / 2);
+	}
 	    
 	function update()
 	{
