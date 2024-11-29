@@ -682,4 +682,4 @@ class PlayerConsumer(AsyncWebsocketConsumer):
         await super().disconnect(close_code)
 
     async def receive(self):
-        # not needed
+        pass
