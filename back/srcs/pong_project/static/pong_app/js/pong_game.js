@@ -38,6 +38,17 @@ class Ball{
 let context;
 let isSocketOpen = false;
 let qMatchStarted = false;
+let announcementShown = localStorage.getItem('announcementShown') === 'true';
+let no_refreshed_aShown = false;
+
+let waitingForOpponent;
+
+if (localStorage.getItem('waitingForOpponent') !== null) {
+    waitingForOpponent = localStorage.getItem('waitingForOpponent') === 'true';
+} else {
+    waitingForOpponent = true;
+    localStorage.setItem('waitingForOpponent', 'true');
+}
 
 let board = new Board(900, 500);
 let player1 = new Player(1, board);
@@ -132,11 +143,14 @@ async function startOnlineGame()
 
 		if (data.type === "announcement")
 		{
-			qMatchStarted = true;
-            const announcement = data.message;
-    
+			const announcement = data.message;
+			
             // Muestra el mensaje en la interfaz
+			qMatchStarted = true;
             displayAnnouncement(data.player1_username, data.player2_username);
+			localStorage.setItem('announcementShown', 'true');
+			no_refreshed_aShown = true;
+			localStorage.setItem('waitingForOpponent', 'false');
 		}
 		else
 		{
@@ -174,6 +188,9 @@ async function startOnlineGame()
 	document.addEventListener("keyup", stopDjango);
 	document.addEventListener("keydown", moveDjango);
 	
+	if (waitingForOpponent)
+		displayWaitingMessage();
+
 	function moveDjango(e)
 	{
 		sendPlayerData(e.code, "move");
@@ -213,9 +230,12 @@ async function startOnlineGame()
 		// Draw the banner in the center of the canvas
 		context.fillText(text, (canvas.width / 2) - (textWidth / 2), canvas.height / 2);
 		qMatchStarted = false;
+		localStorage.setItem('announcementShown', 'false');
+		no_refreshed_aShown = false;
 	}
 
 	function displayAnnouncement(player1, player2) {
+		if (announcementShown || no_refreshed_aShown) return;
         const originalUpdate = update; // Guarda una referencia al método original de actualización
 
         // Desactiva temporalmente el método de actualización
@@ -238,6 +258,16 @@ async function startOnlineGame()
             update();
         }, 1900);
     }
+
+	function displayWaitingMessage() {
+		if (!waitingForOpponent) return;
+		context.clearRect(0, 0, board.width, board.height);
+		context.fillStyle = "white";
+		context.font = "30px Arial";
+		const text = "Waiting for an opponent...";
+		const textWidth = context.measureText(text).width;
+		context.fillText(text, (board.width / 2) - (textWidth / 2), board.height / 2);
+	}
 	    
 	function update()
 	{

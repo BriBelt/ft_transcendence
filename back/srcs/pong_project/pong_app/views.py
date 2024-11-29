@@ -217,12 +217,12 @@ def loginView(request):
 		try:
 			user = CustomUser.objects.get(username=username)
 		except CustomUser.DoesNotExist:
-			return JsonResponse({'error': 'Invalid username'}, status=401)
+			return JsonResponse({'status': 'error', 'message': 'Invalid username'}, status=401)
 
 		# Check the attribute is_active, if it's false, means the user has not verified
 		# their email
 		if user.is_active is False:
-			return JsonResponse({'error': 'Email not verified'}, status=401)
+			return JsonResponse({'status': 'error', 'message': 'Email not verified'}, status=401)
 
 		# The password is correct
 		if user.check_password(password + settings.PEPPER):
