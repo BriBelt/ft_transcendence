@@ -21,14 +21,13 @@ async function getAuthUrl()
 		}
 		else
 		{
-			console.error('Error fetching API settings: ', data.message);
-			alert('Could not retrieve API settings');
+			alert('Uh-oh! There was an unexpected error.');
 			return (null);
 		}
 	}
 	catch(error)
 	{
-		console.error('Error fetching API settings: ', error);
+		alert('Uh-oh! There was an unexpected error.');
 		return (null);
 	}
 
@@ -46,7 +45,7 @@ async function handleAuth()
 	}
 	else
 	{
-		alert('No AuthURL was found');
+		alert('Uh-oh! There was an unexpected error.');
 	}
 }
 
@@ -73,13 +72,12 @@ async function verifyCode(code)
 			handle42Info(data.userInfo);
 		else
 		{
-			console.log('Error: ', data.message);
+			alert('Uh-oh! There was an unexpected error.');
 		}
 	}
 	catch(error)
 	{
-		alert("ex verifyCode2: " + error);
-		console.error("Error: ", error);
+		alert('Uh-oh! There was an unexpected error.');
 	}
 }
 
@@ -109,21 +107,17 @@ async function handle42Info(userInfo)
 				window.location.href = jsonData.redirect_url;
 			else
 			{
-				console.log('Error: ', jsonData.message);
-				alert('OAuth login/signup failed');
+				alert('Uh-oh! There was an unexpected error.');
 			}
 		}
 		catch(e)
 		{
-			console.error('Error: ', e);
-			console.error('Response: ', data);
-			alert('Failed to create the user');
+			alert('Uh-oh! There was an unexpected error.');
 		}
 	}
 	catch(error)
 	{
-		alert("ex handle42Info2: " + error);
-		console.error("Error: ", error);
+		alert('Uh-oh! There was an unexpected error.');
 	}
 }
 

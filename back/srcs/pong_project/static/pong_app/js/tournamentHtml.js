@@ -101,7 +101,6 @@ async function loadTournamentsSection()
 		catch(error)
 		{
 			alert('Uh-oh! There was an unexpected error.');
-			console.error('Error: ' + error);
 			notAuthorized(error);
 		}
 	}

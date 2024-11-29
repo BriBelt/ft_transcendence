@@ -26,7 +26,6 @@ async function initializeTournament()
 		catch(error)
 		{
 			alert('Uh-oh! There was an unexpected error.');
-			console.error('Error: ' + error);
 			notAuthorized(error);
 		}
 	}
@@ -115,7 +114,6 @@ function initializeTournamentGame(){
     
     socket.onerror = function(error) {
 	alert('Uh-oh! There was an unexpected error.');
-	console.error('Error: ' + error);
     };
 
     let player1Id;

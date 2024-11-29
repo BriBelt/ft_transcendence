@@ -124,7 +124,7 @@ body
 }
 .error-message
 {
-	color: red;
+	color: #ffeca2;
 	font-size: 12px;
 }
 .form-container

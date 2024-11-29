@@ -43,7 +43,6 @@ async function updateLogoutButtonVisibility()
         }
         catch(error)
     	{
-            console.error('Error:', error);
             // Hide the Logout button in case of error
             logoutItem.classList.add('d-none');
             // If refresh just expired expel user
@@ -91,18 +90,17 @@ async function logoutUser()
                     }
                 }
     	    	else
-    		    {
+    		{
                     if (localStorage.getItem('access'))
                     {
                         localStorage.removeItem('access');
                         navigateTo('/');
                     }
-    		    }
+    		}
     	    }
         }
         catch(error)
-	    {
-            console.error('Error during logout:', error);
+	{
             notAuthorized(error);
         }
     }

@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	{
 		login42Link.addEventListener('click', async function(event)
 		{
-			alert('clicked 42 auth');
 			event.preventDefault();
 			await handleAuth();
 		});

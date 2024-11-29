@@ -98,7 +98,7 @@ function otherUserProfileHTML(userInfo, games_data)
 					<div class="container" style="box-sizing: border-box; width: 100%; padding: 0; margin: 0;">
 						<div class="scrollable-box"
 						style="margin-top: 20px; height: 200px; overflow-y: auto; background-color: #EFEFEF;
-						border-radius: 10px; padding: 10px; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);">
+						border-radius: 10px; padding: 10px; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); color: #362c45;">
 						${gameRows || '<p>No hay información disponible.</p>'}
 						</div>
 					</div>

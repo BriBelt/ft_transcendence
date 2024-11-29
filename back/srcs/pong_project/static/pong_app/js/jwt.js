@@ -27,7 +27,6 @@ function checkRefreshToken(token)
 		})
 		.catch(error =>
 		{
-			console.error('Error refreshing token:', error);
 			reject("catch");
 		});
 	});
@@ -57,7 +56,6 @@ function notAuthorized(error)
 	}
 	else
 	{
-		alert('AAAAAAAAAAAAAAA ' + error);
 		alert('You are not authorized to view this page. Please log in.');
 		app.innerHTML = loadNotAuthorizedHTML();
 		setTimeout(() => 

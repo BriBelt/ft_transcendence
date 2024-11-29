@@ -114,10 +114,10 @@ async function addFriend(username)
 				if (data.message === 'Access unauthorized')
 				{
 				    const result = await checkRefreshToken(token);
-				    if (result === "valid")
-				    {
-					logoutItem.classList.remove('d-none');
-				    }
+//				    if (result === "valid")
+//				    {
+//					logoutItem.classList.remove('d-none');
+//				    }
 				}
 				else
 					showMessage('adduser-error', data.message);	
@@ -125,7 +125,6 @@ async function addFriend(username)
 		}
 		catch(error)
 		{
-			console.error('Error: ' + error);
 		}
 	}
 	else

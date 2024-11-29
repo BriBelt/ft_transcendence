@@ -90,7 +90,7 @@ async function loadUsers()
 								</span>
 								<div class="friend-actions">
 									<button data-username="${user.username}" class="custom-button remove-friend" style="align-items: left;">
-										<i class="fa-solid fa-circle-info"></i>
+										<i class="fas fa-info-circle"></i>
 									</button>
 								</div>
 							</div>`
@@ -119,7 +119,6 @@ async function loadUsers()
 		}
 		catch(error)
 		{
-			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}
@@ -162,7 +161,6 @@ async function loadOtherUserProfile(otherUser)
 		}
 		catch(error)
 		{
-			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}
@@ -171,49 +169,6 @@ async function loadOtherUserProfile(otherUser)
 		notAuthorized(error);
 	}
 }
-
-/*async function loadOtherUserProfile(otherUser)
-{
-	const app = document.getElementById('app');
-	const token = localStorage.getItem('access');
-
-	if (token)
-	{
-		try
-		{
-			const userData = {'other_username': otherUser};
-			alert(otherUser);
-			const response = await fetch('/home/users/user/',
-			{
-				method: 'POST',
-				headers:
-				{
-					'Authorization': `Bearer ${token}`,
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(userData)
-			});
-			const data = await response.json();
-			if (data.status === 'success')
-			{
-				app.innerHTML = otherUserProfileHTML(data.userInfo, "");
-			}
-			else
-			{
-				await checkRefresh(data, '/home/users/user/', token);
-			}
-		}
-		catch(error)
-		{
-			alert('Uh-oh, there was an unexpected error!');
-			notAuthorized(error);
-		}
-	}
-	else
-	{
-		notAuthorized(error);
-	}
-}*/
 
 // HTML for the SignUp page
 function loadSignupForm()
@@ -314,7 +269,6 @@ async function loadPlayGame(id)
 				{
 					online.addEventListener('click', function(event)
 					{
-						console.log('INSIDE ONLINE BUTTON EVENT LISTENER!');
 						event.preventDefault();
 						navigateTo('/home/game/online/');
 					});
@@ -333,7 +287,6 @@ async function loadPlayGame(id)
 		}
 		catch(error)
 		{
-			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}
@@ -352,7 +305,6 @@ function loadGameCanvas()
 }
 async function loadHome()
 {
-	console.log('Inside loadHome');
 	const app = document.getElementById('app');
 	const token = localStorage.getItem('access');
 
@@ -371,7 +323,6 @@ async function loadHome()
 			})
 			
 			const data = await response.json();
-			console.log(data.status + ": " + data.message);
 
 			if (data.status === 'success')
 			{
@@ -415,7 +366,6 @@ async function loadHome()
 		}
 		 catch(error)
 		 {
-			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}
@@ -434,7 +384,6 @@ async function loadTournamentSection()
 	{
 		try
 		{
-			console.log("Inside load tournament, we have a token");
 			const response = await fetch('/get_user_info/',
 			{
 				method: 'GET',
@@ -458,7 +407,6 @@ async function loadTournamentSection()
 					join.addEventListener('click', function(event)
 					{
 						event.preventDefault();
-						console.log("clicked join");
 						// Here we need to call the
 						navigateTo('/home/game/tournament/join/');
 					});
@@ -468,7 +416,6 @@ async function loadTournamentSection()
 					create.addEventListener('click', async function(event)
 					{
 						event.preventDefault();
-						console.log("clicked create");
 						navigateTo('/home/game/tournament/create/');
 					});
 				}
@@ -480,7 +427,6 @@ async function loadTournamentSection()
 		}
 		 catch(error)
 		 {
-			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}
@@ -522,7 +468,6 @@ async function loadNotFound()
 		}
 		catch(error)
 		{
-			alert('Uh-oh, there was an unexpected error!');
 			notAuthorized(error);
 		}
 	}

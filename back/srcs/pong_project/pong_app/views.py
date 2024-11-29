@@ -242,7 +242,6 @@ def loginView(request):
 				key = 'refresh_token',
 				value = refresh_token,
 				httponly = True,
-				#secure = True,
 				max_age = (settings.JWT_REFRESH_EXPIRATION_DELTA) * 24 * 60 * 60,
 				samesite = 'Strict')
 			return response
@@ -376,28 +375,30 @@ def EditProfile(request):
 			twofa = data.get('twofa', user.tfa)
 			avatar_data = data.get('avatar')
 
-			user.username = username
-
-			if CustomUser.objects.filter(username=user.username).exclude(id=user.id).exists():
-				return JsonResponse({'status': 'error', 'message': 'Username in use'}, status=400)
+			try:
+				if username != user.username:
+					validateUsername(username)
+					if CustomUser.objects.filter(username=user.username).exclude(id=user.id).exists():
+						return JsonResponse({'status': 'error', 'message': 'Username in use'}, status=400)
+					user.username = username
+				if password:
+					validatePassword(password)
+					user.set_password(password + settings.PEPPER)
+			except ValidationError as e:
+				return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
 
 			user.tfa = True if twofa == 'on' else False
-
-			if password:
-				user.set_password(password + settings.PEPPER)
-
 			
 			if avatar_data:
-				handle_avatar_upload(user, avatar_data)
-
+				msgAvatar = handle_avatar_upload(user, avatar_data)
+				if msgAvatar != "":
+					return JsonResponse({'status': 'error', 'message': msgAvatar}, status=400)
 			user.save()
 			return JsonResponse({'status': 'success', 'message': 'Profile updated successfully!'}, status=200)
 		except json.JSONDecodeError as e:
 			return JsonResponse({'status': 'error', 'message': 'Invalid JSON'}, status=400)
 		except IntegrityError as e:
 			return JsonResponse({'status': 'error', 'message': 'Username in use'}, status=400)
-		except ValidationError as e:
-			return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
 
@@ -542,7 +543,7 @@ def AddFriend(request):
 			user.friends.add(friend)
 			return JsonResponse({'status': 'success', 'message': f'{friend_username} added as a friend'}, status=400)
 		except Exception as e:
-			return JsonResponse({'status': 'error', 'message': '{str(e)}'}, status=404)
+			return JsonResponse({'status': 'error', 'message': 'We don\'t have access to imaginary friends.'}, status=404)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
 @csrf_exempt

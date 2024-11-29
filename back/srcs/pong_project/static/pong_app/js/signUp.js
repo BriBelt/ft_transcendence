@@ -39,19 +39,14 @@ function signUpHandler()
 			navigateTo('/login/');
                     }
 		    else
-                        alert('Signup failed: ' + data.message);
+		    	alert('There has been an error when trying to log in.');
                 })
                 .catch(error =>
 		{
 			alert('Uh-oh! There was an unexpected error.');
-			console.error('Error:', error);
                 });
 	    }
         });
-    }
-    else
-    {
-        console.error('signup-form not found');
     }
 }
 
@@ -84,7 +79,6 @@ function	handleInitialPage()
 	{
 		login42Link.addEventListener('click', async function(event)
 		{
-			alert('clicked 42 auth');
 			event.preventDefault();
 			await handleAuth();
 		});

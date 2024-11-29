@@ -35,10 +35,10 @@ async function loadProfileSettings()
 				if (save)
 				{
 					save.addEventListener('click', function(event)
-				{
-					event.preventDefault();
-					updateUserInfo();
-				});
+					{
+						event.preventDefault();
+						updateUserInfo();
+					});
 				}
 	 		}
 			else
@@ -48,6 +48,7 @@ async function loadProfileSettings()
 		}
 		catch(error)
 		{
+			alert('Uh-oh! There was an unexpected error.');
 			notAuthorized(error);
 		}
 	}
@@ -63,6 +64,7 @@ function updateUserInfo()
 
 	if (token)
 	{
+		hideMessage('file-error');
 		const username = document.getElementById('username').value;
 		const password = document.getElementById('password').value;
 		const twofa = document.getElementById('twofa').checked ? 'on' : 'off';
@@ -130,8 +132,7 @@ async function sendUserData(userDict, token)
 			{
 			    showMessage('file-error', data.message);
 			}
-			console.error(data.message);
-					await checkRefresh(data, '/home/profile/edit/', token);
+			await checkRefresh(data, '/home/profile/edit/', token);
 		    }
 		}
 	}

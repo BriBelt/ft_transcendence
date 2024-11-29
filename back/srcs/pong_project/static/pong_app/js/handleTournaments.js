@@ -24,7 +24,7 @@ async function createTournament(tournamentName)
 			const data = await response.json();
 			if (data.status === 'success')
 			{
-                alert('Tournament created successfully! Wait until it is full.');
+		                alert('Tournament created successfully! Wait until it is full.');
 				localStorage.setItem('tournament_name', tournamentName);
 				navigateTo('/home/game/tournament/t_game/');
 	 		}

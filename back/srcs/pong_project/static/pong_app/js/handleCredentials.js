@@ -41,7 +41,6 @@ function logInHandler()
 				{
 					localStorage.setItem('access', data.access);
 					localStorage.setItem('playing', 'false');
-					alert('Log in successful!');
 					navigateTo('/home/');
 				}
 				else if (data.message === 'Verification code needed')
@@ -72,12 +71,8 @@ function logInHandler()
 	}
         catch(error)
 	{
-             console.error('Error:', error);
+//             console.error('Error:', error);
         }
-    }
-    else
-    {
-        console.error('login-form not found');
     }
 }
 
@@ -97,18 +92,12 @@ async function askForCode(userData)
 		const data = await response.json();
 
 		if (data.status === 'success')
-		{
 			return (true);
-		}
 		else
-		{
-			console.error('Error:', data.message);
 			return (false);
-		}
 	}
 	catch(error)
 	{
-		console.error('Error:', error);
 		return (false);
 	}
 }
@@ -136,7 +125,6 @@ async function handle2FA(code)
 		if (data.status === 'success')
 		{
 			localStorage.setItem('access', data.access);
-			alert('Log in successful!');
 			navigateTo('/home/');
 		}
 		else

@@ -134,7 +134,6 @@ async function startOnlineGame()
 	socket.onerror = function(error)
 	{
 		alert('Uh-oh! There was an unexpected error.');
-		console.error('Error: ' + error);
 	};
 
 	socket.onmessage = function(event)
@@ -343,7 +342,6 @@ async function initializeGame()
 		catch(error)
 		{
 			alert('Uh-oh! There was an unexpected error.');
-			console.error('Error: ' + error);
 			notAuthorized(error);
 		}
 	}
