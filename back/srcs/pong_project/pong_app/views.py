@@ -541,7 +541,7 @@ def AddFriend(request):
 			if friend in user.friends.all():
 				return JsonResponse({'status': 'error', 'message': 'This user a is already your friend.'}, status=409)
 			user.friends.add(friend)
-			return JsonResponse({'status': 'success', 'message': f'{friend_username} added as a friend'}, status=400)
+			return JsonResponse({'status': 'success', 'message': f'{friend_username} added as a friend'}, status=200)
 		except Exception as e:
 			return JsonResponse({'status': 'error', 'message': 'We don\'t have access to imaginary friends.'}, status=404)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
