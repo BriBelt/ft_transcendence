@@ -1,12 +1,32 @@
-function connectUser(userid){
-	onlinesocket = new WebSocket('wss://' + window.location.host + '/ws/online/'  + userid + '/');
-}
-
-setInterval(() => {
-    if (onlinesocket.readyState === WebSocket.OPEN) {
-        onlinesocket.send(JSON.stringify({ type: "ping" }));
+function connectUser(userid) {
+    if (!userid) {
+        console.error("Invalid userid");
+        return;
     }
-}, 5000); // Cada 5 segundos
+
+    const onlinesocket = new WebSocket('wss://' + window.location.host + '/ws/online/' + userid + '/');
+
+    onlinesocket.onopen = () => {
+        console.log("WebSocket connection established");
+    };
+
+    onlinesocket.onerror = (error) => {
+        console.error("WebSocket error:", error);
+    };
+
+    function sendPing() {
+        if (onlinesocket.readyState === WebSocket.OPEN) {
+            onlinesocket.send(JSON.stringify({ type: "ping" }));
+            console.log("Ping sent");
+        } else {
+            console.warn("WebSocket is not open, skipping ping");
+        }
+    }
+
+    // Llamada inicial y luego se repite cada 5 segundos
+    sendPing();
+    setInterval(sendPing, 5000);
+}
 
 function logInHandler()
 {
