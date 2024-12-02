@@ -17,9 +17,6 @@ function connectUser(userid) {
     function sendPing() {
         if (onlinesocket.readyState === WebSocket.OPEN) {
             onlinesocket.send(JSON.stringify({ type: "ping" }));
-            console.log("Ping sent");
-        } else {
-            console.warn("WebSocket is not open, skipping ping");
         }
     }
 
