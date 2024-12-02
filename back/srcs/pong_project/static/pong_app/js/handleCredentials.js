@@ -2,6 +2,12 @@ function connectUser(userid){
 	onlinesocket = new WebSocket('wss://' + window.location.host + '/ws/online/'  + userid + '/');
 }
 
+setInterval(() => {
+    if (onlinesocket.readyState === WebSocket.OPEN) {
+        onlinesocket.send(JSON.stringify({ type: "ping" }));
+    }
+}, 5000); // Cada 5 segundos
+
 function logInHandler()
 {
     const loginForm = document.getElementById('login-form');

@@ -18,6 +18,7 @@ class CustomUser(AbstractUser):
 	otp_expDate = models.DateTimeField(null=True, blank=True)
 
 	is_online = models.BooleanField(default=False)
+	last_seen = models.DateTimeField(default=now)
 
 	# Game stats for every game played, including the tournament games(total/wins/losses)
 	game_stats = models.JSONField(default=dict)

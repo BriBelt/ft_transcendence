@@ -13,6 +13,7 @@ from .models import Tournament, Paddle, Board, Ball, Game, CustomUser
 from django.utils import timezone
 import jwt
 from django.conf import settings
+from django.utils.timezone import now
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)  # or logging.ERROR for fewer logs
@@ -693,13 +694,25 @@ class PlayerConsumer(AsyncWebsocketConsumer):
 
         self.user = await CustomUser.objects.aget(id=self.user_id)
         self.user.is_online = True
-        self.user.save()
+        self.user.last_seen = now()
+        await self.accept()
+        self.user.is_online = True
+        await sync_to_async(self.user.save)()
 
-    async def disconnect(self):
-        self.user.is_online = False
-        self.user.save()
+    async def disconnect(self, close_code):
+        """
+        Espera un periodo de gracia antes de marcar al usuario como completamente desconectado.
+        Si se reconecta durante este tiempo, no se actualiza a False.
+        """
+        await asyncio.sleep(10)
+        if (now() - self.user.last_seen).total_seconds() > 10:  # Tiempo de gracia
+            self.user.is_online = False
+            await sync_to_async(self.user.save)()
 
         #await super().disconnect(close_code)
 
-    async def receive(self):
-        pass
+    async def receive(self, text_data):
+        message = json.loads(text_data)
+        if message.get("type") == "ping":
+            self.user.last_seen = now()
+            await sync_to_async(self.user.save)()

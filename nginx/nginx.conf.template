@@ -3,7 +3,11 @@ events {
 }
 
 http {
-# Redirect all http conexions to https in the same port
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+
+	# Redirect all http conexions to https in the same port
 	server {
 	    listen 8080;
 	    server_name domain-name.com;
@@ -32,6 +36,12 @@ http {
 		proxy_connect_timeout 300s;
 		proxy_send_timeout 3600s;
 	    }
+
+		# Serve static and media files
+		location /static/ {
+			alias /static/;
+			autoindex on;
+		}
 
 	    location /ws/ {
 		proxy_pass http://back:8000;  # Pass requests to backend
