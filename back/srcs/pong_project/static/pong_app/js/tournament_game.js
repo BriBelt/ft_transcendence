@@ -38,6 +38,14 @@ async function initializeTournament()
 
 function initializeTournamentGame(){
     const tournamentName = localStorage.getItem('tournament_name');
+
+    const accessToken = localStorage.getItem('access');
+	if (!accessToken)
+	{
+        alert('No access token found. Please log in.');
+        return;
+    }
+
     if (!tournamentName)
         return;
     class Board{
@@ -82,6 +90,16 @@ function initializeTournamentGame(){
     let isSocketOpen = false;
     let isFinalMatch = false;
     let gameStarted = false;
+    let announcementShown = localStorage.getItem('announcementShown') === 'true';
+    let no_refreshed_aShown = false;
+
+    let waitingForOpponent;
+    if (localStorage.getItem('waitingForOpponent') !== null) {
+        waitingForOpponent = localStorage.getItem('waitingForOpponent') === 'true';
+    } else {
+        waitingForOpponent = true;
+        localStorage.setItem('waitingForOpponent', 'true');
+    }
     
     // Close existing WebSocket connection if open
     if (socket) {
@@ -99,7 +117,7 @@ function initializeTournamentGame(){
     player2.velocityY = 0;
     userid = localStorage.getItem('userid');
     
-    socket = new WebSocket('wss://' + window.location.host + '/ws/pong-socket/' + tournamentName + '/'  + userid + '/');
+    socket = new WebSocket('wss://' + window.location.host + '/ws/pong-socket/' + tournamentName + '/'  + accessToken + '/');
     isSocketOpen = false;
     socket.onopen = function(event) {
         isSocketOpen = true;
@@ -123,6 +141,11 @@ function initializeTournamentGame(){
         const data = JSON.parse(event.data);
 
         if (data.message){
+            if (data.type === 'error' && data.message === 'authentication_failed') {
+                alert('Authentication failed. Please log in again.');
+                socket.close();
+                return;
+            }
             if (data.message.includes("Tournament is over")){
                 localStorage.removeItem('tournament_name');
             }
@@ -140,6 +163,10 @@ function initializeTournamentGame(){
                 const announcement = data.message;
                 // Muestra el mensaje en la interfaz
                 displayAnnouncement(data.player1_username, data.player2_username, data.tournament_name);
+                localStorage.setItem('announcementShown', 'true');
+			    no_refreshed_aShown = true;
+                waitingForOpponent = false;
+                localStorage.setItem('waitingForOpponent', 'false');
             }
         }
         else{
@@ -175,6 +202,9 @@ function initializeTournamentGame(){
 
     document.addEventListener("keyup", stopDjango);
     document.addEventListener("keydown", moveDjango);
+
+    if (waitingForOpponent)
+		displayWaitingMessage();
         
     function moveDjango(e){
         sendPlayerData(e.code, "move");
@@ -233,9 +263,12 @@ function initializeTournamentGame(){
             }
             }
         gameStarted = false;
+        localStorage.setItem('announcementShown', 'false');
+		no_refreshed_aShown = false;
     }
 
     function displayAnnouncement(player1, player2, t_name) {
+        if (announcementShown || no_refreshed_aShown) return;
         const originalUpdate = update; // Guarda una referencia al método original de actualización
 
         // Desactiva temporalmente el método de actualización
@@ -258,8 +291,19 @@ function initializeTournamentGame(){
             update();
         }, 1900);
     }
+
+    function displayWaitingMessage() {
+		if (!waitingForOpponent) return;
+		context.clearRect(0, 0, board.width, board.height);
+		context.fillStyle = "white";
+		context.font = "30px Arial";
+		const text = "Waiting for an opponent...";
+		const textWidth = context.measureText(text).width;
+		context.fillText(text, (board.width / 2) - (textWidth / 2), board.height / 2);
+	}
             
     function update() {
+        if (!gameStarted) return;
         //requestAnimationFrame(update);
         context.clearRect(0, 0, board.width, board.height);
         context.fillStyle = "Black";
