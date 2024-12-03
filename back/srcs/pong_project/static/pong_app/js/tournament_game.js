@@ -248,20 +248,20 @@ function initializeTournamentGame(){
 
         const winnerId = (score1 === 7) ? player1Id : player2Id;
         // is its a final, notify TournamentConsumer to save data
-        if (isFinalMatch) {
-            if (isSocketOpen){
-                socket.send(JSON.stringify({
-                    'type': "end_tournament",
-                    'winner_id': winnerId
-                }));
-            }
-            else if (isGameSocketOpen){
-                gamesocket.send(JSON.stringify({
-                    'type': "end_tournament",
-                    'winner_id': winnerId
-                }));
-            }
-            }
+        //if (isFinalMatch) {
+        //    if (isSocketOpen){
+        //        socket.send(JSON.stringify({
+        //            'type': "end_tournament",
+        //            'winner_id': winnerId
+        //        }));
+        //    }
+        //    else if (isGameSocketOpen){
+        //        gamesocket.send(JSON.stringify({
+        //            'type': "end_tournament",
+        //            'winner_id': winnerId
+        //        }));
+        //    }
+        //    }
         gameStarted = false;
         localStorage.setItem('announcementShown', 'false');
 		no_refreshed_aShown = false;

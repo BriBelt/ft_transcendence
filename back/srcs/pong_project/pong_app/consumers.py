@@ -596,6 +596,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                 if not self.tournament_name in tournament_lost:
                     tournament_lost[self.tournament_name] = []
                 tournament_lost[self.tournament_name].append(self.game_state.player2.user_id)
+                player2_user.user_in_tournament = False
                 await self.player_2.send(text_data=json.dumps({'message': 'Tournament is over'}))
 
                 if not self.tournament_name in tournament_wins:
@@ -615,6 +616,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                 if not self.tournament_name in tournament_lost:
                     tournament_lost[self.tournament_name] = []
                 tournament_lost[self.tournament_name].append(self.game_state.player1.user_id)
+                player1_user.user_in_tournament = False
                 await self.send(text_data=json.dumps({'message': 'Tournament is over'}))
                 
                 if not self.tournament_name in tournament_wins:
@@ -628,7 +630,6 @@ class PongConsumer(AsyncWebsocketConsumer):
                 player1_user.user_in_online_game = False
                 player2_user.user_in_online_game = False
         player1_user.game_stats = player1_stats
-        await sync_to_async(player1_user.save)()
 
         player2_stats = player2_user.game_stats
         player2_stats['total'] = player2_stats.get('total', 0) + 1
@@ -637,7 +638,6 @@ class PongConsumer(AsyncWebsocketConsumer):
         else:
             player2_stats['losses'] = player2_stats.get('losses', 0) + 1
         player2_user.game_stats = player2_stats
-        await sync_to_async(player2_user.save)()
 
         # New game model updates
         game_data = {
@@ -653,6 +653,8 @@ class PongConsumer(AsyncWebsocketConsumer):
         # Link game to users
         await sync_to_async(player1_user.games.add)(new_game)
         await sync_to_async(player2_user.games.add)(new_game)
+        await sync_to_async(player1_user.save)()
+        await sync_to_async(player2_user.save)()
 
     async def update_tournament_stats(self, winner_id):
 
