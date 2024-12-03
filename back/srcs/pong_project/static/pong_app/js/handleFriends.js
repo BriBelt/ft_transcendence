@@ -59,7 +59,7 @@ async function loadFriendsSection()
 				{
 					button.addEventListener('click', async function(event)
 					{
-						const username = event.target.getAttribute('data-username');
+						const username = event.currentTarget.getAttribute('data-username');
 						await removeFriend(username);
 					});
 				});

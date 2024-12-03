@@ -105,7 +105,7 @@ async function loadUsers()
 					button.addEventListener('click', async function(event)
 					{
 						event.preventDefault();
-						const username = event.target.getAttribute('data-username');
+						const username = event.currentTarget.getAttribute('data-username');
 						localStorage.setItem('otherUser', username);
 						navigateTo('/home/users/user/');
 					});
@@ -128,7 +128,7 @@ async function loadUsers()
 	}
 }
 
-async function loadOtherUserProfile(otherUser)
+async function loadOtherUserProfile()
 {
 	const app = document.getElementById('app');
 	const token = localStorage.getItem('access');
@@ -137,8 +137,8 @@ async function loadOtherUserProfile(otherUser)
 	{
 		try
 		{
+			const otherUser = localStorage.getItem('otherUser');
 			const userData = {'other_username': otherUser};
-			alert(otherUser);
 			const response = await fetch('/home/users/user/',
 			{
 				method: 'POST',

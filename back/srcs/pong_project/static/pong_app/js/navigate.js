@@ -9,10 +9,7 @@ function loadPage(url, data)
 	else if (url == '/home/users/')
 		loadUsers();
 	else if (url == '/home/users/user/')
-	{
-		const username = localStorage.getItem('otherUser');
-		loadOtherUserProfile(username);
-	}
+		loadOtherUserProfile();
 	else if (url  == '/login/')
 		loadLoginForm();
 	else if (url  == '/signup/')
