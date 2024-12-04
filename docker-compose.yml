@@ -24,7 +24,6 @@ services:
             context: ./back/
         volumes:
             - transcendence:/backup
-            - ./back/srcs/pong_project/static:/static
         container_name: back 
 #        ports:
 #           - '8000:8000'
@@ -47,8 +46,6 @@ services:
             - '8080:8080'
         depends_on:
             - back
-        volumes:
-            - ./back/srcs/pong_project/static:/static
         networks:
             - app-network
 

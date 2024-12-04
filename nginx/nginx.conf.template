@@ -37,12 +37,6 @@ http {
 		proxy_send_timeout 3600s;
 	    }
 
-		# Serve static and media files
-		location /static/ {
-			alias /static/;
-			autoindex on;
-		}
-
 	    location /ws/ {
 		proxy_pass http://back:8000;  # Pass requests to backend
 		proxy_http_version 1.1; # Web sockets need HTTP/1.1 to work
