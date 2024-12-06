@@ -28,7 +28,6 @@ SECRET_KEY = 'django-insecure-e57z&%tw+1o4k6lnlgku*gk)j0)eli0zsn&wl#mj_a8d$2mr#z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True 
 
-HOST = os.getenv('HOST')
 
 # ALLOWED_HOSTS = [HOST]
 ALLOWED_HOSTS = [ '*' ]
@@ -99,9 +98,6 @@ env = load_dotenv(".env")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        #'NAME': 'PGdatabase',
-        #'USER': 'PGuser',
-        #'PASSWORD': 'PGpassword',
         'NAME': os.getenv('POSTGRES_DB'),
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),

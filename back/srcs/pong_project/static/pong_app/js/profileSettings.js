@@ -37,7 +37,7 @@ async function loadProfileSettings()
 					save.addEventListener('click', function(event)
 					{
 						event.preventDefault();
-						updateUserInfo();
+						updateUserInfo(data.intra);
 					});
 				}
 	 		}
@@ -58,7 +58,7 @@ async function loadProfileSettings()
 	}
 }
 
-function updateUserInfo()
+function updateUserInfo(intra)
 {
     const token = localStorage.getItem('access');
 
@@ -87,8 +87,9 @@ function updateUserInfo()
 		    reader.onloadend = function ()
 		    {
 			userDict.avatar = reader.result;// Convertido a base64
-
-			if (validateInput(userDict, 'edit'))
+			if (intra)
+				sendUserData(userDict, token);
+			else if (validateInput(userDict, 'edit'))
 				sendUserData(userDict, token);
 		    };
         	}

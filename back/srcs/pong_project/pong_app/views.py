@@ -463,8 +463,9 @@ def authCreateUser(request):
 			user.set_unusable_password()
 			user.intra = True
 			user.is_active = True
-			user.is_online = True
 			user.save()
+		user.is_online = True
+		user.save()
 		# Could use the CustomUser.objects.get_or_create() and later check if the user exists 
 		token = create_jwt_token(user)
 
@@ -505,10 +506,6 @@ def OtherUserProfile(request):
 		data = json.loads(request.body)
 		other_username = data.get('other_username')
 		try:
-			print("------------------------------------------", flush=True)
-			print("INSIDE OTHERUSERPROFILE", flush=True)
-			print(other_username, flush=True)
-			print("------------------------------------------", flush=True)
 			otherUser = CustomUser.objects.get(username=other_username)
 			games = otherUser.games.all()
 			games_data = [{'player1': game.player1, 'player2': game.player2, 'date': game.date.strftime('%Y-%m-%d %H:%M:%S'), 'winner': game.winner} for game in games]
@@ -518,10 +515,8 @@ def OtherUserProfile(request):
 			}
 			return JsonResponse({'status': 'success', 'userInfo': userInfo, 'games_data': games_data}, status=200)
 		except CustomUser.DoesNotExist:
-			print("User not found:", other_username, flush=True)
 			return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
 		except Exception as e:
-			print("INSIDE OTHERUSERPROFILE EXCEPTION", flush=True)
 			return JsonResponse({'status': 'error', 'message': '{str(e)}'}, status=404)
 	return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
