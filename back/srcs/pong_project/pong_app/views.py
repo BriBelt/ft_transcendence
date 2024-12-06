@@ -14,7 +14,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import CustomUser, Tournament
 from django.conf import settings
 from django.contrib.auth.models import User 
-from .validators import validateUsername, validateEmail, validatePassword, generate_random_digits
+from .validators import validateUsername, validateEmail, validatePassword, generate_random_digits, encodeOTP, checkOTP
 from email.mime.text import MIMEText
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -278,8 +278,7 @@ def verify2FA(request):
 			user = CustomUser.objects.get(username=username)
 
 			if user is not None:
-				print("USER OTP: " + user.otp, flush=True)
-				if (user.otp == otp and user.otp_expDate is not None and user.otp_expDate > timezone.now()):
+				if (checkOTP(otp, user.otp) and user.otp_expDate is not None and user.otp_expDate > timezone.now()):
 					print("Inside the if for verify2FA", flush=True)
 					token = create_jwt_token(user)
 					user.is_online = True
@@ -311,11 +310,11 @@ def give2FA(request):
 		try:
 			print("USER -------- " + username, flush=True)
 			user = CustomUser.objects.get(username=username)
-			user.otp = generate_random_digits()
-			user.otp_expDate = timezone.now() + timedelta(hours=1)
+			userOtp = generate_random_digits() 
+			user.otp = encodeOTP(userOtp)
+			user.otp_expDate = timezone.now() + timedelta(minutes=1)
 			user.save()
 			email = user.email
-			userOtp = user.otp
 
 			message = MIMEText(f'Your verification code is: {userOtp}')
 			message['Subject'] = 'Verification code'

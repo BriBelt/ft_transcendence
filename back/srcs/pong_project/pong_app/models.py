@@ -14,7 +14,7 @@ class CustomUser(AbstractUser):
 	intra = models.BooleanField(default=False)
 	tfa = models.BooleanField(default=False)
 	# If the tfa is set to true, then the otp should not be blank
-	otp = models.CharField(max_length=6, null=True, blank=True)
+	otp = models.CharField(null=True, blank=True)
 	otp_expDate = models.DateTimeField(null=True, blank=True)
 
 	is_online = models.BooleanField(default=False)
@@ -45,9 +45,9 @@ class Tournament(models.Model):
 		return f"Winner of {self.name}: {self.winner}!"
 
 class	Game(models.Model):
-	player1 = models.CharField(max_length=8, blank=True, null=True)
-	player2 = models.CharField(max_length=8, blank=True, null=True)
-	winner = models.CharField(max_length=8, blank=True, null=True)
+	player1 = models.CharField(max_length=12, blank=True, null=True)
+	player2 = models.CharField(max_length=12, blank=True, null=True)
+	winner = models.CharField(max_length=12, blank=True, null=True)
 	date = models.DateTimeField(default=now)
 
 	def __str__(self):
@@ -68,8 +68,8 @@ class Ball:
 		#self.velocityX = 1
 		#self.velocityY = 2
 		list1 = [1, -1]
-		self.velocityX = 10 * random.choice(list1) # 5
-		self.velocityY = 20 * random.choice(list1) # 6
+		self.velocityX = 6 * random.choice(list1) # 5
+		self.velocityY = 13 * random.choice(list1) # 6
 
 class Paddle:
 	def __init__(self, number, board, user_id) -> None:

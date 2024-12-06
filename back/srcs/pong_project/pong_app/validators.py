@@ -28,3 +28,8 @@ def validatePassword(password):
 def generate_random_digits(n=6):
 	return "".join(map(str, random.sample(range(0, 10), n)))
 
+def encodeOTP(otp):
+	return hashlib.sha256((settings.JWT_SECRET_KEY + otp).encode()).hexdigest()
+
+def checkOTP(otp, stored):
+	return encodeOTP(otp) == stored
